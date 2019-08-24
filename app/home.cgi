@@ -4,7 +4,7 @@ import cgi
 import sqlite3
 import jinja2
 
-SQLDB = '/var/www/db/MyPiLN/PiLN.sqlite3'
+SQLDB = '/home/pi/db/PiLN.sqlite3'
 db = sqlite3.connect(SQLDB) 
 db.row_factory = sqlite3.Row
 cursor = db.cursor()
@@ -101,8 +101,7 @@ elif page == "run":
     cursor.execute(sql, p)
     runningid = cursor.fetchone()
     if runningid:
-        message = "Unable start profile - Profile %d already running" %
-                  int(runningid['run_id'])
+        message = "Unable start profile - Profile %d already running" % int(runningid['run_id'])
         template = env.get_template("reload.html") 
         bdy = template.render( target_page = "view", timeout = 5000,
               message = message,
