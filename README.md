@@ -116,8 +116,10 @@ Stuff to get it to work:
 
 		sudo apt-get install sqlite3
 		mkdir -p db
+		cp /home/pi/PILN/docs/PiLN.sqlite3 ~/db
 		sudo sqlite3 /home/pi/db/PILN.sqlite3
 		sqlite> .read /home/pi/PILN/docs/PiLN.sql;
+		sqlite> .q
 		sudo chown -R www-data:www-data ~/db
 
 
