@@ -131,7 +131,7 @@ Stuff to get it to work:
 		sudo apt install ufw
   		sudo ufw enable
   		sudo ufw allow http
-		sudo chown www-data:www-data ~/PILN/html/pilnstat.json
+		sudo chown -R www-data:www-data ~/PILN/html
 		
 - Install required Python packages:
 
