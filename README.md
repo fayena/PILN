@@ -131,8 +131,7 @@ Stuff to get it to work:
 		sudo ln -s /home/pi/PILN/style/style.css    /home/pi/html/style/style.css
 		sudo ln -s /home/pi/PILN/app /home/pi/html/
 		touch /home/pi/PILN/app/pilnstat.json
-		sudo ln -s /home/pi/PILN/app/pilnstat.json /home/pi/html/pilnstat.json
-		sudo chown -R www-data:www-data /home/pi/PILN/app
+		sudo chown -R www-data:www-data /home/pi/html
 		
 - lighttpd:
 
