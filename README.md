@@ -150,7 +150,7 @@ Stuff to get it to work:
 		sudo python setup.py install
 
 - create the sqlite3 database:
-
+		sudo mkdir -p /home/pi/db/
                 sudo chown -R www-data:www-data /home/pi/PiLN/db
 		sqlite3 /home/pi/db/PiLN.sqlite3
 		sqlite> .read /home/pi/PiLN/docs/PiLN.sql;
