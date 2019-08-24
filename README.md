@@ -125,7 +125,7 @@ Stuff to get it to work:
 - lighttpd:
 
 		sudo apt-get install lighttpd
-		sudo cp lighttpd.conf /etc/lighttpd/
+		sudo cp /home/pi/PiLN/lighttpd.conf /etc/lighttpd/
 		cd /etc/lighttpd/conf-enabled
 		sudo ln -s ../conf-available/10-cgi.conf .
 		sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
