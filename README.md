@@ -130,6 +130,9 @@ Stuff to get it to work:
 		sudo ln -s /home/pi/PILN/images/piln.png    /home/pi/html/images/piln.png
 		sudo ln -s /home/pi/PILN/style/style.css    /home/pi/html/style/style.css
 		sudo ln -s /home/pi/PILN/app /home/pi/html/
+		touch /home/pi/PILN/app/pilnstat.json
+		sudo ln -s /home/pi/PILN/app/pilnstat.json /home/pi/html/pilnstat.json
+		sudo chown -R www-data:www-data /home/pi/html
 - lighttpd:
 
 		sudo apt-get install lighttpd
@@ -139,7 +142,7 @@ Stuff to get it to work:
 		sudo apt install ufw
   		sudo ufw enable
   		sudo ufw allow http
-		sudo chown -R www-data:www-data ~/html/
+	
 		
 - Install required Python packages:
 
