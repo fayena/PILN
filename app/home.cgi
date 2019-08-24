@@ -9,7 +9,7 @@ db = sqlite3.connect(SQLDB)
 db.row_factory = sqlite3.Row
 cursor = db.cursor()
 
-env = jinja2.Environment(loader=jinja2.FileSystemLoader(['/home/pi/git/MyPiLN/template'])) 
+env = jinja2.Environment(loader=jinja2.FileSystemLoader(['/home/pi/PILN/template'])) 
 
 maxsegs = 20
 def_rate = 9999
