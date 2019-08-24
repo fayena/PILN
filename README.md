@@ -128,9 +128,9 @@ Stuff to get it to work:
 		sudo cp /home/pi/PILN/lighttpd/lighttpd.conf /etc/lighttpd/
 		cd /etc/lighttpd/conf-enabled
 		sudo ln -s ../conf-available/10-cgi.conf .
-		sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-		sudo iptables save
-		cd 
+		sudo apt install ufw
+  		sudo ufw enable
+  		sudo ufw allow http
 		chown www-data:www-data PiLN/html/pilnstat.json
 		
 - Install required Python packages:
