@@ -119,9 +119,10 @@ Stuff to get it to work:
 - Set up directories/link for web page:
 
 
-		ln -s /home/pi/PILN/images/hdrback.png /home/pi/html/images/hdrback.png
-		ln -s /home/pi/PILN/images/piln.png    /home/pi/html/images/piln.png
-		ln -s /home/pi/PILN/style/style.css    /home/pi/html/style/style.css
+		sudo ln -s /home/pi/PILN/images/hdrback.png /home/pi/html/images/hdrback.png
+		sudo ln -s /home/pi/PILN/images/piln.png    /home/pi/html/images/piln.png
+		sudo ln -s /home/pi/PILN/style/style.css    /home/pi/html/style/style.css
+		sudo ln -s /home/pi/PILN/app /home/pi/html/
 - lighttpd:
 
 		sudo apt-get install lighttpd
