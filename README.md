@@ -131,16 +131,12 @@ Stuff to get it to work:
 		sudo apt install ufw
   		sudo ufw enable
   		sudo ufw allow http
-		sudo chown -R www-data:www-data ~/PILN/html
+		sudo chown -R www-data:www-data ~/html/
 		
 - Install required Python packages:
 
 		sudo raspi-config #enable interfaces ic2 & spi
 		lsmod | grep spi
-
-- Instal RPLCD for the 20x4 lcd:
-		sudo pip install RPLCD
-		sudo apt install python-smbus
 
 - Install Adafruit Pyhton MAX31856 library:
 
