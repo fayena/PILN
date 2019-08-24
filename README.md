@@ -119,9 +119,9 @@ Stuff to get it to work:
 - Set up directories/link for web page:
 
 
-		ln -s /home/pi/PiLN/images/hdrback.png /home/pi/html/images/hdrback.png
-		ln -s /home/pi/PiLN/images/piln.png    /home/pi/html/images/piln.png
-		ln -s /home/pi/PiLN/style/style.css    /home/pi/html/style/style.css
+		ln -s /home/pi/PILN/images/hdrback.png /home/pi/html/images/hdrback.png
+		ln -s /home/pi/PILN/images/piln.png    /home/pi/html/images/piln.png
+		ln -s /home/pi/PILN/style/style.css    /home/pi/html/style/style.css
 - lighttpd:
 
 		sudo apt-get install lighttpd
@@ -131,7 +131,7 @@ Stuff to get it to work:
 		sudo apt install ufw
   		sudo ufw enable
   		sudo ufw allow http
-		sudo chown www-data:www-data ~/PiLN/html/pilnstat.json
+		sudo chown www-data:www-data ~/PILN/html/pilnstat.json
 		
 - Install required Python packages:
 
