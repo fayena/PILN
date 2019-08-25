@@ -120,8 +120,7 @@ Stuff to get it to work:
 		sqlite> .read /home/pi/PILN/docs/PiLN.sql
 		sqlite> .q
 		sudo chown -R www-data:www-data ~/db
-		sudo chmod g+rw -R ~/db/
-
+		*figure out correct database permissions...
 
 
 
