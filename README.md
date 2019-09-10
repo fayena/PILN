@@ -153,8 +153,8 @@ Stuff to get it to work:
 - Install Adafruit Pyhton MAX31856 library:
 
 		cd
-		git clone https://github.com/adafruit/Adafruit_Python_MAX31856.git
-		cd Adafruit_Python_MAX31856
+		git clone  https://github.com/adafruit/Adafruit_MAX31856.git
+		cd Adafruit_MAX31856
 		sudo python setup.py install
 
 - create the sqlite3 database:
