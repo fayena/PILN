@@ -104,6 +104,8 @@ Stuff to get it to work:
 		unl2003a 14:	relay #2 coil (input is pin3)
 		unl2003a 12:	relay #3 coil (input is pin5)
 		12V:    	relay 1,2,3 coils and FAN red/+
+Raspberry Pi 40 Pin Diagram 
+http://www.raspberry-pi-geek.com/howto/GPIO-Pinout-Rasp-Pi-1-Model-B-Rasp-Pi-2-Model-B
 
 - Install PiLN files in /home and create log directory:
 
