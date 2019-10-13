@@ -12,7 +12,6 @@ import Adafruit_GPIO
 import Adafruit_GPIO.SPI as SPI
 from Adafruit_MAX31856 import MAX31856 as MAX31856
 #from display import display
-6
 GPIO.setmode(GPIO.BCM)
 
 AppDir = '/home/pi/PILN'
