@@ -4,7 +4,7 @@ from signal import *
 import os
 import time
 import math
-import logging as L
+import logging
 import sys
 import sqlite3
 import RPi.GPIO as GPIO
@@ -20,14 +20,6 @@ StatFile = '/home/pi/PILN/app/pilnstat.json'
 #--- sqlite3 db file ---
 SQLDB = '/home/pi/db/PiLN.sqlite3'
 
-#--- Set up logging ---
-LogFile = time.strftime(AppDir + '/log/%H_%M_%d_%m_%Y_pilnfired.log')
-#LogFile = time.strftime(AppDir + '/log/%(asctime)s.log')
-L.basicConfig(filename=LogFile,
-#comment to disable
-level=L.DEBUG,
-    format='%(asctime)s %(message)s'
-)
 
 #--- Global Variables ---
 ITerm = 0.0
@@ -35,8 +27,10 @@ LastErr = 0.0
 SegCompStat = 0
 LastTmp = 0.0
 cycle = 0 
-#TempRise = 250
+TempRise = 0
 TotalSeg=0
+LastProcVal = 0.0
+RunState = ""
 #--- MAX31856 only works on SPI0, SPI1 cannot do mode=1 ---
 Sensor0 = MAX31856(tc_type=MAX31856.MAX31856_K_TYPE,
                    hardware_spi=SPI.SpiDev(0,0)) #SPI0,CE0 Kiln
@@ -46,6 +40,10 @@ HEAT = (23, 24)
 for element in HEAT:
     GPIO.setup(element, GPIO.OUT)
     GPIO.output(element, GPIO.LOW)
+
+#--- Set up logging ---
+# create logger
+L = logging.getLogger('')
 
 #--- Cleanup ---
 def clean(*args):
@@ -63,34 +61,45 @@ for sig in (SIGABRT, SIGINT, SIGTERM):
 time.sleep(1)
 
 # PID Update
-def Update(SetPoint, ProcValue, AmbientTmp, IMax, IMin, Window, Kp, Ki, Kd):
-    global ITerm, LastErr
-    CTerm = (ProcValue - AmbientTmp)*.06
+def Update ( SetPoint, ProcValue, IMax, IMin, Window, Kp, Ki, Kd ):
+
+    L.debug( "Entering PID update with parameters SetPoint:%0.2f, ProcValue:%0.2f, IMax:%0.2f, IMin:%0.2f," %
+    ( SetPoint, ProcValue, IMax, IMin ))
+    L.debug( "  Window:%d, Kp: %0.3f, Ki: %0.3f, Kd: %0.3f" %
+    ( Window, Kp, Ki, Kd ))
+
+    global ITerm, LastProcVal
+
     Err = SetPoint - ProcValue
-    PTerm = Kp * Err * 60/Window
-    ITerm += (Ki * Err)
+    ITerm+= (Ki * Err);
+
     if ITerm > IMax:
         ITerm = IMax
     elif ITerm < IMin:
         ITerm = IMin
-    DTerm = Kd*(Err-LastErr) * 60/Window
-    Output = CTerm + PTerm + ITerm + DTerm
-    if Output > 100:
-        Output = 100
-    elif Output < 0:
-        Output = 0
-    LastErr = Err
+
+    DInput = ProcValue - LastProcVal
+
+    #Compute PID Output
+    Output = Kp * Err + ITerm - Kd * DInput;
+    if Output > IMax:
+        Output = IMax
+    elif Output < IMin:
+        Output = IMin
     if Err > 200:
         Output = 200
-    
-    print ("{CT:7.4f} + {PT:7.4f} + {IT:7.4f} + {DT:8.6f} = {OT:8.4f}".format(CT=CTerm,PT=PTerm,IT=ITerm,DT=DTerm,OT=Output))
-    
-    L.debug("""Exiting PID update with parameters Err:%0.2f,
-               ITerm:%0.2f, DTerm:%0.2f, Output:%0.2f
-               """ % (Err, ITerm, DTerm, Output)
-   	 )
+    #Remember for next time
+    LastProcVal = ProcValue
+
+
+    L.debug(
+    "Exiting PID update with parameters Error:%0.2f, ITerm:%0.2f, DInput:%0.2f, Output:%0.2f" %
+    ( Err, ITerm, DInput, Output )
+    )
 
     return Output
+
+
 
 #Segment loop
 
@@ -102,12 +111,13 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
     global SegCompStat
     global wheel
     global cycle 
-    #global TempRise
+    global TempRise
+    global RunState
     TargetTmp = TargetTmp1
     RampMin = 0.0
     RampTmp = 0.0
-    #ReadTmp = TempRise
-    ReadTmp = Sensor0.read_temp_c()
+    ReadTmp = TempRise
+    #ReadTmp = Sensor0.read_temp_c()
     #roomTmp = Sensor1.read_temp_c()
     LastTmp = 0.0
     LastErr = 0.0
@@ -129,9 +139,9 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             NextSec = time.time() + Window   # time at end of window
             LastTmp = ReadTmp
             #  roomTmp = Sensor1.read_temp_c()
-            #ReadTmp = TempRise
+            ReadTmp = TempRise
             
-            ReadTmp = Sensor0.read_temp_c()
+            #ReadTmp = Sensor0.read_temp_c()
             ReadITmp = Sensor0.read_internal_temp_c()
             if math.isnan(ReadTmp) or ReadTmp > 1330:
                 ReadTmp = LastTmp + LastErr
@@ -214,8 +224,8 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                               Steps, StepTmp, Window, StartSec, EndSec)
                 )
             # run state through pid
-            Output = Update(RampTmp, ReadTmp, 23.609, 25, -25, Window, Kp, Ki, Kd)
-            
+            #Output = Update(RampTmp, ReadTmp, 23.609, 25, -25, Window, Kp, Ki, Kd)
+            Output = Update(RampTmp,ReadTmp,100,0,Window,Kp,Ki,Kd)
             CycleOnSec = Window * Output * 0.01
             if CycleOnSec > Window:
                 CycleOnSec = Window
@@ -242,11 +252,11 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 if Output == 200:
                     sql = "UPDATE profiles SET state=? WHERE run_id=?;"
                     p = ('Error', RunID)
-                    L.info("State = Error RunID: %d" % (RunID)) 
+                    L.error("State = Error RunID: %d" % (RunID)) 
                     try:
                         SQLCur.execute(sql, p)
                         SQLConn.commit()
-                        L.info("state updated to Error")
+                        L.error("state updated to Error")
                         RunState = "Error"
                     except:
                         SQLConn.rollback()
@@ -255,15 +265,15 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                     L.debug("==>Relay On")
                     for element in HEAT:
                         GPIO.output(element, True)
-                    #TempRise += (CycleOnSec/12)
-                    #L.info("cycleoNsee: %d and temprise: %d" % (CycleOnSec, TempRise)) 
+                    TempRise += (CycleOnSec*0.138888889)
+                    L.info("cycleoNsee: %d and temprise: %d" % (CycleOnSec, TempRise)) 
                     cycle = cycle + 1
                     time.sleep(CycleOnSec)
             if Output < 100:
                 L.debug("==>Relay Off")
                 for element in HEAT:
                     GPIO.output(element, False)
-                #TempRise = TempRise - 5
+                TempRise = TempRise - 5
             #L.info("Write status information to status file %s:" % StatFile)
 
             # Write status to file for reporting on web page
@@ -318,17 +328,18 @@ SQLConn.row_factory = sqlite3.Row
 SQLCur = SQLConn.cursor()
 
 while 1:
-    #ReadTmp = TempRise
-    ReadTmp = Sensor0.read_temp_c()
+   
+    ReadTmp = TempRise
+    #ReadTmp = Sensor0.read_temp_c()
     ReadITmp = Sensor0.read_internal_temp_c()
   #  roomTmp = Sensor1.read_temp_c()
   #  roomITmp = Sensor1.read_internal_temp_c()
     while math.isnan(ReadTmp):
-        #ReadTmp = TempRise
-        ReadTmp = Sensor0.read_temp_c()
+        ReadTmp = TempRise
+        #ReadTmp = Sensor0.read_temp_c()
         print (' "kilntemp": "' + str(int(ReadTmp)) + '",\n')
 
-    L.debug("Write status information to status file %s:" % StatFile)
+    #L.debug("Write status information to status file %s:" % StatFile)
     sfile = open(StatFile, "w+")
     sfile.write('{\n' +
         '  "proc_update_utime": "' + str(int(time.time())) + '",\n'
@@ -355,9 +366,18 @@ while 1:
         Kp = float(Data[0]['p_param'])
         Ki = float(Data[0]['i_param'])
         Kd = float(Data[0]['d_param'])
-        L.info("RunID: %d" % (RunID))
-                
+        logfile = (AppDir + '/log/RunID_%s_Fired.log' % (RunID))
         StTime = time.strftime('%Y-%m-%d %H:%M:%S')
+        #add logging for RunID.          
+        for hdlr in L.handlers[:]:  # remove all old handlers
+            L.removeHandler(hdlr)
+        # create file handler which logs even debug messages
+        fh = logging.FileHandler(logfile, 'a')
+        L.setLevel(logging.DEBUG)
+        # create formatter and add it to the handlers
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        fh.setFormatter(formatter)                
+        L.addHandler(fh)    
         
         sql = "UPDATE profiles SET start_time=? WHERE run_id=?;"
         p = (StTime, RunID)
@@ -375,6 +395,7 @@ while 1:
         # --- for each segment in firing profile loop ---
         for Row in ProfSegs:
             TotalSeg += 1
+        #write_log("TotalSeg:%d" % (TotalSeg), logfile)    
         L.info("TotalSeg: %d" % (TotalSeg))
         for Row in ProfSegs:
             RunID = Row['run_id']
@@ -430,8 +451,8 @@ while 1:
                     except:
                         SQLConn.rollback()
                     #check to see if the segment just completed 
-                    #is the final segment if so mark completed               
-                    if Seg == TotalSeg:
+                    #is the final segment if so mark completed 
+                    if Seg == TotalSeg and RunState != "Error" :
                         sql = "UPDATE profiles SET end_time=?, state=? WHERE run_id=?;"
                         p = (EndTime, 'Completed', RunID)
                         try:
@@ -448,7 +469,9 @@ while 1:
             SegCompStat = 0
 
             L.info("Polling for 'Running' firing profiles...")
+            #remove log handlers so we're not logging a bunch of stuff from the max31856
+            for hdlr in L.handlers[:]:  # remove all old handlers
+                L.removeHandler(hdlr)
     time.sleep(2)
 
 SQLConn.close()
-
