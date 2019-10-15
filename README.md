@@ -54,7 +54,11 @@ Thermocouple Amplifier MAX31856	    22
 metla ammo can                      15
 solderable breadboards	            12.68
 total	                           187.41
+
+
 Thermocouple tip: One side of the type-K thermocouple and type-k wire is magnetic(red side), Test with magnet to wire correctly.
+
+
 The max31856 reads the room temperature as the cold junction temperature.   If the kiln is heating up the cold junction on the thermocouple more than room temperature, you will need to adjust the location of the max31856 or ajust the cold junction temperature.   
 
 -Kilns are old Paragons one is an A88B and one is a A66B.   Both are over 40 years old.   
