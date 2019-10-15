@@ -1,0 +1,30 @@
+#   PiLN: Rassberry Pi electric kiln controller
+#
+#   Copyright (C) 2017  pvarney     git@github.com:pvarney/PiLN.git
+#   Copyright (C) 2018  BlakeCLewis git@github.com:BlakeCLewis/PILN.git
+#   Copyright (C) 2019  fayena      git@github.com:fayena/PiLN.git
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License version 3
+#   published by the Free Software Foundation.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+license="""
+   PiLN  Copyright (C) 2017 pvarney, 2018 Blake C. Lewis, 2019 fayena
+   This program comes with ABSOLUTELY NO WARRANTY; 
+   This is free software, and you are welcome to redistribute it
+   under the terms of the GNU General Public License version 3.
+"""
+print (license)
+
+  <meta rel="license" href="https://www.gnu.org/licenses/gpl-3.0.html">
+    Copyright (C) 2017,2018 GNU General Public License version 3
+  </a>
