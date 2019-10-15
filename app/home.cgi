@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-
+#!le/usr/bin/env python3
 import cgi
 import sqlite3
 import jinja2
@@ -9,7 +8,7 @@ db = sqlite3.connect(SQLDB)
 db.row_factory = sqlite3.Row
 cursor = db.cursor()
 
-env = jinja2.Environment(loader=jinja2.FileSystemLoader(['/home/pi/PILN/template'])) 
+env = jinja2.Environment(loader=jinja2.FileSystemLoader(['/home/pi/PILN/template/'])) 
 
 maxsegs = 20
 def_rate = 9999
@@ -37,7 +36,7 @@ if page == "view":
     template = env.get_template("header.html") 
     hdr = template.render(title="Profile Details")
     viewtmpl = "view_staged.html"
-    if state == "Completed":
+    if state == "Completed" or state == "Stopped" or state == "Error" :
         viewtmpl = "view_comp.html"
     elif state == "Running":
         viewtmpl = "view_run.html"
@@ -50,7 +49,7 @@ if page == "view":
         bdy += template.render(run_id=run_id, notes=notes)
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print hdr.encode('utf-8') + bdy.encode('utf-8') + ftr.encode('utf-8')
+    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
 
 #--- new profile ---#
 elif page == "new":
@@ -62,7 +61,7 @@ elif page == "new":
     bdy = template.render(segments=segments)
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print hdr.encode('utf-8') + bdy.encode('utf-8') + ftr.encode('utf-8')
+    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
 
 #--- editcopy ---#
 elif page == "editcopy":
@@ -89,7 +88,7 @@ elif page == "editcopy":
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print hdr.encode('utf-8') + bdy.encode('utf-8') + ftr.encode('utf-8')
+    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
 
 #--- run profile ---#
 elif page == "run":
@@ -120,7 +119,7 @@ elif page == "run":
 
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print hdr.encode('utf-8') + bdy.encode('utf-8') + ftr.encode('utf-8')
+    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
 
 #--- save or update profile ---#
 elif page == "savenew" or page == "saveupd":
@@ -177,7 +176,7 @@ elif page == "savenew" or page == "saveupd":
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print hdr.encode('utf-8') + bdy.encode('utf-8') + ftr.encode('utf-8')
+    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
 
 #--- delete profile confirmation ---#
 elif page == "del_conf":
@@ -196,7 +195,7 @@ elif page == "del_conf":
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print hdr.encode('utf-8') + bdy.encode('utf-8') + ftr.encode('utf-8')
+    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
 
 #--- delete profile ---#
 elif page == "delete":
@@ -217,16 +216,17 @@ elif page == "delete":
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print hdr.encode('utf-8') + bdy.encode('utf-8') + ftr.encode('utf-8')
+    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
 
 #--- stop ---#
 elif page == "stop":
+    template = env.get_template("header.html") 
     sql = 'UPDATE profiles SET state=? WHERE run_id=?;'
     p = ('Stopped', int(run_id))
     cursor.execute(sql, p)
     db.commit()
 
-    template = env.get_template("header.html") 
+    
     hdr = template.render(title="Stop Profile Run")
     template = env.get_template("reload.html") 
     bdy = template.render(
@@ -237,7 +237,7 @@ elif page == "stop":
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print hdr.encode('utf-8') + bdy.encode('utf-8') + ftr.encode('utf-8')
+    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
 
 #--- notes_save ---#
 elif page == "notes_save":
@@ -255,7 +255,7 @@ elif page == "notes_save":
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print hdr.encode('utf-8') + bdy.encode('utf-8') + ftr.encode('utf-8')
+    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
 
 #--- home ---#
 else:
@@ -279,7 +279,7 @@ else:
     bdy = template.render(profiles=profiles)
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print hdr.encode('utf-8') + bdy.encode('utf-8') + ftr.encode('utf-8')
+    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
 
 cursor.close()
 db.close()
