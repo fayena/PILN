@@ -27,7 +27,7 @@ LastErr = 0.0
 SegCompStat = 0
 LastTmp = 0.0
 cycle = 0 
-#TempRise = 0
+TempRise = 0
 TotalSeg=0
 LastProcVal = 0.0
 RunState = ""
@@ -139,9 +139,9 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             NextSec = time.time() + Window   # time at end of window
             LastTmp = ReadTmp
             #  roomTmp = Sensor1.read_temp_c()
-            #ReadTmp = TempRise
+            ReadTmp = TempRise
             
-            ReadTmp = Sensor0.read_temp_c()
+            #ReadTmp = Sensor0.read_temp_c()
             ReadITmp = Sensor0.read_internal_temp_c()
             if math.isnan(ReadTmp) or ReadTmp > 1330:
                 ReadTmp = LastTmp + LastErr
@@ -265,7 +265,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                     L.debug("==>Relay On")
                     for element in HEAT:
                         GPIO.output(element, True)
-                    #TempRise += (CycleOnSec*0.138888889)
+                    TempRise += (CycleOnSec*0.138888889)
                     L.info("cycleoNsee: %d and temprise: %d" % (CycleOnSec, TempRise)) 
                     cycle = cycle + 1
                     time.sleep(CycleOnSec)
@@ -273,7 +273,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 L.debug("==>Relay Off")
                 for element in HEAT:
                     GPIO.output(element, False)
-                #TempRise = TempRise - 5
+                TempRise = TempRise - 5
             #L.info("Write status information to status file %s:" % StatFile)
 
             # Write status to file for reporting on web page
@@ -329,14 +329,14 @@ SQLCur = SQLConn.cursor()
 
 while 1:
    
-    #ReadTmp = TempRise
-    ReadTmp = Sensor0.read_temp_c()
+    ReadTmp = TempRise
+    #ReadTmp = Sensor0.read_temp_c()
     ReadITmp = Sensor0.read_internal_temp_c()
   #  roomTmp = Sensor1.read_temp_c()
   #  roomITmp = Sensor1.read_internal_temp_c()
     while math.isnan(ReadTmp):
-        #ReadTmp = TempRise
-        ReadTmp = Sensor0.read_temp_c()
+        ReadTmp = TempRise
+        #ReadTmp = Sensor0.read_temp_c()
         print (' "kilntemp": "' + str(int(ReadTmp)) + '",\n')
 
     #L.debug("Write status information to status file %s:" % StatFile)
