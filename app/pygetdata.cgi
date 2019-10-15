@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!le/usr/bin/env python3
 import sys
 import re
 import datetime
@@ -6,7 +6,7 @@ import sqlite3
 import json
 import time
 debug = 0 
-SQLDB = '/var/www/db/MyPiLN/PiLN.sqlite3'
+SQLDB = '/home/pi/db/PiLN.sqlite3'
 # Get json data from standard in
 jsonin = ""
 for line in sys.stdin:
@@ -18,7 +18,7 @@ if 1 == debug:
     f.write(jsonin)
 #-----
 if jsonin == "":
-    print '\n{\n "unix_timestamp": "' + str(int(time.time())) + '"\n}'
+    print "\n{\n \"unix_timestamp\": ", str(int(time.time()))," \n}"
 else:
     query = json.loads(jsonin)
     conn = sqlite3.connect(SQLDB)

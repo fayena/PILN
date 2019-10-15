@@ -58,3 +58,6 @@ tr:nth-child(even){background-color: #f2f2f2}
   font-family:inherit;
   font-size:inherit;
 }
+.dataTables_wrapper{
+  width:800px;
+  }
