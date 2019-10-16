@@ -1,4 +1,4 @@
-## Electricity and heat are dangerous! Evaluate the risk and make go no go decision!  I am not responsible for any injuries sustanded or fires started!!!
+## Electricity and heat are dangerous! Evaluate the risk and make go no go decision!  I am not responsible for any injuries sustained or fires started!!!
 
 ## Useful skills
 - linux command line
