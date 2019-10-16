@@ -157,7 +157,7 @@ Stuff to get it to work:
 
 - create the sqlite3 database:
 
-                sudo chown -R www-data:www-data /home/pi/PiLN/db
+                sudo chown -R www-data:www-data /home/pi/db
         sqlite3 /home/pi/db/PILN.sqlite3
         sqlite> .read /home/pi/PILN/docs/PiLN.sql;
 
@@ -173,8 +173,8 @@ Stuff to get it to work:
 
 - Using the Web App:
 
-        On the same network that the RPi is connected, http://<RPi_IPAddress>/pilnapp/home.cgi
-        Or, on the controller RPi, http://localhost/pilnapp/home.cgi
+        On the same network that the RPi is connected, http://<RPi_IPAddress>/app/home.cgi
+        Or, on the controller RPi, http://localhost/app/home.cgi
 
 - Start the firing daemon:
 
