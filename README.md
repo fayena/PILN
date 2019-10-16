@@ -129,9 +129,9 @@ Stuff to get it to work:
 - Set up directories/link for web page:
 
 
-        ln -s /home/pi/PiLN/images/hdrback.png /home/pi/html/images/hdrback.png
-        ln -s /home/pi/PiLN/images/piln.png    /home/pi/html/images/piln.png
-        ln -s /home/pi/PiLN/style/style.css    /home/pi/html/style/style.css
+        ln -s /home/pi/PILN/images/hdrback.png /home/pi/html/images/hdrback.png
+        ln -s /home/pi/PILN/images/piln.png    /home/pi/html/images/piln.png
+        ln -s /home/pi/PILN/style/style.css    /home/pi/html/style/style.css
 - lighttpd:
 
         sudo apt-get install lighttpd
@@ -156,9 +156,9 @@ Stuff to get it to work:
         sudo python setup.py install
 
 - create the sqlite3 database:
-
-                sudo chown -R www-data:www-data /home/pi/db
-        sqlite3 /home/pi/db/PILN.sqlite3
+        
+        sudo chown -R www-data:www-data /home/pi/db
+        sqlite3 /home/db/PILN.sqlite3
         sqlite> .read /home/pi/PILN/docs/PiLN.sql;
 
 - Tuning:
