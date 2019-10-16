@@ -9,7 +9,7 @@
 - SQLite Browser https://sqlitebrowser.org/ for viewing the sqlite3 database
 - unl2003a pin diagram http://www.bristolwatch.com/ele/uln2003a/uln2003a_2.jpg
 - Rasperry pi 40 pin connector pin diagram http://www.bristolwatch.com/ele/uln2003a/uln2003a_2.jpg  
-
+## Code Info
 This is a mesh of code from both git@github.com:pvarney/PiLN.git and git@github.com:BlakeCLewis/PILN.git
 
 
@@ -30,7 +30,7 @@ Possible future improvements
 - performance watchdog:
     + klexting;  Sounds like fun to add but at the time it's not really helpful to me as I don't have wifi at my kiln           location    
     
-Hardware:
+## Hardware and Cost:
 - Raspberry pi   I got my raspberry pi 3 B+ from amazon for $38 but looking at prices this morning, it looks like they are now listed for around $50 so you might want to shop around.   I used Raspberry Pi 3 B+ with the latest Raspbian but other Pi's will work
 - micro SD card (I used 32GB one)
 - Raspberry pi Power supply and case if you want to build it as removable from the kiln controller.   If not you can add a 12v to 5v power board and have everything built permanently.   I bring my pi to my house for testing and use it for other things so building it this way is convenient for me.    
@@ -82,6 +82,7 @@ We had the wire I used to build this so it's not included in the cost.
 -total                               187.41
 
 
+## Thermocouple, Kiln, and Max31856 info
 Thermocouple tip: One side of the type-K thermocouple and type-k wire is magnetic(red side), Test with magnet to wire correctly.
 
 
@@ -89,6 +90,8 @@ The max31856 reads the room temperature as the cold junction temperature.   If t
 
 -Kilns are old Paragons one is an A88B and one is a A66B.   Both are over 40 years old.   
  Kiln controller can be used with both
+
+## Install 
 
 Stuff to get it to work:
 
