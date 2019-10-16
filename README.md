@@ -4,7 +4,11 @@
 - linux command line
 - basic soldering (to make all your connections permanent)
 - electricity
- 
+## Helpful stuff
+- Fritzing https://fritzing.org/home/ for viewing the fritizng wiring diagram
+- SQLite Browser https://sqlitebrowser.org/ for viewing the sqlite3 database
+- unl2003a pin diagram http://www.bristolwatch.com/ele/uln2003a/uln2003a_2.jpg
+- Rasperry pi 40 pin connector pin diagram http://www.bristolwatch.com/ele/uln2003a/uln2003a_2.jpg  
 
 This is a mesh of code from both git@github.com:pvarney/PiLN.git and git@github.com:BlakeCLewis/PILN.git
 
@@ -98,13 +102,13 @@ Stuff to get it to work:
         MAX31856 SCK:    GPIO 11 CLK
         unl2003a 1:        GPIO 22
         unl2003a 3:        GPIO 23
-        unl2003a 7:        GPIO 13
         unl2003a 8:        GND
         unl2003a 9:        12V
         unl2003a 16:    relay #1 coil (input is across the chip on pin1)
         unl2003a 14:    relay #2 coil (input is pin3)
-        unl2003a 12:    relay #3 coil (input is pin5)
-        12V:        relay 1,2, and coils
+        12V:        relay 1 and 2 coils
+
+
 
 - Install PiLN files in /home and create log directory:
 
