@@ -1,33 +1,38 @@
+Electricity and heat are dangerous! Evaluate the risk and make go no go decision!
+
+
 This is a mesh of code from both git@github.com:pvarney/PiLN.git and git@github.com:BlakeCLewis/PILN.git
 
 
 I modified it to meet my needs.   Changes include:
--Changing the logging function to be a per run log with the file named by RunID.   
--Adding an error trigger if the ramp temperature is 200C or more than the read temperature.   This errors the run and keeps your kiln from running and running trying to reach temp when it's not going to happen.  
--Adding some code to resume in case of a power flicker.   It checks for completed segments and resumes the segment not completed.   While this will work fine for ramps, it could result in over firing if it lands on a hold.   ALWAYS Monitor you kiln!
--Added sorting to the main chart.   
--Removed, all the lcd code and the second thermocouple sensor and the kiln sitter code that BlackCLewis had added.   
+- Changing the logging function to be a per run log with the file named by RunID.  The logging does not run while the daemon is idle.     
+- Adding an error trigger if the ramp temperature is 200C or more than the read temperature.   This errors the run and keeps your kiln from running and running trying to reach temp when it's not going to happen. 
+- Adding some code to resume in case of a power flicker.   It checks for completed segments and resumes the segment not completed.   While this will work fine for ramps, it could result in over firing if it lands on a hold.   ALWAYS Monitor you kiln!
+- Added sorting to the main chart.   
+- Removed, all the lcd code and the second thermocouple sensor and the kiln sitter code that BlackCLewis had added.   
 
-I do not have a screen or wifi at my kiln location.   I tether my cell phone and then access the raspberry pi through ssh and a webbrowser both on my phone.   It will connect from a suprising distance this way.     
+I do not have a screen or wifi at my kiln location.   I tether my cell phone and then access the raspberry pi through ssh and a webbrowser both on my phone.   It will connect from a suprising distance this way.
 
-Electricity and heat are dangerous! Evaluate the risk and make go no go decision!
 
 Possible future improvements    
 
--Offline charts  This would be really helpful to someone who uses a raspberry pi touch screen to run the daemon with no wifi.  
+- Offline charts  This would be really helpful to someone who uses a raspberry pi touch screen to run the daemon with no wifi.  
 - performance watchdog:
 	+ klexting;  Sounds like fun to add but at the time it's not really helpful to me as I don't have wifi at my kiln   		location	
 	
 Hardware:
+- Raspberry pi   I got my raspberry pi 3 B+ from amazon for $38 but looking at prices this morning, it looks like they are now listed for around $50 so you might want to shop around.   I used Raspberry Pi 3 B+ with the latest Raspberrian but other Pi's will work 
+- micro SD card (I used 32GB one)
+- Raspberry pi Power supply and case if you want to build it as removeable from the kiln controller.   If not you can add a 12v to 5v power board and have everything built permanintly.   I bring my pi to my house for testing and use it for other things so building it this way is convient for me.    
 - 1 MAX31856 thermocouple module
 	+ $17.50 each, Adafruit (https://www.adafruit.com/product/3263);
 - High temperature (2372 F) type K thermocouple
 	+ $7 https://www.aliexpress.com/item/32832729663.html?spm=a2g0s.9042311.0.0.b8fd4c4dqA7r1E
 - Thermocouple wire
     + Braided wire 10m   $5.63  https://www.aliexpress.com/item/32961438359.html?spm=a2g0s.9042311.0.0.b8fd4c4dqA7r1E
-- ULN2803APG $1.22/10 to switch 12V fan and 12V coils of the relays
-
-- JQX-60F 1Z 60A High-power relay DC12V
+- ULN2803A $1.22/10 to switch 12V fan and 12V coils of the relays Ali Express
+ 
+- JQX-60F 1Z 60A High-power relay DC12V coils  They are loud when switching but generate very little heat.   Very pleased so far we'll see how long they last.  
 	+ 2 $3.73 each +$6.29 shipping https://www.aliexpress.com/item/32858874579.html?spm=a2g0s.9042311.0.0.b8fd4c4dqA7r1E or for about $12 each on amazon
 - 12V power supply
 	+ converts 120vac to 12vdc,
@@ -48,7 +53,9 @@ Hardware:
 - heat shrink, Harbor Freight
 - metal ammo can from harbor freight
 
-Rough brake down of cost, it's possible I forgot something...
+Rough brake down of cost, it's possible I forgot something...If you want to wire you're kiln controller directly to the kiln you could save the cost of the power cord and plug.   
+ 
+We had the wire I used to build this so it's not included in the cost. 
 
 -raspberry pi 3 b+	                37.36
 -32gb micro sd card	                 8
@@ -70,7 +77,7 @@ Rough brake down of cost, it's possible I forgot something...
 Thermocouple tip: One side of the type-K thermocouple and type-k wire is magnetic(red side), Test with magnet to wire correctly.
 
 
-The max31856 reads the room temperature as the cold junction temperature.   If the kiln is heating up the cold junction on the thermocouple more than room temperature, you will need to adjust the location of the max31856 or ajust the cold junction temperature.   
+The max31856 reads the room temperature as the cold junction temperature.   If the kiln is heating up the cold junction on the thermocouple more than room temperature, you will need to adjust the location of the max31856 or adjust the cold junction temperature.   
 
 -Kilns are old Paragons one is an A88B and one is a A66B.   Both are over 40 years old.   
  Kiln controller can be used with both
@@ -104,7 +111,7 @@ Stuff to get it to work:
 
 - Install sqlite3:
 
-		sudo apt-get install sqlite3
+		sudo apt install sqlite3
 
 - Set up directories/link for web page:
 
@@ -121,7 +128,7 @@ Stuff to get it to work:
 		sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 		sudo iptables save
 		cd 
-		chown www-data:www-data PiLN/html/pilnstat.json
+		sudo chown www-data:www-data PiLN/html/pilnstat.json
 		
 - Install required Python packages:
 
@@ -138,8 +145,8 @@ Stuff to get it to work:
 - create the sqlite3 database:
 
                 sudo chown -R www-data:www-data /home/pi/PiLN/db
-		sqlite3 /home/pi/db/PiLN.sqlite3
-		sqlite> .read /home/pi/PiLN/docs/PiLN.sql;
+		sqlite3 /home/pi/db/PILN.sqlite3
+		sqlite> .read /home/pi/PILN/docs/PiLN.sql;
 
 - Tuning: 
 
@@ -158,5 +165,5 @@ Stuff to get it to work:
 
 - Start the firing daemon:
 
-		python3 /home/pi/PiLN/daemon/pilnfired.py
+		python3 /home/pi/PILN/daemon/pilnfired.py
 
