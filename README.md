@@ -22,6 +22,7 @@ Changes I made to code include:
 - Added sorting to the main chart.   
 - Removed, all the lcd code and the second thermocouple sensor and the kiln sitter code that BlackCLewis had added. 
 - Kiln sitter is used as the safetly.   Put a small cone in the sitter that is at least one cone highter than your desired   firing.      
+- Added Testing Code (see bottom of readme for instructions).
 
 I do not have a screen or wifi at my kiln location.   I tether my cell phone and then access the raspberry pi through ssh and a webbrowser both on my phone.   It will connect from a surprising distance this way.
 
