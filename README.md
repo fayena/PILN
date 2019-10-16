@@ -118,7 +118,7 @@ Stuff to get it to work:
 - Install PiLN files in /home and create log directory:
 
         su - pi
-        git clone git@github.com:BlakeCLewis/PiLN.git
+        git clone git@github.com:fayena/PILN.git
         mkdir ./log ./db ./html ./html/images ./html/style
 
 
