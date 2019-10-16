@@ -15,7 +15,7 @@ This is a mesh of code from both git@github.com:pvarney/PiLN.git and git@github.
 It will work for smaller kilns.  My largest one is 27amps.  Theoretically it would work with a larger kiln.  However, I have not tried it and will not be trying it anytime soon.  Again electricity can cause injuries and death and can also start fires if done wrong.  Use your own judgement!
 
 
-I modified it to meet my needs.   Changes include:
+Changes I made to code include:
 - Changing the logging function to be a per run log with the file named by RunID.  The logging does not run while the daemon is idle.     
 - Adding an error trigger if the ramp temperature is 200C or more than the read temperature.   This errors the run and keeps your kiln from running and running trying to reach temp when it's not going to happen.
 - Adding some code to resume in case of a power flicker.   It checks for completed segments and resumes the segment not completed.   While this will work fine for ramps, it could result in over firing if it lands on a hold.   ALWAYS Monitor you kiln!
