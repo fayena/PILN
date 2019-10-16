@@ -14,7 +14,8 @@ I modified it to meet my needs.   Changes include:
 - Adding an error trigger if the ramp temperature is 200C or more than the read temperature.   This errors the run and keeps your kiln from running and running trying to reach temp when it's not going to happen.
 - Adding some code to resume in case of a power flicker.   It checks for completed segments and resumes the segment not completed.   While this will work fine for ramps, it could result in over firing if it lands on a hold.   ALWAYS Monitor you kiln!
 - Added sorting to the main chart.   
-- Removed, all the lcd code and the second thermocouple sensor and the kiln sitter code that BlackCLewis had added.   
+- Removed, all the lcd code and the second thermocouple sensor and the kiln sitter code that BlackCLewis had added. 
+- Kiln sitter is used as the safetly.   Put a small cone in the sitter that is at least one cone highter than your desired   firing.      
 
 I do not have a screen or wifi at my kiln location.   I tether my cell phone and then access the raspberry pi through ssh and a webbrowser both on my phone.   It will connect from a surprising distance this way.
 
