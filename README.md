@@ -1,4 +1,4 @@
-## Electricity and heat are dangerous! Evaluate the risk and make go no go decision!
+## Electricity and heat are dangerous! Evaluate the risk and make go no go decision!  I am not responsible for any injuries sustanded or fires started!!!
 
 ## Useful skills
 - linux command line
@@ -10,7 +10,9 @@
 - unl2003a pin diagram http://www.bristolwatch.com/ele/uln2003a/uln2003a_2.jpg
 - Rasperry pi 40 pin connector pin diagram http://www.bristolwatch.com/ele/uln2003a/uln2003a_2.jpg  
 ## Code Info
-This is a mesh of code from both git@github.com:pvarney/PiLN.git and git@github.com:BlakeCLewis/PILN.git
+This is a mesh of code from both git@github.com:pvarney/PiLN.git and git@github.com:BlakeCLewis/PILN.git  
+
+It will work for smaller kilns.  My largest one is 27amps.  Theoretically it would work with a larger kiln.  However, I have not tried it and will not be trying it anytime soon.  Again electricity can cause injuries and death and can also start fires if done wrong.  Use your own judgement!
 
 
 I modified it to meet my needs.   Changes include:
