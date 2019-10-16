@@ -20,7 +20,7 @@ I do not have a screen or wifi at my kiln location.   I tether my cell phone and
 
 
 Possible future improvements    
-
+- install script 
 - Offline charts  This would be really helpful to someone who uses a raspberry pi touch screen to run the daemon with no wifi.  
 - performance watchdog:
     + klexting;  Sounds like fun to add but at the time it's not really helpful to me as I don't have wifi at my kiln           location    
