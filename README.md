@@ -25,7 +25,6 @@ Changes I made to code include:
 
 I do not have a screen or wifi at my kiln location.   I tether my cell phone and then access the raspberry pi through ssh and a webbrowser both on my phone.   It will connect from a surprising distance this way.
 
-
 Possible future improvements    
 - install script 
 - Offline charts  This would be really helpful to someone who uses a raspberry pi touch screen to run the daemon with no wifi.  
@@ -179,6 +178,11 @@ Stuff to get it to work:
 - Start the firing daemon:
 
         python3 /home/pi/PILN/daemon/pilnfired.py
+
+## Testing
+ You can run the code and do testing without having any electronics connected.   Find lines with the variable "TempRise" (no quotes) in the pilnfired.py daemon and uncomment them.   Comment instances of "ReadTmp = Sensor0.read_temp_c()" (no quotes).  
+ 
+ You can change temperature rise and decrease by changing "TempRise += (CycleOnSec*0.138888889)" and "TempRise = TempRise - 5"
 
 ![screen shot of frizing wiring](https://raw.githubusercontent.com/fayena/PILN/master/docs/Fritzing%20Diagram.png)
 
