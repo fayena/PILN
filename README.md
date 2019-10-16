@@ -1,11 +1,22 @@
 This is a mesh of code from both git@github.com:pvarney/PiLN.git and git@github.com:BlakeCLewis/PILN.git
 
-I modified it to meet my needs including adding an error trigger if the ramp temperature is 200C or more than the read temperature.   This errors the run and keeps your kiln from running and running trying to reach temp when it's not going to happen.  I also adding some code to resume in case of a power flicker and added sorting to the main chart.   I removed, all the lcd code and the second thermocouple sensor and the kiln sitter code that BlackCLewis had added.   I do not have a screen or wifi at my kiln location.   I tether my cell phone and then access the raspberry pi through ssh and a webbrowser both on my phone.   
+
+I modified it to meet my needs.   Changes include:
+-Changing the logging function to be a per run log with the file named by RunID.   
+-Adding an error trigger if the ramp temperature is 200C or more than the read temperature.   This errors the run and keeps your kiln from running and running trying to reach temp when it's not going to happen.  
+-Adding some code to resume in case of a power flicker.   It checks for completed segments and resumes the segment not completed.   While this will work fine for ramps, it could result in over firing if it lands on a hold.   ALWAYS Monitor you kiln!
+-Added sorting to the main chart.   
+-Removed, all the lcd code and the second thermocouple sensor and the kiln sitter code that BlackCLewis had added.   
+
+I do not have a screen or wifi at my kiln location.   I tether my cell phone and then access the raspberry pi through ssh and a webbrowser both on my phone.   It will connect from a suprising distance this way.     
 
 Electricity and heat are dangerous! Evaluate the risk and make go no go decision!
 
+Possible future improvements    
+
+-Offline charts  This would be really helpful to someone who uses a raspberry pi touch screen to run the daemon with no wifi.  
 - performance watchdog:
-	+ klexting;
+	+ klexting;  Sounds like fun to add but at the time it's not really helpful to me as I don't have wifi at my kiln   		location	
 	
 Hardware:
 - 1 MAX31856 thermocouple module
@@ -116,10 +127,6 @@ Stuff to get it to work:
 
 		sudo raspi-config #enable interfaces ic2 & spi
 		lsmod | grep spi
-
-- Instal RPLCD for the 20x4 lcd:
-		sudo pip install RPLCD
-		sudo apt install python-smbus
 
 - Install Adafruit Pyhton MAX31856 library:
 
