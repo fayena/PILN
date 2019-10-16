@@ -178,5 +178,5 @@ Stuff to get it to work:
 
         python3 /home/pi/PILN/daemon/pilnfired.py
 
-[[https://raw.githubusercontent.com/fayena/PILN/master/docs/Fritzing%20Diagram.png|alt=Fritzing Diagram Screenshot]]
+![screen shot of frizing wiring](https://raw.githubusercontent.com/fayena/PILN/master/docs/Fritzing%20Diagram.png)
 
