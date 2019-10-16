@@ -65,21 +65,21 @@ Rough breakdown of cost, it's possible I forgot something...If you want to wire 
  
 We had the wire I used to build this so it's not included in the cost.
 
--raspberry pi 3 b+                    37.36
--32gb micro sd card                     8
--raspberry pi case and power supply    13.59
--power cord 240v 50amp                20
--plug 240v 50amp                    11
--12V 5 amp power supply                 7.35
--din rails                             3.61
--din rail brackets                     3.44
--2 60 amp relays                    13.75
--thermocouple wire                     5.94
--k style thermocouplex2                13.69
--Thermocouple Amplifier MAX31856    22
--metal ammo can                     15
--solderable breadboards                12.68
--total                               187.41
+- raspberry pi 3 b+                    37.36
+- 32gb micro sd card                    8
+- raspberry pi case and power supply   13.59
+- power cord 240v 50amp                20
+- plug 240v 50amp                      11
+- 12V 5 amp power supply                7.35
+- din rails                             3.61
+- din rail brackets                     3.44
+- 2 60 amp relays                      13.75
+- thermocouple wire                     5.94
+- k style thermocouplex2               13.69
+- Thermocouple Amplifier MAX31856      22
+- metal ammo can                       15
+- solderable breadboards               12.68
+- total                               187.41
 
 
 ## Thermocouple, Kiln, and Max31856 info
