@@ -105,8 +105,8 @@ Stuff to get it to work:
         MAX31856 SDI:    GPIO 10 MOSI
         MAX31856 CS:    GPIO 8  CE0
         MAX31856 SCK:    GPIO 11 CLK
-        unl2003a 1:        GPIO 22
-        unl2003a 3:        GPIO 23
+        unl2003a 1:        GPIO 23
+        unl2003a 3:        GPIO 24
         unl2003a 8:        GND
         unl2003a 9:        12V
         unl2003a 16:    relay #1 coil (input is across the chip on pin1)
