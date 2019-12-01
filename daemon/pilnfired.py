@@ -27,8 +27,10 @@ LastErr = 0.0
 SegCompStat = 0
 LastTmp = 0.0
 cycle = 0 
-#TempRise = 0
-TotalSeg=0
+Debug = False 
+if Debug == True: 
+    TempRise = 0
+#TotalSeg=0
 LastProcVal = 0.0
 RunState = ""
 #--- MAX31856 only works on SPI0, SPI1 cannot do mode=1 ---
@@ -111,13 +113,16 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
     global SegCompStat
     global wheel
     global cycle 
-    #global TempRise
+    if Debug == True:
+        global TempRise
     global RunState
     TargetTmp = TargetTmp1
     RampMin = 0.0
     RampTmp = 0.0
-    #ReadTmp = TempRise
-    ReadTmp = Sensor0.read_temp_c()
+    if Debug == True: 
+        ReadTmp = TempRise
+    else:
+        ReadTmp = Sensor0.read_temp_c()
     #roomTmp = Sensor1.read_temp_c()
     LastTmp = 0.0
     LastErr = 0.0
@@ -139,8 +144,10 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             NextSec = time.time() + Window   # time at end of window
             LastTmp = ReadTmp
             #  roomTmp = Sensor1.read_temp_c()
-            #ReadTmp = TempRise
-            ReadTmp = Sensor0.read_temp_c()
+            if Debug == True:
+                ReadTmp = TempRise
+            else:
+                ReadTmp = Sensor0.read_temp_c()
             ReadITmp = Sensor0.read_internal_temp_c()
             if math.isnan(ReadTmp) or ReadTmp > 1330:
                 ReadTmp = LastTmp + LastErr
@@ -166,7 +173,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                     else:
                         RunState = "Ramp complete"
                 #---- ReadTrg ----
-                if ((TargetTmp-ReadTmp <= TargetTmp*0.006)
+                if ((TargetTmp-ReadTmp <= TargetTmp*0.002)
                     or (ReadTmp >= TargetTmp)) and ReadTrg == 0:
                     ReadTrg = 1
                     EndSec = int(time.time()) + HoldMin*60
@@ -187,7 +194,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                     else:
                         RunState = "Ramp complete"
                 #---- ReadTrg ----
-                if ((ReadTmp-TargetTmp <= TargetTmp*0.006)
+                if ((ReadTmp-TargetTmp <= TargetTmp*0.002)
                         or (ReadTmp <= TargetTmp)) and ReadTrg == 0:
                 # Read temp dropped to target or close enough
                     ReadTrg = 1
@@ -264,7 +271,8 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                     L.debug("==>Relay On")
                     for element in HEAT:
                         GPIO.output(element, True)
-                    #TempRise += (CycleOnSec*0.138888889)
+                    if Debug == True:
+                        TempRise += (CycleOnSec*5)
                     #L.info("cycleoNsee: %d and temprise: %d" % (CycleOnSec, TempRise)) 
                     cycle = cycle + 1
                     time.sleep(CycleOnSec)
@@ -272,7 +280,8 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 L.debug("==>Relay Off")
                 for element in HEAT:
                     GPIO.output(element, False)
-                #TempRise = TempRise - 5
+                if Debug == True:
+                    TempRise = TempRise - 2
             #L.info("Write status information to status file %s:" % StatFile)
 
             # Write status to file for reporting on web page
@@ -328,14 +337,18 @@ SQLCur = SQLConn.cursor()
 
 while 1:
    
-    #ReadTmp = TempRise
-    ReadTmp = Sensor0.read_temp_c()
-    ReadITmp = Sensor0.read_internal_temp_c()
+    if Debug == True:
+        ReadTmp = TempRise
+    else:
+        ReadTmp = Sensor0.read_temp_c()
+        ReadITmp = Sensor0.read_internal_temp_c()
   #  roomTmp = Sensor1.read_temp_c()
   #  roomITmp = Sensor1.read_internal_temp_c()
     while math.isnan(ReadTmp):
-        #ReadTmp = TempRise
-        ReadTmp = Sensor0.read_temp_c()
+        if Debug == True:
+            ReadTmp = TempRise
+        else:
+            ReadTmp = Sensor0.read_temp_c()
         print (' "kilntemp": "' + str(int(ReadTmp)) + '",\n')
 
     #L.debug("Write status information to status file %s:" % StatFile)
@@ -392,6 +405,7 @@ while 1:
         SQLCur.execute(sql, p)
         ProfSegs = SQLCur.fetchall()
         # --- for each segment in firing profile loop ---
+        TotalSeg=0
         for Row in ProfSegs:
             TotalSeg += 1
         #write_log("TotalSeg:%d" % (TotalSeg), logfile)    
@@ -451,7 +465,7 @@ while 1:
                         SQLConn.rollback()
                     #check to see if the segment just completed 
                     #is the final segment if so mark completed 
-                    if Seg == TotalSeg and RunState != "Error" :
+                    if Seg == TotalSeg and RunState != "Error" and RunState != "Stopped":
                         sql = "UPDATE profiles SET end_time=?, state=? WHERE run_id=?;"
                         p = (EndTime, 'Completed', RunID)
                         try:
@@ -467,10 +481,10 @@ while 1:
 
             SegCompStat = 0
 
-            L.info("Polling for 'Running' firing profiles...")
-            #remove log handlers so we're not logging a bunch of stuff from the max31856
-            for hdlr in L.handlers[:]:  # remove all old handlers
-                L.removeHandler(hdlr)
+        L.info("Polling for 'Running' firing profiles...")
+        #remove log handlers so we're not logging a bunch of stuff from the max31856
+        for hdlr in L.handlers[:]:  # remove all old handlers
+            L.removeHandler(hdlr)
     time.sleep(2)
 
 SQLConn.close()
