@@ -12,7 +12,7 @@
 ## Code Info
 This is a mesh of code from both git@github.com:pvarney/PiLN.git and git@github.com:BlakeCLewis/PILN.git  
 
-It will work for smaller kilns.  My largest one is 27amps.  Theoretically it would work with a larger kiln.  However, I have not tried it and will not be trying it anytime soon.  Again electricity can cause injuries and death and can also start fires if done wrong.  Use your own judgement!
+It will work for smaller kilns.  My largest one is 27amps.  Theoretically it would work with a kiln up to about 84 amps (two 60 amp relays with 30% allowance).  However, I have not tried it and will not be trying it anytime soon.   If you decide to try a larger kiln, make sure all your wires are rated for the amperage you will be pulling.  Again electricity can cause injuries and death and can also start fires if done wrong.  Use your own judgement!
 
 
 Changes I made to code include:
@@ -22,7 +22,7 @@ Changes I made to code include:
 - Added sorting to the main chart.   
 - Removed, all the lcd code and the second thermocouple sensor and the kiln sitter code that BlackCLewis had added. 
 - Kiln sitter is used as the safetly.   Put a small cone in the sitter that is at least one cone highter than your desired   firing.      
-- Added Testing Code (see bottom of readme for instructions).
+- Added Testing Code (see bottom of readme for instructions).    
 
 I do not have a screen or wifi at my kiln location.   I tether my cell phone and then access the raspberry pi through ssh and a webbrowser both on my phone.   It will connect from a surprising distance this way.
 
@@ -181,9 +181,8 @@ Stuff to get it to work:
         python3 /home/pi/PILN/daemon/pilnfired.py
 
 ## Testing
- You can run the code and do testing without having any electronics connected.   Find lines with the variable "TempRise" (no quotes) in the pilnfired.py daemon and uncomment them.   Comment instances of "ReadTmp = Sensor0.read_temp_c()" (no quotes).  
- 
- You can change temperature rise and decrease by changing "TempRise += (CycleOnSec*0.138888889)" and "TempRise = TempRise - 5"
+ You can run the code and do testing without having any electronics connected.   To run testing change "Debug = False" to "Debug = True" 
+ You can change temperature rise and decrease by changing "TempRise += (CycleOnSec*5)" and "TempRise = TempRise - 2"
 
 ![screen shot of frizing wiring](https://raw.githubusercontent.com/fayena/PILN/master/docs/Fritzing%20Diagram.png)
 
