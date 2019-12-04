@@ -184,5 +184,5 @@ Stuff to get it to work:
  You can run the code and do testing without having any electronics connected.   To run testing change "Debug = False" to "Debug = True" 
  You can change temperature rise and decrease by changing "TempRise += (CycleOnSec*5)" and "TempRise = TempRise - 2"
 
-![screen shot of frizing wiring](https://raw.githubusercontent.com/fayena/PILN/master/docs/Fritzing%20Diagram.png)
+![screen shot of frizing wiring](https://raw.githubusercontent.com/fayena/PILN/master/Fritzing%20wiring%20diagram.png)
 
