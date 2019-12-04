@@ -186,6 +186,6 @@ Stuff to get it to work:
 
 ![screen shot of frizing wiring](https://raw.githubusercontent.com/fayena/PILN/master/Fritzing%20wiring%20diagram.png)
 
-![cone 6 drop and hold](https://raw.githubusercontent.com/fayena/PILN/master/Cone%206%20drop%20and%20hold.png)
+![cone 6 drop and hold](https://raw.githubusercontent.com/fayena/PILN/master/Drop%20and%20Hold%20Cone%206.png)
 
 ![Bique cone 06](https://raw.githubusercontent.com/fayena/PILN/master/Bique.png)
