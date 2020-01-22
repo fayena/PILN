@@ -117,51 +117,13 @@ Stuff to get it to work:
 
 
 
-- Install PiLN files in /home and create log directory:
-
-        su - pi
-        git clone https://github.com/fayena/PILN.git
-        mkdir ./log ./db ./html ./html/images ./html/style
-
-
-- Install sqlite3:
-
-        sudo apt install sqlite3
-
-- Set up directories/link for web page:
-
-
-        ln -s /home/pi/PILN/images/hdrback.png /home/pi/html/images/hdrback.png
-        ln -s /home/pi/PILN/images/piln.png    /home/pi/html/images/piln.png
-        ln -s /home/pi/PILN/style/style.css    /home/pi/html/style/style.css
-- lighttpd:
-
-        sudo apt-get install lighttpd
-        sudo cp lighttpd.conf /etc/lighttpd/
-        cd /etc/lighttpd/conf-enabled
-        sudo ln -s ../conf-available/10-cgi.conf .
-        sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-        sudo iptables save
-        cd
-        sudo chown www-data:www-data PiLN/html/pilnstat.json
-        
-- Install required Python packages:
-
-        sudo raspi-config #enable interfaces ic2 & spi
-        lsmod | grep spi
-
-- Install Adafruit Pyhton MAX31856 library:
-
-        cd
-        git https://github.com/johnrbnsn/Adafruit_Python_MAX31856
-        cd Adafruit_Python_MAX31856
-        sudo python setup.py install
-
-- create the sqlite3 database:
-        
-        sudo chown -R www-data:www-data /home/pi/db
-        sqlite3 /home/db/PILN.sqlite3
-        sqlite> .read /home/pi/PILN/docs/PiLN.sql;
+- Run Install script
+       From the terminal run 
+```https://raw.githubusercontent.com/fayena/PILN/master/pilnsetup.sh```
+```chmod +x pilnsetup.sh```
+```./pilnserup.sh```
+You may have to enter your password.   When the raspi-config interface opens select "interfaces" and enable spi and ic2 and then select finished.   The script should install everything you need.   This was tested in a raspberry pi 4.   
+       
 
 - Tuning:
 
