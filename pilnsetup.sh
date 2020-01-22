@@ -38,7 +38,7 @@ cd
 #make sure permissions are correct
 sudo chown -R -L  www-data:www-data /home/pi/html/
 sudo chown pi:pi /home/pi/html/app/pilnstat.json
-sudo chown pi:pi /home/pi/log
+sudo chown pi:pi /home/pi/PILN/log
 #restart webserver
 sudo service lighttpd restart
 echo "webserver setup"
