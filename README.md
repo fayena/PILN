@@ -118,10 +118,15 @@ Stuff to get it to work:
 
 
 - Run Install script
+       
        From the terminal run 
+       
 ```https://raw.githubusercontent.com/fayena/PILN/master/pilnsetup.sh```
+
 ```chmod +x pilnsetup.sh```
+
 ```./pilnserup.sh```
+
 You may have to enter your password.   When the raspi-config interface opens select "interfaces" and enable spi and ic2 and then select finished.   The script should install everything you need.   This was tested in a raspberry pi 4.   
        
 
