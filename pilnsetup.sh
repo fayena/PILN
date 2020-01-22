@@ -39,7 +39,7 @@ cd
 sudo chown -R -L  www-data:www-data /home/pi/html/
 sudo chown pi:pi /home/pi/html/app/pilnstat.json
 #restart webserver
-sudo services lighttpd restart
+sudo service lighttpd restart
 echo "webserver setup"
 
 #enable raspberry pi interfaces
