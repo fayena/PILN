@@ -126,7 +126,7 @@ From the terminal
 
 ```./pilnserup.sh```
 
-You may have to enter your password.   When the raspi-config interface opens select "interfacing options" and enable spi and ic2 and then select "finish".   The script should install everything you need.   This was tested in a raspberry pi 4.   
+You may have to enter your password and approve installs.   When the raspi-config interface opens select "interfacing options" and enable spi and ic2 and then select "finish".   The script should install everything you need.   This was tested in a raspberry pi 4.   
        
 
 - Tuning:
