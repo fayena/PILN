@@ -9,7 +9,7 @@ sudo apt upgrade
 #create directories
 
 git clone https://github.com/fayena/PILN.git
-sudo mkdir ./db ./html ./html/images ./html/style
+sudo mkdir ./db ./html ./html/images ./html/style ./PILN/log
 sudo ln -s /home/pi/PILN/images/hdrback.png /home/pi/html/images/hdrback.png
 sudo ln -s /home/pi/PILN/images/piln.png    /home/pi/html/images/piln.png
 sudo ln -s /home/pi/PILN/style/style.css    /home/pi/html/style/style.css
