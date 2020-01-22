@@ -35,8 +35,13 @@ sudo cp /home/pi/PILN/lighttpd/lighttpd.conf /etc/lighttpd/
 cd /etc/lighttpd/conf-enabled
 sudo ln -s ../conf-available/10-cgi.conf .
 cd
-sudo chown www-data:www-data PILN/html/pilnstat.json
+#make sure permissions are correct
+sudo chown -R -L  www-data:www-data /home/pi/html/
+sudo chown pi:pi /home/pi/html/app/pilnstat.json
+#restart webserver
+sudo services lighttpd restart
 echo "webserver setup"
+
 #enable raspberry pi interfaces
 sudo raspi-config #enable interfaces ic2 & spi
 lsmod | grep spi
