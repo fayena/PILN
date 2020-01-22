@@ -120,7 +120,7 @@ Stuff to get it to work:
 - Run Install script
 From the terminal     
              
-```https://raw.githubusercontent.com/fayena/PILN/master/pilnsetup.sh```
+```wget https://raw.githubusercontent.com/fayena/PILN/master/pilnsetup.sh```
 
 ```chmod +x pilnsetup.sh```
 
