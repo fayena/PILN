@@ -95,6 +95,8 @@ The max31856 reads the room temperature as the cold junction temperature.   If t
 
 ## Install 
 
+Instructions for install an operating system to the Raspberry Pi  https://www.raspberrypi.org/documentation/installation/installing-images/    I use the Raspbian OS https://www.raspberrypi.org/downloads/raspbian/  
+
 Stuff to get it to work:
 
 - Pin-Out:
