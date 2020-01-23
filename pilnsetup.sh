@@ -76,6 +76,7 @@ Restart=always
 
 [Install]
 WantedBy=multi-user.target
+EOF
 
 sudo chmod 644 /lib/systemd/system/pilnfired.service
 chmod +x /home/pi/PILN/daemon/pilnfired.py
