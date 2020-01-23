@@ -53,7 +53,7 @@ echo "interfaces enabled"
 cd
 git clone https://github.com/johnrbnsn/Adafruit_Python_MAX31856
 cd Adafruit_Python_MAX31856
-sudo python setup.py install
+sudo python3 setup.py install
 echo "thermocouple amplifier installed"
 
 #install database
