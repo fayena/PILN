@@ -67,7 +67,7 @@ Rough breakdown of cost, it's possible I forgot something...If you want to wire 
  
 We had the wire I used to build this so it's not included in the cost.
 
-- raspberry pi 3 b+                    37.36
+- raspberry pi 4                       41
 - 32gb micro sd card                    8
 - raspberry pi case and power supply   13.59
 - power cord 240v 50amp                20
@@ -81,14 +81,11 @@ We had the wire I used to build this so it's not included in the cost.
 - Thermocouple Amplifier MAX31856      22
 - metal ammo can                       15
 - solderable breadboards               12.68
-- total                               187.41
+- total                               190ish
 
 
 ## Thermocouple, Kiln, and Max31856 info
 Thermocouple tip: One side of the type-K thermocouple and type-k wire is magnetic(red side), Test with magnet to wire correctly.
-
-
-The max31856 reads the room temperature as the cold junction temperature.   If the kiln is heating up the cold junction on the thermocouple more than room temperature, you will need to adjust the location of the max31856 or adjust the cold junction temperature.   
 
 -Kilns are old Paragons one is an A88B and one is a A66B.   Both are over 40 years old.   
  Kiln controller can be used with both
@@ -124,7 +121,7 @@ From the terminal
 
 ```chmod +x pilnsetup.sh```
 
-```./pilnserup.sh```
+```./pilnsetup.sh```
 
 You may have to enter your password and approve installs.   When the raspi-config interface opens select "interfacing options" and enable spi and ic2 and then select "finish".   The script should install everything you need.   This was tested in a raspberry pi 4.   
        
@@ -146,7 +143,10 @@ You may have to enter your password and approve installs.   When the raspi-confi
 
 - Start the firing daemon:
 
-        python3 /home/pi/PILN/daemon/pilnfired.py
+        If you used the install script the daemon should start automatically.   If it doesn't you can use 
+
+```sudo systemctl  start pilnfired.service```
+
 
 ## Testing
  You can run the code and do testing without having any electronics connected.   To run testing change "Debug = False" to "Debug = True" 
