@@ -64,7 +64,7 @@ sudo chown -R www-data:www-data /home/pi/db
 echo "database installed"
 
 #install pilnfired service
-cat > /lib/systemd/system/pilnfired.service << EOF;
+sudo cat > /lib/systemd/system/pilnfired.service << EOF;
 [Unit]
 Description=PiLN Kiln Controller firing daemon
 
