@@ -4,7 +4,7 @@ Description=PiLN Kiln Controller firing daemon
 [Service]
 Type=simple
 WorkingDirectory=/home/pi/PILN/daemon
-ExecStart=/home/pi/PILN/daemon/pilnfired.py
+ExecStart=/usr/bin/python3 /home/pi/PILN/daemon/pilnfired.py
 Restart=always
 
 [Install]
