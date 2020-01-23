@@ -64,22 +64,11 @@ sudo chown -R www-data:www-data /home/pi/db
 echo "database installed"
 
 #install pilnfired service
-sudo cat > /lib/systemd/system/pilnfired.service << EOF;
-[Unit]
-Description=PiLN Kiln Controller firing daemon
-
-[Service]
-Type=simple
-WorkingDirectory=/home/pi/PILN/daemon
-ExecStart=/usr/bin/python3 /home/pi/PILN/daemon/pilnfired.py
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
+sudo cp /home/pi/PILN/daemon/pilnfired.service /lib/systemd/system/
 
 sudo chmod 644 /lib/systemd/system/pilnfired.service
-chmod +x /home/pi/PILN/daemon/pilnfired.py
+sudo chmod +x /home/pi/PILN/daemon/pilnfired.py
+
 sudo systemctl daemon-reload
 sudo systemctl enable pilnfired.service
 sudo systemctl start pilnfired.service
