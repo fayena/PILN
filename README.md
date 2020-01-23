@@ -33,7 +33,7 @@ Possible future improvements
     + klexting;  Sounds like fun to add but at the time it's not really helpful to me as I don't have wifi at my kiln           location    
     
 ## Hardware and Cost:
-- Raspberry pi   I got my raspberry pi 3 B+ from amazon for $38 but looking at prices this morning, it looks like they are now listed for around $50 so you might want to shop around.   I used Raspberry Pi 3 B+ with the latest Raspbian but other Pi's will work
+- Raspberry pi   I bought a Raspberry Pi 4 with 1gb ram for $41 on amazon.  I Installed the latested Raspbian but other Pi's will work.
 - micro SD card (I used 32GB one)
 - Raspberry pi Power supply and case if you want to build it as removable from the kiln controller.   If not you can add a 12v to 5v power board and have everything built permanently.   I bring my pi to my house for testing and use it for other things so building it this way is convenient for me.    
 - 1 MAX31856 thermocouple module
