@@ -119,7 +119,7 @@ From the terminal
              
 ```wget https://raw.githubusercontent.com/fayena/PILN/master/pilnsetup.sh```
 
-```chmod +x pilnsetup.sh```
+```sudo chmod +x pilnsetup.sh```
 
 ```./pilnsetup.sh```
 
