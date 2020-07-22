@@ -157,3 +157,10 @@ You may have to enter your password and approve installs.   When the raspi-confi
 ![cone 6 drop and hold](https://raw.githubusercontent.com/fayena/PILN/master/Drop%20and%20Hold%20Cone%206.png)
 
 ![Bique cone 06](https://raw.githubusercontent.com/fayena/PILN/master/Bique.png)
+
+EDIT JULY 22, 2020:   After doing some routine updates on the raspberry pi, the pilnfired.py daemon would no longer run.    Running these commands fixed the issue.   I did not try doing a clean install to see if the install still worked.  
+
+pi@raspberrypi:~/Adafruit_Python_MAX31856 $ pip install -r requirements.txt
+pi@raspberrypi:~/Adafruit_Python_MAX31856 $ pip install ./.
+
+
