@@ -152,15 +152,20 @@ You may have to enter your password and approve installs.   When the raspi-confi
  You can run the code and do testing without having any electronics connected.   To run testing change "Debug = False" to "Debug = True" 
  You can change temperature rise and decrease by changing "TempRise += (CycleOnSec*5)" and "TempRise = TempRise - 2"
 
+EDIT JULY 22, 2020:   After doing some routine updates on the raspberry pi, the pilnfired.py daemon would no longer run.    Running these commands fixed the issue.   I did not try doing a clean install to see if the install still worked.  
+
+pi@raspberrypi:~/Adafruit_Python_MAX31856 $ pip install -r requirements.txt
+
+and then 
+
+pi@raspberrypi:~/Adafruit_Python_MAX31856 $ pip install ./.
+
+
 ![screen shot of frizing wiring](https://raw.githubusercontent.com/fayena/PILN/master/Fritzing%20wiring%20diagram.png)
 
 ![cone 6 drop and hold](https://raw.githubusercontent.com/fayena/PILN/master/Drop%20and%20Hold%20Cone%206.png)
 
 ![Bique cone 06](https://raw.githubusercontent.com/fayena/PILN/master/Bique.png)
 
-EDIT JULY 22, 2020:   After doing some routine updates on the raspberry pi, the pilnfired.py daemon would no longer run.    Running these commands fixed the issue.   I did not try doing a clean install to see if the install still worked.  
-
-pi@raspberrypi:~/Adafruit_Python_MAX31856 $ pip install -r requirements.txt
-pi@raspberrypi:~/Adafruit_Python_MAX31856 $ pip install ./.
 
 
