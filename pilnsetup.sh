@@ -5,10 +5,11 @@
 #update pi
 sudo apt update
 sudo apt upgrade
-#make sure git and python3tools are installed 
+#make sure git and python3 dependencies are installed 
 
 sudo apt install git
-sudo apt-get install python3-setuptools python3-pip
+sudo apt-get install -y python3-setuptools python3-pip python3-rpi.gpio
+
 
 #create directories
 
