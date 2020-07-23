@@ -5,10 +5,11 @@
 #update pi
 sudo apt update
 sudo apt upgrade
-#make sure git and python3 setuptools are installed 
+#make sure git and python3tools are installed 
 
 sudo apt install git
-sudo apt-get install python3-setuptools
+sudo apt-get install python3-setuptools pip3
+
 #create directories
 
 git clone https://github.com/fayena/PILN.git
