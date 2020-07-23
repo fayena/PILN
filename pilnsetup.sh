@@ -5,6 +5,9 @@
 #update pi
 sudo apt update
 sudo apt upgrade
+#make sure git is installed 
+
+sudo apt install git
 
 #create directories
 
