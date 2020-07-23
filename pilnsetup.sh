@@ -8,7 +8,7 @@ sudo apt upgrade
 #make sure git and python3tools are installed 
 
 sudo apt install git
-sudo apt-get install python3-setuptools pip3
+sudo apt-get install python3-setuptools python3-pip
 
 #create directories
 
