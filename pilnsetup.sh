@@ -27,6 +27,9 @@ sudo apt install sqlite3
 sudo apt install ufw
 sudo apt install lighttpd
 sudo pip3 install jinja2
+#for some reason jinja2 is not loading with python3 until I get it solved revert to python2
+sudo pip install jinja2 
+
 
 echo "software installed"
 
