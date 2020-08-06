@@ -104,7 +104,7 @@ Stuff to get it to work:
         MAX31856 GND:    GND     PIN14
         MAX31856 SDO:    GPIO 9  MISO
         MAX31856 SDI:    GPIO 10 MOSI
-        MAX31856 CS:    GPIO 8  CE0
+        MAX31856 CS:    GPIO 5  (aka D5)
         MAX31856 SCK:    GPIO 11 CLK
         unl2003a 1:        GPIO 23
         unl2003a 3:        GPIO 24
