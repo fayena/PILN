@@ -8,7 +8,7 @@ sudo apt upgrade
 #make sure git and python3 dependencies are installed 
 
 sudo apt install git
-sudo apt-get install -y python3-setuptools python3-pip python3-rpi.gpio
+sudo apt-get install -y python3-setuptools python3-pip 
 
 
 #create directories
@@ -56,10 +56,7 @@ echo "interfaces enabled"
 #install thermocouple amplifier
 
 cd
-git clone https://github.com/johnrbnsn/Adafruit_Python_MAX31856
-cd Adafruit_Python_MAX31856
-sudo python3 setup.py install
-echo "thermocouple amplifier installed"
+sudo pip3 install adafruit-circuitpython-max31856
 
 #install database
 
