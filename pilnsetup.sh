@@ -26,6 +26,7 @@ echo "directories created"
 sudo apt install sqlite3
 sudo apt install ufw
 sudo apt install lighttpd
+sudo pip3 install jinja2
 
 echo "software installed"
 
