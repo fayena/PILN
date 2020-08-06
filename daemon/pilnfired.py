@@ -8,10 +8,10 @@ import logging
 import sys
 import sqlite3
 import RPi.GPIO as GPIO
-import Adafruit_GPIO
-import Adafruit_GPIO.SPI as SPI
-from Adafruit_MAX31856 import MAX31856 as MAX31856
-#from display import display
+import board
+import busio
+import digitalio
+import adafruit_max31856
 GPIO.setmode(GPIO.BCM)
 
 AppDir = '/home/pi/PILN'
@@ -33,9 +33,16 @@ if Debug == True:
 #TotalSeg=0
 LastProcVal = 0.0
 RunState = ""
-#--- MAX31856 only works on SPI0, SPI1 cannot do mode=1 ---
-Sensor0 = MAX31856(tc_type=MAX31856.MAX31856_K_TYPE,
-                   hardware_spi=SPI.SpiDev(0,0)) #SPI0,CE0 Kiln
+
+# create a spi object
+spi = busio.SPI(board.SCK, board.MOSI, board.MISO)
+ 
+# allocate a CS pin and set the direction
+cs = digitalio.DigitalInOut(board.D5)
+cs.direction = digitalio.Direction.OUTPUT
+ 
+# create a thermocouple object with the above
+thermocouple = adafruit_max31856.MAX31856(spi, cs)
 
 #--- Relays ---
 HEAT = (23, 24)
@@ -122,8 +129,8 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
     if Debug == True: 
         ReadTmp = TempRise
     else:
-        ReadTmp = Sensor0.read_temp_c()
-    #roomTmp = Sensor1.read_temp_c()
+        ReadTmp = thermocouple.temperature
+    
     LastTmp = 0.0
     LastErr = 0.0
     StartTmp = 0.0
@@ -143,12 +150,12 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             Cnt += 1                         # record keeping only
             NextSec = time.time() + Window   # time at end of window
             LastTmp = ReadTmp
-            #  roomTmp = Sensor1.read_temp_c()
+            
             if Debug == True:
                 ReadTmp = TempRise
             else:
-                ReadTmp = Sensor0.read_temp_c()
-            ReadITmp = Sensor0.read_internal_temp_c()
+                ReadTmp = thermocouple.temperature
+            ReadITmp = thermocouple.reference_temperature
             if math.isnan(ReadTmp) or ReadTmp > 1330:
                 ReadTmp = LastTmp + LastErr
                 print ('  "kilntemp": "' + str(int(ReadTmp)) + '",\n')
@@ -340,15 +347,14 @@ while 1:
     if Debug == True:
         ReadTmp = TempRise
     else:
-        ReadTmp = Sensor0.read_temp_c()
-        ReadITmp = Sensor0.read_internal_temp_c()
-  #  roomTmp = Sensor1.read_temp_c()
-  #  roomITmp = Sensor1.read_internal_temp_c()
+        ReadTmp = thermocouple.temperature
+        ReadITmp = thermocouple.reference_temperature
+  
     while math.isnan(ReadTmp):
         if Debug == True:
             ReadTmp = TempRise
         else:
-            ReadTmp = Sensor0.read_temp_c()
+            ReadTmp = thermocouple.temperature
         print (' "kilntemp": "' + str(int(ReadTmp)) + '",\n')
 
     #L.debug("Write status information to status file %s:" % StatFile)
