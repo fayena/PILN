@@ -1,6 +1,6 @@
  <form id="myForm" method="post">
   <input type="hidden" name="page" value="{{ target_page }}">
-  {% for name, value in params.iteritems() %}
+  {% for name, value in params.items() %}
     <input type="hidden" name="{{ name }}" value="{{ value }}">
   {% endfor %}
  </form>
