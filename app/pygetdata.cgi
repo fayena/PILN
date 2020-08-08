@@ -18,7 +18,7 @@ if 1 == debug:
     f.write(jsonin)
 #-----
 if jsonin == "":
-    print "\n{\n \"unix_timestamp\": ", str(int(time.time()))," \n}"
+    print ("\n{\n \"unix_timestamp\": ", str(int(time.time()))," \n}")
 else:
     query = json.loads(jsonin)
     conn = sqlite3.connect(SQLDB)
@@ -55,4 +55,4 @@ else:
     conn.close()
     retdata = retdata.rstrip(',')
     retdata += "]}\n"
-    print retdata
+    print (retdata)
