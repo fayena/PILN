@@ -49,7 +49,7 @@ if page == "view":
         bdy += template.render(run_id=run_id, notes=notes)
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
+    print (hdr + bdy + ftr)
 
 #--- new profile ---#
 elif page == "new":
@@ -61,7 +61,7 @@ elif page == "new":
     bdy = template.render(segments=segments)
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
+    print (hdr + bdy + ftr)
 
 #--- editcopy ---#
 elif page == "editcopy":
@@ -88,7 +88,7 @@ elif page == "editcopy":
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
+    print (hdr + bdy + ftr)
 
 #--- run profile ---#
 elif page == "run":
@@ -119,7 +119,7 @@ elif page == "run":
 
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
+    print (hdr + bdy + ftr)
 
 #--- save or update profile ---#
 elif page == "savenew" or page == "saveupd":
@@ -176,7 +176,7 @@ elif page == "savenew" or page == "saveupd":
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
+    print (hdr + bdy + ftr)
 
 #--- delete profile confirmation ---#
 elif page == "del_conf":
@@ -195,7 +195,7 @@ elif page == "del_conf":
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
+    print (hdr + bdy + ftr)
 
 #--- delete profile ---#
 elif page == "delete":
@@ -216,7 +216,7 @@ elif page == "delete":
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
+    print (hdr + bdy + ftr)
 
 #--- stop ---#
 elif page == "stop":
@@ -237,7 +237,7 @@ elif page == "stop":
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
+    print (hdr + bdy + ftr)
 
 #--- notes_save ---#
 elif page == "notes_save":
@@ -255,7 +255,7 @@ elif page == "notes_save":
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
+    print (hdr + bdy + ftr)
 
 #--- home ---#
 else:
@@ -279,7 +279,7 @@ else:
     bdy = template.render(profiles=profiles)
     template = env.get_template("footer.html") 
     ftr = template.render()
-    print (hdr.encode("utf8") + bdy.encode("utf8") + ftr.encode("utf8"))
+    print (hdr + bdy + ftr)
 
 cursor.close()
 db.close()
