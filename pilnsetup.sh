@@ -27,8 +27,6 @@ sudo apt install sqlite3
 sudo apt install ufw
 sudo apt install lighttpd
 sudo pip3 install jinja2
-#for some reason jinja2 is not loading with python3 until I get it solved revert to python2
-sudo pip install jinja2 
 
 
 echo "software installed"
@@ -60,11 +58,13 @@ echo "interfaces enabled"
 #install thermocouple amplifier
 
 cd
-sudo pip3 install adafruit-circuitpython-max31856
+
+sudo pip3 install adafruit-circuitpython-max31855
+
 
 #install needed python web module
 sudo pip3 install jinja2
-sudo pip install jinja2
+
 #install database
 
 sudo cp /home/pi/PILN/db/PiLN.sqlite3 /home/pi/db/
