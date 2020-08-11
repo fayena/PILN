@@ -11,7 +11,8 @@ import RPi.GPIO as GPIO
 import board
 import busio
 import digitalio
-import adafruit_max31856
+import adafruit_max31855
+
 GPIO.setmode(GPIO.BCM)
 
 AppDir = '/home/pi/PILN'
@@ -35,15 +36,11 @@ LastProcVal = 0.0
 RunState = ""
 
 # create a spi object
-spi = busio.SPI(board.SCK, board.MOSI, board.MISO)
- 
-# allocate a CS pin and set the direction
+spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 cs = digitalio.DigitalInOut(board.D5)
-cs.direction = digitalio.Direction.OUTPUT
- 
 # create a thermocouple object with the above
-thermocouple = adafruit_max31856.MAX31856(spi, cs)
 
+max31855 = adafruit_max31855.MAX31855(spi, cs)
 #--- Relays ---
 HEAT = (23, 24)
 for element in HEAT:
@@ -129,7 +126,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
     if Debug == True: 
         ReadTmp = TempRise
     else:
-        ReadTmp = thermocouple.temperature
+        ReadTmp = max31855.temperature
     
     LastTmp = 0.0
     LastErr = 0.0
@@ -154,8 +151,8 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             if Debug == True:
                 ReadTmp = TempRise
             else:
-                ReadTmp = thermocouple.temperature
-            ReadITmp = thermocouple.reference_temperature
+                ReadTmp = max31855.temperature
+            ReadITmp = max31855.reference_temperature
             if math.isnan(ReadTmp) or ReadTmp > 1330:
                 ReadTmp = LastTmp + LastErr
                 print ('  "kilntemp": "' + str(int(ReadTmp)) + '",\n')
@@ -347,14 +344,14 @@ while 1:
     if Debug == True:
         ReadTmp = TempRise
     else:
-        ReadTmp = thermocouple.temperature
-        ReadITmp = thermocouple.reference_temperature
+        ReadTmp = max31855.temperature
+        ReadITmp = max31855.reference_temperature
   
     while math.isnan(ReadTmp):
         if Debug == True:
             ReadTmp = TempRise
         else:
-            ReadTmp = thermocouple.temperature
+            ReadTmp = max31855.temperature
         print (' "kilntemp": "' + str(int(ReadTmp)) + '",\n')
 
     #L.debug("Write status information to status file %s:" % StatFile)
@@ -488,7 +485,7 @@ while 1:
             SegCompStat = 0
 
         L.info("Polling for 'Running' firing profiles...")
-        #remove log handlers so we're not logging a bunch of stuff from the max31856
+        #remove log handlers so we're not logging a bunch of stuff from the max31855
         for hdlr in L.handlers[:]:  # remove all old handlers
             L.removeHandler(hdlr)
     time.sleep(2)
