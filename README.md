@@ -80,13 +80,13 @@ We had the wire I used to build this so it's not included in the cost.
 - 2 60 amp relays                      13.75
 - thermocouple wire                     5.94
 - k style thermocouplex2               13.69
-- Thermocouple Amplifier MAX31856      22
+- Thermocouple Amplifier MAX31855      17
 - metal ammo can                       15
 - solderable breadboards               12.68
 - total                               190ish
 
 
-## Thermocouple, Kiln, and Max31856 info
+## Thermocouple, Kiln, and Max31855 info
 Thermocouple tip: One side of the type-K thermocouple and type-k wire is magnetic(red side), Test with magnet to wire correctly.
 
 -Kilns are old Paragons one is an A88B and one is a A66B.   Both are over 40 years old.   
@@ -100,12 +100,11 @@ Stuff to get it to work:
 
 - Pin-Out:
 
-        MAX31856 Vcc:    3.3V    PIN17
-        MAX31856 GND:    GND     PIN14
-        MAX31856 SDO:    GPIO 9  MISO
-        MAX31856 SDI:    GPIO 10 MOSI
-        MAX31856 CS:    GPIO 5  (aka D5)
-        MAX31856 SCK:    GPIO 11 CLK
+        MAX31855 Vcc:    3.3V    PIN17
+        MAX31855 GND:    GND     PIN14
+        MAX31855 SDO:    GPIO 9  MISO
+        MAX31855 CS:    GPIO 5  (aka D5)
+        MAX31855 SCK:    GPIO 11 CLK
         unl2003a 1:        GPIO 23
         unl2003a 3:        GPIO 24
         unl2003a 8:        GND
