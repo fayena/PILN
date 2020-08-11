@@ -6,13 +6,13 @@ from email.mime.multipart import MIMEMultipart
 #kiln texting code 
 def text(segment, temp, status):
     print("inside text top")
-    email = "alforddm@glorifyjesus.net"
-    pas = "P9045acp"
+    email = ""
+    pas = ""
 
-    sms_gateway = '5806121635@tmomail.net'
+    sms_gateway = '@tmomail.net'
     # The server we use to send emails in our case it will be gmail but every email$
     # and port is also provided by the email provider.
-    smtp = "box.glorifyjesus.net" 
+    smtp = "" 
     port = 587
     # This will start our email server
     server = smtplib.SMTP(smtp,port)
