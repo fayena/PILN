@@ -38,8 +38,8 @@ Possible future improvements
 - Raspberry pi   I bought a Raspberry Pi 4 with 1gb ram for $41 on amazon.  I Installed the latested Raspbian but other Pi's will work.
 - micro SD card (I used 32GB one)
 - Raspberry pi Power supply and case if you want to build it as removable from the kiln controller.   If not you can add a 12v to 5v power board and have everything built permanently.   I bring my pi to my house for testing and use it for other things so building it this way is convenient for me.    
-- 1 MAX31856 thermocouple module
-    + $17.50 each, Adafruit (https://www.adafruit.com/product/3263);
+- 1 MAX31855 thermocouple module
+    + $14.95  each, Adafruit (https://www.adafruit.com/product/269);
 - High temperature (2372 F) type K thermocouple
     + $7 https://www.aliexpress.com/item/32832729663.html?spm=a2g0s.9042311.0.0.b8fd4c4dqA7r1E
 - Thermocouple wire
