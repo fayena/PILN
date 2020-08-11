@@ -12,6 +12,8 @@ import board
 import busio
 import digitalio
 import adafruit_max31856
+from texting import text
+
 GPIO.setmode(GPIO.BCM)
 
 AppDir = '/home/pi/PILN'
@@ -463,7 +465,8 @@ while 1:
                           """
                     p = (EndTime, RunID, Seg)
                     L.info("Segment %s Complete" % (Seg))
-                                     
+                    text(Seg,ReadTmp,RunState)
+                 
                     try:
                         SQLCur.execute(sql, p)
                         SQLConn.commit()
