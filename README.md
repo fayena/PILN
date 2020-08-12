@@ -1,4 +1,4 @@
-###Currently not working due to packages being depriciated.   I hope to have things running again by 7/25/2020
+### Tested as working with the max31856 branch
 
 ## Electricity and heat are dangerous! Evaluate the risk and make go no go decision!  I am not responsible for any injuries sustained or fires started!!!
 
