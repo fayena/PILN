@@ -61,10 +61,6 @@ cd
 
 sudo pip3 install adafruit-circuitpython-max31855
 
-
-#install needed python web module
-sudo pip3 install jinja2
-
 #install database
 
 sudo cp /home/pi/PILN/db/PiLN.sqlite3 /home/pi/db/
