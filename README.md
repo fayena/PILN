@@ -1,4 +1,4 @@
-## Tested as working with a clean install on Raspberry Pi OS (32-bit) Lite on a Raspberry Pi 4 1G.   Updated to python3 and offical adafruit libaries.   
+#### Tested as working with a clean install on Raspberry Pi OS (32-bit) Lite on a Raspberry Pi 4 1G.   Updated to python3 and offical adafruit libaries.   
 
 ## Electricity and heat are dangerous! Evaluate the risk and make go no go decision!  I am not responsible for any injuries sustained or fires started!!!
 
