@@ -1,4 +1,4 @@
-#### Tested as working with a clean install on Raspberry Pi OS (32-bit) Lite on a Raspberry Pi 4 1G.   Updated to python3 and offical adafruit libaries.   
+#### Tested as working with a clean install on Raspberry Pi OS (32-bit) Lite on a Raspberry Pi Zero W and a Raspberry PI 4 1G.   Appears to run flawlessly on the Zero.  Only 37M of memory was being used during test firing.   Updated to python3 and offical adafruit libaries.   
 
 ## Electricity and heat are dangerous! Evaluate the risk and make go no go decision!  I am not responsible for any injuries sustained or fires started!!!
 
