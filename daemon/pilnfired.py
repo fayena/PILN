@@ -180,7 +180,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                     else:
                         RunState = "Ramp complete"
                 #---- ReadTrg ----
-                if ((TargetTmp-ReadTmp <= TargetTmp*0.002)
+                if ((TargetTmp-ReadTmp <= 0.5)
                     or (ReadTmp >= TargetTmp)) and ReadTrg == 0:
                     ReadTrg = 1
                     EndSec = int(time.time()) + HoldMin*60
@@ -201,7 +201,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                     else:
                         RunState = "Ramp complete"
                 #---- ReadTrg ----
-                if ((ReadTmp-TargetTmp <= TargetTmp*0.002)
+                if ((ReadTmp-TargetTmp <= 0.5)
                         or (ReadTmp <= TargetTmp)) and ReadTrg == 0:
                 # Read temp dropped to target or close enough
                     ReadTrg = 1
