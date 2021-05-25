@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="../style/style.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
  <title>PiLN Raspberry Pi Kiln Controller - {{ title }}</title>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
   <script>
     function loadProcStat(){
       $.getJSON("pilnstat.json",
         function(data1) {
-          $.getJSON("pygetdata.cgi",
-            function(data2) {
-              if (parseInt(data1.proc_update_utime,10) < (parseInt(data2.unix_timestamp,10) - 60)){
+          $.ajax({
+            mimeType: 'application/json; charset=iso-8859-1',  
+            dataType: "json",
+            url: 'check.cgi',
+            success: function (data2) {
+               if (data2 == "0"){
                 $('#statusupd1').html('WARNING: Firing process daemon is DOWN' );
                 $('#statusupd2').html('&nbsp;' );
               } else {
@@ -30,9 +33,11 @@
                                         'SegTime: ' + data1.segtime);
                 }
               }
+          }
           });
       });
-      setTimeout(loadProcStat,5000);
+  
+    setTimeout(loadProcStat,5000);
     }
   
     $(document).ready(function(){
@@ -40,11 +45,7 @@
     });
   
 </script>
-<script>
-$(document).ready( function () {
-    $('#sortable').DataTable();
-} );
-</script>
+
 </head>
 <body>
  <table style="width:100%" cellpadding=0 cellspacing=0>

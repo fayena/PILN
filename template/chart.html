@@ -1,124 +1,161 @@
-<h2 style="display:inline;margin-left:30px">Firing Chart for Profile {{ run_id }}</h2>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+ <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript">
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['line', 'corechart']});
- 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
- 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
- 
-        var chartDiv = document.getElementById('chart_div');
- 
-        // Set chart query
-        var options = {
-//          title: 'Firing Chart for Profile {{ run_id }}',
-//          titleTextStyle: { fontSize: 18, bold: true },
-//          legend: { position: 'top', fontSize: 14 },
-//          width: 800,
-//          height: 300,
-          animation: {
-            startup: true,
-            duration: 1000,
-            easing: 'out'
-          },
-          fontSize: 14,
-//          curveType: 'function',
-          explorer: {
-            axis: 'horizontal',
-            keepInBounds: true,
-            maxZoomIn: .1
-          },
-          series: {
-            0: {targetAxisIndex: 1},
-            1: {targetAxisIndex: 0},
-            2: {targetAxisIndex: 0},
-            3: {targetAxisIndex: 0, type: 'bars'}
-          },
-          vAxes: {
-            0: {
-              title: 'Temperature / PID Output',
-              viewWindowMode:'explicit',
-              viewWindow: { min:0 },
-              minValue: 0,
-              format: 'decimal',
-              textStyle: { fontSize: 14 },
-//              gridlines: { color: '#BBF' }
-            },
-            1: {
-              title: 'Segment',
-              viewWindowMode:'explicit',
-              viewWindow: { min:0 },
-              minValue: 0,
-              format: 'decimal',
-              textStyle: { fontSize: 14 },
-//              gridlines: { color: '#FBB' }
-            }
-          },
-          hAxis: {
-            format: 'MMM d HH:mm',
-            textStyle: { fontSize: 14 },
-            slantedText: true,
-            slantedTextAngle: 25,
-          },
-          chartArea: {
-            left: 60,
-            top: 30,
-            width: 640,
-            height: 400
-          }
-        };
- 
- 
- 
-        // Instantiate and draw our chart, passing in some options.
-//        var chart = new google.charts.Line(chartDiv);
-        var chart = new google.visualization.ComboChart(chartDiv);
- 
-        function updateChart() {
-          var query = {
-            select: "SELECT dt, segment, set_temp, temp, pid_output FROM firing WHERE run_id={{ run_id }} ORDER BY dt ASC",
-            columns: [
-              {id:'dt', label:'Time', type:'datetime'},
-              {id:'segment', label:'Firing Segment', type:'number'},
-              {id:'set_temp', label:'Target Temp', type:'number'},
-              {id:'temp', label:'Read Temp', type:'number'},
-              {id:'pid_output', label:'PID Output', type:'number'}
-            ]
-          };
- 
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+     
+   <canvas id="myChart"></canvas>
+
+<script>
+
+
+	
+window.onload =  chartLoad();
+function chartLoad() {
+      
+       var run_id = "{{ run_id }}";
             $.ajax({
               mimeType: 'application/json; charset=iso-8859-1',
-              url:  'pygetdata.cgi',
-              data: JSON.stringify( query ),
+              url:  'data.cgi',
+              data: JSON.stringify( run_id ),
               contentType: "application/json",
               dataType: 'json',
               method: 'POST',
               async: false,
-              success: function (response) {
-                var data = new google.visualization.DataTable(response);
-                chart.draw(data, options);
-                timer = setTimeout(updateChart, 60000);
-              },
-              error: function() {
-                $('#notification-bar').text('An error occurred');
-              }
-            });
- 
-        };
- 
-        updateChart();
+               success: function () {
+              $.ajax({
+                   mimeType: 'application/json; charset=iso-8859-1',  
+                   dataType: "json",
+                   url: 'data.json',
+                   success: function (data) {
+                        var date=[];
+                        var seg=[];
+                        var pid=[];
+                        var set=[];
+                        var temp=[];
+                        //var i;
+                        date=data['dt'];
+                        seg=data['segment'];
+                        pid=data['pid_output'];
+                        temp=data['temp'];
+                        set=data['set_temp'];
+                        
+                        var ctx = document.getElementById('myChart').getContext('2d');
+                        window.myLine = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: //labels for x-axis
+                                date
+             
+                            ,
+                            datasets: [{  //all the data from database
+                                label: 'Temperature',
+                                yAxisID: "y-axis-1",
+                                fill: false,
+                                borderColor: '#ff8000', 
+                                data: temp,
+                                
+                                },{
+                                label: 'Target Temperature',
+                                yAxisID: "y-axis-1",
+                                borderColor: '#ff0000', 
+                                fill: false,
+                                data: 
+                                    set,
+                                },{
+                                label: 'PID Output',
+                                yAxisID: "y-axis-1",
+                                borderColor: '#33cc33', 
+                                backgroundColor: '#33cc33',
+                                type: 'bar',
+                                data: pid,
+                                },{
+                                label: 'Segment',
+                                fill: false,
+                                borderColor: '#0033cc', 
+                                yAxisID: "y-axis-2",
+                                data: seg
+                                }
+                              ]
+                              },
+                        options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                         title: {
+                            display: true,
+                            text: 'Firing Chart for Profile {{ run_id }}',
+                            fontSize: 20
+                          },
+                        elements: {
+                                        point:{
+                                            radius: 0
+                                        }
+                                    },
+                        scales: {
+                             yAxes: [{
+                                            type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                                            display: true,
+                                            position: "left",
+                                            id: "y-axis-1",
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: 'Temperature'
+                                                },
+                                            
+                                        }, {
+                                            type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                                            display: true,
+                                            position: "right",
+                                            id: "y-axis-2",
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: 'Segments'
+                                                },
+                                            // grid line settings
+                                            gridLines: {
+                                                drawOnChartArea: false, // only want the grid lines for one axis to show up
+                                            },
+                                            ticks: {
+                                                stepSize: 1
+                                            },
+                                        
+                                        }],
+                             xAxes: [{
+                                type: "time",
+                                display: true,
+                                
+                            }],
+                            }
+                        }
 
-      }
- 
-    </script>
- 
-    <div id='chart_div' style='height: 500px; width: 720px;'></div>
+                    }
+
+                    );
+                    },
+                    error: function() {
+                      console.log("error");
+                      console.trace();
+                    }
+                });
+               },
+               error: function() {
+                    var canvas = document.getElementById("myChart");
+                    var context = canvas.getContext("2d");
+
+                    var myImg = new Image();
+                    myImg.onload = function() {
+                       context.drawImage(myImg, 0, 0);
+                    };
+                    myImg.src = '../images/833.gif';
+  
+                }
+
+
+      
+            });
+
+
+setTimeout(chartLoad,30000);
+}
+
+
+</script>
