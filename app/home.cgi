@@ -3,7 +3,7 @@ import cgi
 import sqlite3
 import jinja2
 
-SQLDB = '/home/pi/db/PiLN.sqlite3'
+SQLDB = '/home/pi/PILN/db/PiLN.sqlite3'
 db = sqlite3.connect(SQLDB) 
 db.row_factory = sqlite3.Row
 cursor = db.cursor()
