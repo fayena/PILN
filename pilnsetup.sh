@@ -13,9 +13,7 @@ sudo apt-get install -y python3-setuptools python3-pip python-pip
 
 #create directories
 
-git clone https://github.com/fayena/PILN.git
-
-echo "directories created"
+git clone --branch Off-Line-Charts https://github.com/fayena/PILN.git
 
 #install needed softare
 
