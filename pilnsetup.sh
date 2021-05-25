@@ -14,11 +14,7 @@ sudo apt-get install -y python3-setuptools python3-pip python-pip
 #create directories
 
 git clone https://github.com/fayena/PILN.git
-sudo mkdir ./db ./html ./html/images ./html/style ./PILN/log
-sudo ln -s /home/pi/PILN/images/hdrback.png /home/pi/html/images/hdrback.png
-sudo ln -s /home/pi/PILN/images/piln.png    /home/pi/html/images/piln.png
-sudo ln -s /home/pi/PILN/style/style.css    /home/pi/html/style/style.css
-sudo ln -s /home/pi/PILN/app /home/pi/html/
+
 echo "directories created"
 
 #install needed softare
