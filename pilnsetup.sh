@@ -41,10 +41,16 @@ cd
 
 git clone https://github.com/fayena/PILN.git
 sudo mkdir ./db ./html ./html/images ./html/style ./PILN/log
+wget -P /home/pi/PILN/style https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css
+wget -P /home/pi/PILN/style https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js
+
 sudo ln -s /home/pi/PILN/images/hdrback.png /home/pi/html/images/hdrback.png
 sudo ln -s /home/pi/PILN/images/piln.png    /home/pi/html/images/piln.png
 sudo ln -s /home/pi/PILN/style/style.css    /home/pi/html/style/style.css
 sudo ln -s /home/pi/PILN/app /home/pi/html/
+sudo ln -s /home/pi/PILN/style/jquery.dataTables.min.css /home/pi/html/style/jquery.dataTables.min.css
+sudo ln -s /home/pi/PILN/style/jquery.dataTables.min.js /home/pi/html/style/jquery.dataTables.min.js
+
 echo "directories created"
 
 #make sure permissions are correct
