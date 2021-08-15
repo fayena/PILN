@@ -57,6 +57,7 @@ echo "directories created"
 sudo chown -R -L  www-data:www-data /home/pi/html/
 sudo chown pi:pi /home/pi/html/app/pilnstat.json
 sudo chown pi:pi /home/pi/PILN/log
+sudo chown www-data:www-data -R /home/pi/db
 #restart webserver
 sudo service lighttpd restart
 echo "webserver setup"
