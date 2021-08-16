@@ -18,7 +18,7 @@ AppDir = '/home/pi/PILN'
 StatFile = '/home/pi/PILN/app/pilnstat.json'
 
 #--- sqlite3 db file ---
-SQLDB = '/home/pi/db/PiLN.sqlite3'
+SQLDB = '/home/pi/PILN/db/PiLN.sqlite3'
 
 
 #--- Global Variables ---
