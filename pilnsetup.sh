@@ -44,6 +44,7 @@ sudo mkdir ./PILN/log ./PILN/style/css ./PILN/style/js
 wget -P /home/pi/PILN/style/css https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css
 wget -P /home/pi/PILN/style/js https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js
 wget -P /home/pi/PILN/style/js https://code.jquery.com/jquery-3.5.1.js
+wget -P /home/pi/PILN/style/js https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js
 echo "directories created"
 
 #make sure permissions are correct
