@@ -43,18 +43,22 @@ git clone https://github.com/fayena/PILN.git
 sudo mkdir ./PILN/log ./PILN/style/css ./PILN/style/js
 echo "directories created"
 
+
+#download needed files
+sudo wget -P /home/pi/PILN/style/js https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js
+sudo wget -P /home/pi/PILN/style/js https://code.jquery.com/jquery-3.5.1.js
+sudo wget -P /home/pi/PILN/style/js https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js
+sudo wget -P /home/pi/PILN/style/js https://momentjs.com/downloads/moment.js
+
 #make sure permissions are correct
 sudo chown -R -L  www-data:www-data /home/pi/PILN/style
 sudo chown pi:pi /home/pi/PILN/html/app/pilnstat.json
 sudo chown pi:pi /home/pi/PILN/log
 sudo chown www-data:www-data -R /home/pi/PILN/db
-#restart webserver
+
+restart webserver
 sudo service lighttpd restart
 echo "webserver setup"
-wget -P /home/pi/PILN/style/js https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js
-wget -P /home/pi/PILN/style/js https://code.jquery.com/jquery-3.5.1.js
-wget -P /home/pi/PILN/style/js https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js
-wget -P /home/pi/PILN/style/js https://momentjs.com/downloads/moment.js
 
 #enable raspberry pi interfaces
 sudo raspi-config #enable interfaces ic2 & spi
