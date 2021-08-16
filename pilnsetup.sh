@@ -41,21 +41,20 @@ cd
 
 git clone https://github.com/fayena/PILN.git
 sudo mkdir ./PILN/log ./PILN/style/css ./PILN/style/js
-wget -P /home/pi/PILN/style/css https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css
+echo "directories created"
+
+#make sure permissions are correct
+sudo chown -R -L  www-data:www-data /home/pi/PILN/style
+sudo chown pi:pi /home/pi/PILN/html/app/pilnstat.json
+sudo chown pi:pi /home/pi/PILN/log
+sudo chown www-data:www-data -R /home/pi/PILN/db
+#restart webserver
+sudo service lighttpd restart
+echo "webserver setup"
 wget -P /home/pi/PILN/style/js https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js
 wget -P /home/pi/PILN/style/js https://code.jquery.com/jquery-3.5.1.js
 wget -P /home/pi/PILN/style/js https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js
 wget -P /home/pi/PILN/style/js https://momentjs.com/downloads/moment.js
-echo "directories created"
-
-#make sure permissions are correct
-sudo chown -R -L  www-data:www-data /home/pi/PILN/html/
-sudo chown pi:pi /home/pi/PILN/html/app/pilnstat.json
-sudo chown pi:pi /home/pi/PILN/log
-sudo chown www-data:www-data -R /home/pi/db
-#restart webserver
-sudo service lighttpd restart
-echo "webserver setup"
 
 #enable raspberry pi interfaces
 sudo raspi-config #enable interfaces ic2 & spi
