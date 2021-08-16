@@ -38,6 +38,9 @@
  </table>
 <script>
 $(document).ready( function () {
-    $('#sortable').DataTable();
+    $('#sortable').DataTable({
+         "order": [[1,"desc"]]
+      });
 } );
 </script>
+
