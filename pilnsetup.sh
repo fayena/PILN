@@ -52,7 +52,7 @@ sudo wget -P /home/pi/PILN/style/js https://momentjs.com/downloads/moment.js
 
 #make sure permissions are correct
 sudo chown -R -L  www-data:www-data /home/pi/PILN/style
-sudo chown pi:pi /home/pi/PILN/html/app/pilnstat.json
+sudo chown pi:pi /home/pi/PILN/app/pilnstat.json
 sudo chown pi:pi /home/pi/PILN/log
 sudo chown www-data:www-data -R /home/pi/PILN/db
 
