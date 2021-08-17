@@ -4,9 +4,7 @@ import sys
 from subprocess import Popen
 import json
 for process in psutil.process_iter():
-    
-    if process.cmdline() == ['python3', 'pilnfired.py']:
-        
+    for f in fnmatch.filter(process.cmdline(),'*pilnfired.py'):
         print(json.dumps(1))
         sys.exit()
 print(json.dumps(0))
