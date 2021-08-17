@@ -48,7 +48,7 @@ echo "directories created"
 sudo wget -P /home/pi/PILN/style/js https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js
 sudo wget -P /home/pi/PILN/style/js https://code.jquery.com/jquery-3.6.0.min.js
 sudo wget -P /home/pi/PILN/style/js https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js
-sudo wget -P /home/pi/PILN/style/js https://momentjs.com/downloads/moment.js
+sudo wget -P /home/pi/PILN/style/js https://momentjs.com/downloads/moment.min.js
 sudo wget -P /home/pi/PILN/style/css https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css
 
 #make sure permissions are correct
