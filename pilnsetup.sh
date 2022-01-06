@@ -56,6 +56,8 @@ sudo chown -R -L  www-data:www-data /home/pi/PILN/style
 sudo chown pi:pi /home/pi/PILN/app/pilnstat.json
 sudo chown pi:pi /home/pi/PILN/log
 sudo chown www-data:www-data -R /home/pi/PILN/db
+sudo touch /home/pi/PILN/app/data.json
+sudo chown www-data:www-data /home/pi/PILN/app/data.json
 
 restart webserver
 sudo service lighttpd restart
