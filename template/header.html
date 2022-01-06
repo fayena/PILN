@@ -2,12 +2,13 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="../style/style.css">
+  <link rel="stylesheet" type="text/css" href="../style/css/style.css">
   <link rel="stylesheet" type="text/css" href="../style/css/jquery.dataTables.min.css">
+ <title>PiLN Raspberry Pi Kiln Controller - {{ title }}</title>
+  <!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
   <script type="text/javascript" src="../style/js/jquery-3.6.0.min.js"></script>
    <script type="text/javascript" src="../style/js/jquery.dataTables.min.js"></script>
- <title>PiLN Raspberry Pi Kiln Controller - {{ title }}</title>  
-<script>
+  <script>
     function loadProcStat(){
       $.getJSON("pilnstat.json",
         function(data1) {

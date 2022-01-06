@@ -1,8 +1,10 @@
  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <!--Load the AJAX API-->
-     <script src="../style/js/moment.min.js"></script>
-     <script src="../style/js/chart.min.js"></script>
-     
+     <!--<script src="../style/js/moment.min.js"></script>-->
+    <script src="../style/js/chart.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->  
    <canvas id="myChart"></canvas>
 
 <script>
@@ -11,6 +13,10 @@
 	
 window.onload =  chartLoad();
 function chartLoad() {
+	   if(window.myChart instanceof Chart)
+          {
+        window.myChart.destroy();
+           }
       
        var run_id = "{{ run_id }}";
             $.ajax({
@@ -40,7 +46,7 @@ function chartLoad() {
                         set=data['set_temp'];
                         
                         var ctx = document.getElementById('myChart').getContext('2d');
-                        window.myLine = new Chart(ctx, {
+                        window.myChart = new Chart(ctx, {
                         type: 'line',
                         data: {
                             labels: //labels for x-axis
@@ -49,21 +55,21 @@ function chartLoad() {
                             ,
                             datasets: [{  //all the data from database
                                 label: 'Temperature',
-                                yAxisID: "y-axis-1",
+                                yAxisID: "y1",
                                 fill: false,
                                 borderColor: '#ff8000', 
                                 data: temp,
                                 
                                 },{
                                 label: 'Target Temperature',
-                                yAxisID: "y-axis-1",
+                                yAxisID: "y1",
                                 borderColor: '#ff0000', 
                                 fill: false,
                                 data: 
                                     set,
                                 },{
                                 label: 'PID Output',
-                                yAxisID: "y-axis-1",
+                                yAxisID: "y1",
                                 borderColor: '#33cc33', 
                                 backgroundColor: '#33cc33',
                                 type: 'bar',
@@ -72,12 +78,15 @@ function chartLoad() {
                                 label: 'Segment',
                                 fill: false,
                                 borderColor: '#0033cc', 
-                                yAxisID: "y-axis-2",
+                                yAxisID: "y2",
                                 data: seg
                                 }
                               ]
                               },
                         options: {
+							 interaction: {
+								mode: 'nearest'
+							},
                         responsive: true,
                         maintainAspectRatio: true,
                          title: {
@@ -86,76 +95,63 @@ function chartLoad() {
                             fontSize: 20
                           },
                         elements: {
-                                        point:{
-                                            radius: 0
+                                       point:{
+                                           radius: 0
                                         }
                                     },
                         scales: {
-                             yAxes: [{
+                             y1: {
                                             type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                                             display: true,
                                             position: "left",
-                                            id: "y-axis-1",
-                                            scaleLabel: {
+                                           
+                                            title: {
                                                 display: true,
-                                                labelString: 'Temperature'
+                                                text: 'Temperature'
                                                 },
                                             
-                                        }, {
+                                        },
+                                y2: {
                                             type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                                             display: true,
                                             position: "right",
-                                            id: "y-axis-2",
-                                            scaleLabel: {
+                                            title: {
                                                 display: true,
-                                                labelString: 'Segments'
+                                                text: 'Segments'
                                                 },
                                             // grid line settings
-                                            gridLines: {
+                                            grid: {
                                                 drawOnChartArea: false, // only want the grid lines for one axis to show up
                                             },
                                             ticks: {
-                                                stepSize: 1
+                                               stepSize: 1
                                             },
                                         
-                                        }],
-                             xAxes: [{
-                                type: "time",
-                                display: true,
-                                
-                            }],
+                                        },
+                             
                             }
                         }
-
+             
                     }
-
                     );
+                    
                     },
                     error: function() {
                       console.log("error");
                       console.trace();
                     }
                 });
+                
                },
-               error: function() {
-                    var canvas = document.getElementById("myChart");
-                    var context = canvas.getContext("2d");
-
-                    var myImg = new Image();
-                    myImg.onload = function() {
-                       context.drawImage(myImg, 0, 0);
-                    };
-                    myImg.src = '../images/833.gif';
-  
-                }
-
+                
+                           
 
       
             });
 
 
-setTimeout(chartLoad,30000);
 }
 
+setInterval(chartLoad,30000);
 
 </script>
