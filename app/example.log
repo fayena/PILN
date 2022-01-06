@@ -1,0 +1,5 @@
+2021-08-19 21:19:46,350.350 INFO home - <module>: logging test
+2021-08-19 21:19:50,777.777 INFO home - <module>: logging test
+2021-08-19 21:20:04,353.353 INFO home - <module>: logging test
+2021-08-19 21:21:28,318.318 INFO home - <module>: logging test
+2021-08-19 21:23:19,702.702 ERROR home - <module>: logging test

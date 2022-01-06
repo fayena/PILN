@@ -5,10 +5,10 @@ import datetime
 import sqlite3
 import json
 import time
-import logging
-#logging.basicConfig(filename='example.log',level=logging.DEBUG)
+#import logging
+#logging.basicConfig(filename='example.log',level=logging.INFO,format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s')
 jsonin = ""
-#logging.debug(sys.stdin)
+#logging.info(sys.stdin)
 i = 0
 for line in sys.stdin:
     jsonin += line
@@ -16,9 +16,8 @@ for line in sys.stdin:
     #logging.debug(line[i])
     i = i + 1
 run_id = json.loads(jsonin)
-#logging.debug("query")
 query= "SELECT dt, segment, set_temp, temp, pid_output FROM firing WHERE run_id=" + run_id + " ORDER BY dt ASC;"
-
+#logging.info(query)
 SQLDB = '/home/pi/PILN/db/PiLN.sqlite3'
 conn = sqlite3.connect(SQLDB)
 conn.row_factory = sqlite3.Row
@@ -26,7 +25,10 @@ cur = conn.cursor()
 cur.execute(query)
 firingD={'dt':[],'segment':[],'set_temp':[],'temp':[],'pid_output':[]}
 for row in cur.fetchall():
-    firingD['dt'].append(row[0])
+    do = datetime.datetime.strptime(str(row['dt']), "%Y-%m-%d %H:%M:%S")
+    Readtime = do.strftime("%-I:%M %p")
+    #logging.info('Readtime:' + Readtime)
+    firingD['dt'].append(Readtime)
     firingD['segment'].append(row[1])
     firingD['set_temp'].append(row[2])
     firingD['temp'].append(row[3])

@@ -1,0 +1,12 @@
+2021-08-19 21:25:35,079.079 INFO home - <module>: logging test
+2021-08-19 21:26:49,449.449 INFO home - <module>: logging test
+2021-08-19 21:26:54,105.105 INFO home - <module>: logging test
+2021-08-19 21:27:04,452.452 INFO home - <module>: logging test
+2021-08-19 21:29:10,009.009 INFO home - <module>: logging test
+2021-08-19 21:29:19,930.930 INFO home - <module>: logging test
+2021-08-19 21:29:30,738.738 INFO home - <module>: logging test
+2021-08-19 21:29:30,763.763 INFO home - <module>: inside schedule_save
+2021-08-19 21:29:35,332.332 INFO home - <module>: logging test
+2021-08-19 21:30:27,187.187 INFO home - <module>: logging test
+2021-08-19 21:30:27,212.212 INFO home - <module>: inside schedule_save
+2021-08-19 21:30:31,435.435 INFO home - <module>: logging test
