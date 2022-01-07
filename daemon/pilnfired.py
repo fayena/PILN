@@ -371,7 +371,7 @@ while 1:
     )
     sfile.close()
     #---Check for 'Scheduled' firing profile and pick the oldest one
-    sql = "SELECT * FROM profiles WHERE state='Staged' AND Schedule IS NOT NULL ORDER BY date(Schedule) ASC Limit 1;"
+    sql = "SELECT * FROM profiles WHERE state='Staged' AND Schedule IS NOT NULL AND Schedule IS NOT '' ORDER BY date(Schedule) ASC Limit 1;"
     SQLCur.execute(sql,) 
     DataScheduled = SQLCur.fetchone()
     local_time = time.localtime()
