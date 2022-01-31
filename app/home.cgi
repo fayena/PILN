@@ -23,7 +23,6 @@ page = form.getfirst("page", "")
 run_id = form.getfirst("run_id", "0")
 notes = form.getfirst("notes", "")
 state = form.getfirst("state", "")
-schedule = form.getfirst("schedule","")
 
 #--- view profile ---#
 if page == "view":
@@ -46,7 +45,7 @@ if page == "view":
         viewtmpl = "view_run.html"
     template = env.get_template(viewtmpl) 
     bdy = template.render(segments=segments, profile=profile,
-          run_id=run_id, state=state, notes=notes, schedule=schedule
+          run_id=run_id, state=state, notes=notes, 
     )
     if state == "Completed" or state == "Running" or state == "Stopped":
         template = env.get_template("chart.html") 
@@ -79,7 +78,7 @@ elif page == "editcopy":
     addsegs = range(curcount+1, maxsegs+1)
     lastseg = curcount
 
-    sql = 'SELECT notes, p_param, i_param, d_param, Schedule FROM profiles WHERE run_id=?;'
+    sql = 'SELECT notes, p_param, i_param, d_param FROM profiles WHERE run_id=?;'
     p = (int(run_id),)
     cursor.execute(sql, p)
     profile = cursor.fetchone()
@@ -88,7 +87,7 @@ elif page == "editcopy":
     hdr = template.render(title="Edit/Copy Profile")
     template = env.get_template("editcopy.html") 
     bdy = template.render( segments=segments, addsegs=addsegs, lastseg=lastseg,
-        run_id=run_id, profile=profile, state=state, notes=notes, schedule=schedule
+        run_id=run_id, profile=profile, state=state, notes=notes
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
@@ -132,17 +131,17 @@ elif page == "savenew" or page == "saveupd":
     d_param = form.getfirst("Kd", 0.000)
 
     if page == "savenew":
-        sql = '''INSERT INTO profiles (state, notes, p_param, i_param, d_param, Schedule)
-                               VALUES (?,?,?,?,?,?);
+        sql = '''INSERT INTO profiles (state, notes, p_param, i_param, d_param)
+                               VALUES (?,?,?,?,?);
               '''
-        p = ('Staged', notes, float(p_param), float(i_param), float(d_param), schedule)
+        p = ('Staged', notes, float(p_param), float(i_param), float(d_param))
         cursor.execute(sql, p)
         run_id = cursor.lastrowid
     elif page == "saveupd":
-        sql = '''UPDATE profiles SET notes=?, p_param=?, i_param=?, d_param=?, Schedule=?
+        sql = '''UPDATE profiles SET notes=?, p_param=?, i_param=?, d_param=?
                   WHERE run_id=?;
               '''
-        p = (notes, float(p_param), float(i_param), float(d_param), schedule, int(run_id))
+        p = (notes, float(p_param), float(i_param), float(d_param),  int(run_id))
         cursor.execute(sql, p)
         sql = 'DELETE FROM segments WHERE run_id=?;'
         p = (int(run_id),)
@@ -177,7 +176,7 @@ elif page == "savenew" or page == "saveupd":
     bdy = template.render(target_page = "view", timeout = 1000,
             message = "Saving profile...",
             
-params = {"state": "Staged", "run_id": run_id, "notes": notes, "Schedule": schedule}
+params = {"state": "Staged", "run_id": run_id, "notes": notes}
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
@@ -257,27 +256,6 @@ elif page == "notes_save":
     bdy = template.render(target_page = "view", timeout = 0,
         message = "Saving notes...",
         params = {"state": state, "run_id": run_id, "notes": notes}
-    )
-    template = env.get_template("footer.html") 
-    ftr = template.render()
-    print (hdr + bdy + ftr)
-
-#--- schedule_save ---#
-elif page == "schedulesave":
-    #logging.info("inside schedule_save")
-    sql = 'UPDATE profiles SET Schedule=? WHERE run_id=?;'
-    p = (schedule, int(run_id))
-    try:
-      cursor.execute(sql, p)
-      db.commit()
-    except:
-      logging.info("update failed")
-    template = env.get_template("header.html") 
-    hdr = template.render(title="Save Schedule")
-    template = env.get_template("reload.html") 
-    bdy = template.render(target_page = "view", timeout = 0,
-        message = "Saving Schedule...",
-        params = {"state": state, "run_id": run_id, "Schedule": schedule}
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
