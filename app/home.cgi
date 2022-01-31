@@ -141,7 +141,7 @@ elif page == "savenew" or page == "saveupd":
         sql = '''UPDATE profiles SET notes=?, p_param=?, i_param=?, d_param=?
                   WHERE run_id=?;
               '''
-        p = (notes, float(p_param), float(i_param), float(d_param),  int(run_id))
+        p = (notes, float(p_param), float(i_param), float(d_param), int(run_id))
         cursor.execute(sql, p)
         sql = 'DELETE FROM segments WHERE run_id=?;'
         p = (int(run_id),)
@@ -175,8 +175,7 @@ elif page == "savenew" or page == "saveupd":
     template = env.get_template("reload.html") 
     bdy = template.render(target_page = "view", timeout = 1000,
             message = "Saving profile...",
-            
-params = {"state": "Staged", "run_id": run_id, "notes": notes}
+            params = {"state": "Staged", "run_id": run_id, "notes": notes}
     )
     template = env.get_template("footer.html") 
     ftr = template.render()
