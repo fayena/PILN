@@ -21,10 +21,7 @@
  <form method="post" style="display:inline">
   <input type="hidden" name="run_id" value="{{ run_id }}">
   <input type="hidden" name="state" value="{{ state }}">
-  <h4 style="display:inline;margin-left:30px">Schedule (Format MUST be 2021-08-19 17:18:12): </h4>
- <input style="border: none;border-bottom: 2px solid blue;" type="text" name="schedule" value="{{ profile['Schedule'] }}" size="25" >
- <button type="submit" name="page" value="schedulesave" class="btn-link">Update Schedule</button></br>
- <h4 style="display:inline;margin-left:30px">Notes: </h4>
+   <h4 style="display:inline;margin-left:30px">Notes: </h4>
  <input style="border: none;border-bottom: 2px solid blue;" type="text" name="notes" value="{{ profile['notes'] }}" size="60" >
   <button type="submit" name="page" value="notes_save" class="btn-link">Update Notes</button></br>
    </form><br>
