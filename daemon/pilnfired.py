@@ -370,12 +370,6 @@ while 1:
         + '}\n'
     )
     sfile.close()
-    #---Check for 'Scheduled' firing profile and pick the oldest one
-    sql = "SELECT * FROM profiles WHERE state='Staged' AND Schedule IS NOT NULL AND Schedule IS NOT '' ORDER BY date(Schedule) ASC Limit 1;"
-    SQLCur.execute(sql,) 
-    DataScheduled = SQLCur.fetchone()
-    local_time = time.localtime()
-    local_string = time.strftime('%Y-%m-%d %H:%M:%S', local_time)
    
     # --- Check for 'Running' firing profile ---
     sql = "SELECT * FROM profiles WHERE state=?;"
@@ -384,18 +378,7 @@ while 1:
     Data = SQLCur.fetchall()
 
     #--- if Running profile found, then set up to fire, woowo! --
-    if (DataScheduled and (DataScheduled[8] < local_string) and not Data):
-        print("it's time to fire")
-        sql = 'UPDATE profiles SET state=? WHERE run_id=?;'
-        p = ('Running', DataScheduled[0])
-        try:
-            SQLCur.execute(sql, p)
-            SQLConn.commit()
-            print("changed to firing")
-        except:
-            SQLConn.rollback()
-            print("database update error")
-        
+    
     if len(Data) > 0:
         RunID = Data[0]['run_id']
         Kp = float(Data[0]['p_param'])
