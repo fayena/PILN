@@ -71,7 +71,7 @@ echo "interfaces enabled"
 #install thermocouple amplifier
 
 cd
-sudo pip3 install adafruit-circuitpython-max31856
+sudo pip3 install adafruit-circuitpython-max31856 pigpio-encoder
 
 #install needed python web module
 sudo pip3 install jinja2
