@@ -8,7 +8,7 @@ sudo apt upgrade -y
 #make sure git and python3 dependencies are installed 
 
 sudo apt install git
-sudo apt-get install -y python3-setuptools python3-pip
+sudo apt-get install -y python3-setuptools python3-pip 
 
 
 #create directories
@@ -71,7 +71,7 @@ echo "interfaces enabled"
 #install thermocouple amplifier
 
 cd
-sudo pip3 install adafruit-circuitpython-max31856 pigpio-encoder
+sudo pip3 install adafruit-circuitpython-max31856 
 
 #install needed python web module
 sudo pip3 install jinja2
