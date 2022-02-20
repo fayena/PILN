@@ -1,13 +1,13 @@
- <h4 style="display:inline;margin-left:30px">
+ <div>
  <form method="post" style="display:inline;">
-  <button type="submit" name="page" value="new" class="btn-link">Create new profile</button>
+  <button type="submit" name="page" value="new" >Create new profile</button>
  </form>
- </h4>
- <br><br>
+ </div>
+
  {{ message }}
- <h2 style="display:inline;margin-left:30px">Profiles</h2><br>
- <h3 style="display:inline;margin-left:30px"><i>Click a profile ID for additional actions</i></h3>
- <table id="sortable" class="display compact" width="800px" align="left">
+ <h2> Profiles</h2><br>
+ <h3 <i>Click a profile ID for additional actions</i></h3>
+<table id="sortable" class="display nowrap" style="width=100%">
     <thead>
        <tr>
         <th>State</th>
@@ -25,7 +25,7 @@
    <input type="hidden" name="run_id" value="{{ profile['run_id'] }}"/>
    <input type="hidden" name="notes" value="{{ profile['notes'] }}"/>
    <input type="hidden" name="state" value="{{ profile['state'] }}"/>
-   <button type="submit" name="page" value="view" class="btn-link">
+   <button type="submit" name="page" value="view" >
     {{ profile['run_id'] }}
    </button>
    </form>
@@ -36,10 +36,11 @@
  {% endfor %}
  </tbody>
  </table>
+
 <script>
 $(document).ready( function () {
     $('#sortable').DataTable({
-         "order": [[1,"desc"]]
+         "order": [[1,"desc"]],
       });
 } );
 </script>
