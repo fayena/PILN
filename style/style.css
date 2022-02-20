@@ -2,7 +2,11 @@ body {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   font-size:16px;
 }
-
+.body {
+margin-left:auto;
+margin-right:auto;
+max-width: 1000px;
+}
 h2 {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   font-weight:bold;
@@ -16,13 +20,16 @@ h3 {
   margin:1px;
   padding:2px;
 }
-
+h5 {
+display:inline;
+}
 table {
-  font-size:16px;
+  font-size:1em;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   border-spacing: 4;
   margin-bottom: 0px;
+  overflow: scroll;
 }
 
 td, th {
@@ -37,8 +44,8 @@ th {
   color: white;
 }
 
-#statusupd1, #statusupd2 {
-  font-size:14px;
+#statusupd1 {
+  font-size:1em;
   font-weight:bold;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
@@ -47,17 +54,52 @@ tr:nth-child(even){background-color: #f2f2f2}
 
 .tab { margin-left: 20px; }
 
-.btn-link{
-  border:none;
-  outline:none;
-  background:none;
-  cursor:pointer;
-  color:#0000EE;
-  padding:0;
-  text-decoration:underline;
-  font-family:inherit;
-  font-size:inherit;
+
+div.dataTables_wrapper{
+ table-layout: fixed;
+ margin: 0 auto; 
+ max-width:800px;
+ float:left; 
+ }
+button {
+margin-top : 5px;
 }
-.dataTables_wrapper{
-  width:800px;
-  }
+td {
+ overflow:hidden;
+ text-overflow:ellipsis;
+ word-wrap: word-break;} 
+ 
+ @media only screen and (max-width: 480px) {
+    /* horizontal scrollbar for tables if mobile screen */
+    div.dataTables_wrapper {
+        overflow-x: auto;
+        display: block;
+    }
+
+ }
+.logo {
+/*display:block;
+margin-left: auto;
+margin-right: auto;*/
+max-width: 229px;
+padding: 15px 15px 15px 15px;
+}
+.status {
+display:block;
+margin-left:auto;
+margin-right:auto;
+padding: 15px 15px 15px 15px;
+} 
+
+#statusupd2 {
+font-size:1em;
+font-weight:bold;
+font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+.clear {
+clear:both;
+}
+.temp {
+font-size:3em;
+}
+ 
