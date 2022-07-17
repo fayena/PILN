@@ -41,9 +41,11 @@ spi = busio.SPI(board.SCK, board.MOSI, board.MISO)
 # allocate a CS pin and set the direction
 cs = digitalio.DigitalInOut(board.D5)
 cs.direction = digitalio.Direction.OUTPUT
+#select thermocouple type K is default
 th = adafruit_max31856.ThermocoupleType.S
 # create a thermocouple object with the above
 thermocouple = adafruit_max31856.MAX31856(spi, cs, th)
+#comment above and uncomment below for default thermocouple type K
 #thermocouple = adafruit_max31856.MAX31856(spi, cs)
 
 #--- Motor Pins ---
