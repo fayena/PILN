@@ -3,15 +3,17 @@
  {% if state == 'Staged' %}
   <input type="hidden" name="run_id" value="{{ run_id }}">
   <input type="hidden" name="lastseg" value="{{ lastseg }}">
-  <button type="submit" name="page" value="saveupd" class="btn-link">Update Profile</button>
+  <button type="submit" name="page" value="saveupd" >Update Profile</button>
  &nbsp&nbsp&nbsp&nbsp
  {% endif %}
-  <button type="submit" name="page" value="savenew" class="btn-link">Save to New Profile</button>
+  <button type="submit" name="page" value="savenew" >Save to New Profile</button>
  &nbsp&nbsp&nbsp&nbsp
-  <button type="submit" name="page" value="" class="btn-link">Cancel</button>
+  <button type="submit" name="page" value="">Cancel</button>
  </h4>
  <br><br>
  <h2 style="display:inline;margin-left:30px">Enter Profile Settings</h2><br><br>
+ <h4 style="display:inline;margin-left:30px">Schedule (Format MUST be 2021-08-19 17:18:12): </h4>
+ <input style="border: none;border-bottom: 2px solid blue;" type="text" name="schedule" value="{{ profile['Schedule'] }}" size="25" ><br><br>
  <h4 style="display:inline;margin-left:30px">Notes: </h4>
  <input style="border: none;border-bottom: 2px solid blue;" type="text" name="notes" value="{{ profile['notes'] }}" size="60" ><br><br>
  <h4 style="display:inline;margin-left:30px">PID Settings: </h4>&nbsp;&nbsp;

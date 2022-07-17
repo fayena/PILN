@@ -1,8 +1,6 @@
-
 #!/usr/bin/env python3
 
-#from signal import *
-import signal
+from signal import *
 import os
 import time
 import math
@@ -29,59 +27,46 @@ LastErr = 0.0
 SegCompStat = 0
 LastTmp = 0.0
 cycle = 0 
-Debug = False
+Debug = False 
 if Debug == True: 
     TempRise = 0
 #TotalSeg=0
 LastProcVal = 0.0
 RunState = ""
 
+# create a spi object
 spi = busio.SPI(board.SCK, board.MOSI, board.MISO)
  
 # allocate a CS pin and set the direction
 cs = digitalio.DigitalInOut(board.D5)
 cs.direction = digitalio.Direction.OUTPUT
-th = adafruit_max31856.ThermocoupleType.S
+ 
 # create a thermocouple object with the above
-thermocouple = adafruit_max31856.MAX31856(spi, cs, th)
-#thermocouple = adafruit_max31856.MAX31856(spi, cs)
+thermocouple = adafruit_max31856.MAX31856(spi, cs)
 
-#--- Motor Pins ---
-pin = 24
-GPIO.setup(24, GPIO.OUT)
-pwm=GPIO.PWM(24, 50)
-pwm.start(0)
+#--- Relays ---
+HEAT = (23, 24)
+for element in HEAT:
+    GPIO.setup(element, GPIO.OUT)
+    GPIO.output(element, GPIO.LOW)
+
 #--- Set up logging ---
 # create logger
 L = logging.getLogger('')
 
-def motor (pid):
-        #pwm=GPIO.PWM(24,50)
-        #pwm.start(0)
-        duty = pid / 30 + 3.5
-        pwm.ChangeDutyCycle(duty)
-        time.sleep(.5)
-        pwm.ChangeDutyCycle(0)
-        print("pid:",pid)
-        print("duty:",duty)
-#motor_pins = [in1,in2,in3,in4]
-#---Cleanup ---
-def clean(signum,frame):
-   # print("You cannot exit the program with ctrl-c.  Please use web interface\n")
-     GPIO.output(pin, GPIO.LOW)
-     os._exit(0)
-     #exit(0)
-def cleanup():
-    #GPIO.output( in1, GPIO.LOW )
-    #GPIO.output( in2, GPIO.LOW )
-    #GPIO.output( in3, GPIO.LOW )
-    #GPIO.output( in4, GPIO.LOW )
-    GPIO.output(pin,GPIO.LOW)
-    #GPIO.cleanup()
+#--- Cleanup ---
+def clean(*args):
+    print("\nProgram ending! Cleaning up...\n")
+    for element in HEAT:
+        GPIO.output(element, False)
+    GPIO.cleanup()
+    #lcd.close(clear=True)
+    print("All clean - Stopping.\n")
+    os._exit(0)
 
-#for sig in (SIGABRT, SIGINT, SIGTERM):
-#    signal(sig, clean)
-signal.signal(signal.SIGINT, clean)
+for sig in (SIGABRT, SIGINT, SIGTERM):
+    signal(sig, clean)
+
 time.sleep(1)
 
 # PID Update
@@ -105,7 +90,6 @@ def Update ( SetPoint, ProcValue, IMax, IMin, Window, Kp, Ki, Kd ):
     DInput = ProcValue - LastProcVal
 
     #Compute PID Output
-    
     Output = Kp * Err + ITerm - Kd * DInput;
     if Output > IMax:
         Output = IMax
@@ -171,7 +155,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 ReadTmp = TempRise
             else:
                 ReadTmp = thermocouple.temperature
-            #ReadITmp = thermocouple.reference_temperature
+            ReadITmp = thermocouple.reference_temperature
             if math.isnan(ReadTmp) or ReadTmp > 1330:
                 ReadTmp = LastTmp + LastErr
                 print ('  "kilntemp": "' + str(int(ReadTmp)) + '",\n')
@@ -254,7 +238,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 )
             # run state through pid
             #Output = Update(RampTmp, ReadTmp, 23.609, 25, -25, Window, Kp, Ki, Kd)
-            Output = Update(RampTmp,ReadTmp,90,0,Window,Kp,Ki,Kd)
+            Output = Update(RampTmp,ReadTmp,100,0,Window,Kp,Ki,Kd)
             CycleOnSec = Window * Output * 0.01
             if CycleOnSec > Window:
                 CycleOnSec = Window
@@ -274,36 +258,37 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             print("""RunID %d, Segment %d (loop %d) - RunState:%s,
                        ReadTmp:%0.2f, RampTmp:%0.2f, TargetTmp:%0.2f,
                        Output:%0.2f, CycleOnSec:%0.2f, RemainTime:%s
-
                     """ % (RunID, Seg, Cnt, RunState, ReadTmp, RampTmp,
                            TargetTmp, Output, CycleOnSec, RemTime)
             )
-            
-            if Output == 200:
-                sql = "UPDATE profiles SET state=? WHERE run_id=?;"
-                p = ('Error', RunID)
-                L.error("State = Error RunID: %d" % (RunID)) 
-                try:
-                    SQLCur.execute(sql, p)
-                    SQLConn.commit()
-                    L.error("state updated to Error")
-                    RunState = "Error"
-                except:
-                    SQLConn.rollback()
-                    L.error("DB Update failed2!")
-            else:    
-                    #  L.debug("==>Relay On")
-                    # for element in HEAT:
-                    #     GPIO.output(element, True)
+            if Output > 0:
+                if Output == 200:
+                    sql = "UPDATE profiles SET state=? WHERE run_id=?;"
+                    p = ('Error', RunID)
+                    L.error("State = Error RunID: %d" % (RunID)) 
+                    try:
+                        SQLCur.execute(sql, p)
+                        SQLConn.commit()
+                        L.error("state updated to Error")
+                        RunState = "Error"
+                    except:
+                        SQLConn.rollback()
+                        L.error("DB Update failed2!")
+                else:    
+                    L.debug("==>Relay On")
+                    for element in HEAT:
+                        GPIO.output(element, True)
+                    if Debug == True:
+                        TempRise += (CycleOnSec*5)
+                    #L.info("cycleoNsee: %d and temprise: %d" % (CycleOnSec, TempRise)) 
+                    cycle = cycle + 1
+                    time.sleep(CycleOnSec)
+            if Output < 100:
+                L.debug("==>Relay Off")
+                for element in HEAT:
+                    GPIO.output(element, False)
                 if Debug == True:
-                    TempRise += (CycleOnSec*5)
-                    L.info("cycleoNsee: %d and temprise: %d" % (CycleOnSec, TempRise))
-                cycle = cycle + 1
-                    #time.sleep(CycleOnSec)
-                print("Output before motor:",Output)
-                motor(Output)
-                cleanup()
-                time.sleep(Window)
+                    TempRise = TempRise - 2
             #L.info("Write status information to status file %s:" % StatFile)
 
             # Write status to file for reporting on web page
@@ -322,8 +307,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             sfile.close()
 
             L.debug("Writing stats to Firing DB table...")
-            SQL = "INSERT INTO Firing (run_id, segment, dt, set_temp, temp,pid_output) VALUES ( '%d', '%d', '%s', '%.2f', '%.2f', '%.2f' )" % ( RunID, Seg, time.strftime('%Y-%m-%d %H:%M:%S'), RampTmp, ReadTmp, Output )
-            #SQL = "INSERT INTO Firing (run_id, segment, dt, set_temp, temp, int_temp, pid_output) VALUES ( '%d', '%d', '%s', '%.2f', '%.2f', '%.2f', '%.2f' )" % ( RunID, Seg, time.strftime('%Y-%m-%d %H:%M:%S'), RampTmp, ReadTmp, ReadITmp, Output )
+            SQL = "INSERT INTO Firing (run_id, segment, dt, set_temp, temp, int_temp, pid_output) VALUES ( '%d', '%d', '%s', '%.2f', '%.2f', '%.2f', '%.2f' )" % ( RunID, Seg, time.strftime('%Y-%m-%d %H:%M:%S'), RampTmp, ReadTmp, ReadITmp, Output )
             try:
                 SQLCur.execute(SQL)
                 SQLConn.commit()
@@ -346,10 +330,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 L.warning("Profile no longer in running state - exiting firing")
                 SegCompStat = 1 
                 RunState = "Stopped"
-                print("run state stopped.   Output:", Output)
-                #zero motor
-                motor(0)
-                print("motor zeroed")
+
             L.info("RunState end: %s" % (RunState))
     return () 
 # --- end Fire() ---
@@ -389,6 +370,12 @@ while 1:
         + '}\n'
     )
     sfile.close()
+    #---Check for 'Scheduled' firing profile and pick the oldest one
+    sql = "SELECT * FROM profiles WHERE state='Staged' AND Schedule IS NOT NULL AND Schedule IS NOT '' ORDER BY date(Schedule) ASC Limit 1;"
+    SQLCur.execute(sql,) 
+    DataScheduled = SQLCur.fetchone()
+    local_time = time.localtime()
+    local_string = time.strftime('%Y-%m-%d %H:%M:%S', local_time)
    
     # --- Check for 'Running' firing profile ---
     sql = "SELECT * FROM profiles WHERE state=?;"
@@ -397,7 +384,18 @@ while 1:
     Data = SQLCur.fetchall()
 
     #--- if Running profile found, then set up to fire, woowo! --
-    
+    if (DataScheduled and (DataScheduled[8] < local_string) and not Data):
+        print("it's time to fire")
+        sql = 'UPDATE profiles SET state=? WHERE run_id=?;'
+        p = ('Running', DataScheduled[0])
+        try:
+            SQLCur.execute(sql, p)
+            SQLConn.commit()
+            print("changed to firing")
+        except:
+            SQLConn.rollback()
+            print("database update error")
+        
     if len(Data) > 0:
         RunID = Data[0]['run_id']
         Kp = float(Data[0]['p_param'])
@@ -463,16 +461,18 @@ while 1:
                         SQLConn.rollback()
 
                     time.sleep(0.5)
+
                     Fire(RunID, Seg, TargetTmp, Rate, HoldMin, Window,
                                  Kp, Ki, Kd)
-                    GPIO.output(pin, GPIO.LOW) ## make sure pins are off
+                    for element in HEAT:
+                        GPIO.output(element, False) ## make sure elements are off
 
-                    EndTime=time.strftime('%Y-%m-%d %H:%M:%S')
+                        EndTime=time.strftime('%Y-%m-%d %H:%M:%S')
                         
-                    L.debug("""Update run id %d,
-                         segment %d end time to %s
-                         """ % (RunID, Seg, EndTime)
-                         )
+                        L.debug("""Update run id %d,
+                                   segment %d end time to %s
+                                """ % (RunID, Seg, EndTime)
+                        )
 
                     #--- mark segment finished with datetime ---
                     sql = """UPDATE segments SET end_time=?
@@ -498,8 +498,7 @@ while 1:
                         except:
                             SQLConn.rollback()
                             L.error("DB Update failed2!")
-                        #zero motor position
-                        motor(0)
+
         # --- end firing loop ---
             L.info("SegCompStat %d" % (SegCompStat))
 

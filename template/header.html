@@ -23,12 +23,12 @@
               } else {
                 if (data1.run_profile === 'none'){
                   $('#statusupd1').html('Daemon: IDLE');
-                  $('#statusupd2').html('Temp: ' + data1.readtemp + '&deg;C');
+                  $('#statusupd2').html('<div class="temp">Temp: ' + data1.readtemp + '&deg;C</div>');
                 } else {
                   $('#statusupd1').html('Daemon: ACTIVE, Run ID: ' + data1.run_profile + ', '+
                                         'Seg' + data1.run_segment + ', ' +
                                         'Stat: ' + data1.status );
-                  $('#statusupd2').html('Temp: ' + data1.readtemp + '&deg;C, ' +
+                  $('#statusupd2').html('<div class="temp">Temp: ' + data1.readtemp + '&deg;C, </div>' +
                                         'Ramp: ' + data1.ramptemp + '&deg;C, ' +
                                         'Target: ' + data1.targettemp + '&deg;C, ' +
                                         'SegTime: ' + data1.segtime);
@@ -49,16 +49,13 @@
 
 </head>
 <body>
- <table style="width:100%" cellpadding=0 cellspacing=0>
-  <tr>
-   <td >  <!---<td style="border:0px;padding:0px;margin: 0px;border-collapse: collapse;background-image:url(/images/hdrback.png);background-repeat:repeat-x;" width=300-->
+  <div class="body">
+ <div class="logo">
      <a href="home.cgi"><img src="/images/piln.png" /></a>
-   </td>
-   <td>
-   <!-- <tdstyle="border:0px;padding:0px;margin: 0px;border-collapse: collapse;background-image:url(/images/hdrback.png);background-repeat:repeat-x;"-->
+   </div>
+   <div class="status">
+   
     <div id='statusupd1'>Updating Status...</div><br>
     <div id='statusupd2'>&nbsp;</div>
-   </td>
-  </tr>
- </table>
- <br>
+   </div>
+ 

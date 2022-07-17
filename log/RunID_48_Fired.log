@@ -1,0 +1,90 @@
+2022-01-07 11:22:22,784 - root - INFO - TotalSeg: 2
+2022-01-07 11:22:22,784 - root - INFO - segment is 1 start time is None endtime is None
+2022-01-07 11:22:23,295 - root - INFO - Entering Fire function with parameters RunID:48, Seg:1,
+              TargetTmp:945, Rate:170, HoldMin:0, Window:30
+           
+2022-01-07 11:22:23,554 - root - INFO - First pass of firing loop - TargetTmp:945.00,
+                          StartTmp:0.00,RampTmp:1.42, TmpDif:945.00,
+                          RampMin:333.53, Steps:667, StepTmp:1.42,
+                          Window:30, StartSec:1641576143, EndSec:1641596154
+                       
+2022-01-07 11:22:23,554 - root - DEBUG - Entering PID update with parameters SetPoint:1.42, ProcValue:0.00, IMax:100.00, IMin:0.00,
+2022-01-07 11:22:23,554 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:22:23,555 - root - DEBUG - Exiting PID update with parameters Error:1.42, ITerm:1.42, DInput:0.00, Output:43.92
+2022-01-07 11:22:23,555 - root - DEBUG - RunID 48, Segment 1 (loop 1) - RunState:Ramp,
+                       ReadTmp:0.00, RampTmp:1.42, TargetTmp:945.00,
+                       Output:43.92, CycleOnSec:13.18, RemainTime:5:33:31
+                    
+2022-01-07 11:22:23,555 - root - DEBUG - ==>Relay On
+2022-01-07 11:22:36,742 - root - DEBUG - ==>Relay Off
+2022-01-07 11:22:36,743 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:22:36,758 - root - INFO - database writing complete1
+2022-01-07 11:22:36,758 - root - INFO - RunState end: Ramp
+2022-01-07 11:22:53,253 - root - INFO - First pass of firing loop - TargetTmp:945.00,
+                          StartTmp:63.88,RampTmp:65.29, TmpDif:881.12,
+                          RampMin:310.99, Steps:621, StepTmp:1.42,
+                          Window:30, StartSec:1641576173, EndSec:1641594832
+                       
+2022-01-07 11:22:53,254 - root - DEBUG - Entering PID update with parameters SetPoint:65.29, ProcValue:63.88, IMax:100.00, IMin:0.00,
+2022-01-07 11:22:53,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:22:53,254 - root - DEBUG - Exiting PID update with parameters Error:1.42, ITerm:2.83, DInput:63.88, Output:7.01
+2022-01-07 11:22:53,254 - root - DEBUG - RunID 48, Segment 1 (loop 2) - RunState:Ramp,
+                       ReadTmp:63.88, RampTmp:65.29, TargetTmp:945.00,
+                       Output:7.01, CycleOnSec:2.10, RemainTime:5:10:59
+                    
+2022-01-07 11:22:53,254 - root - DEBUG - ==>Relay On
+2022-01-07 11:22:55,359 - root - DEBUG - ==>Relay Off
+2022-01-07 11:22:55,360 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:22:55,378 - root - INFO - database writing complete1
+2022-01-07 11:22:55,378 - root - INFO - RunState end: Ramp
+2022-01-07 11:23:23,253 - root - DEBUG - Entering PID update with parameters SetPoint:66.71, ProcValue:72.39, IMax:100.00, IMin:0.00,
+2022-01-07 11:23:23,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:23:23,253 - root - DEBUG - Exiting PID update with parameters Error:-5.68, ITerm:0.00, DInput:8.51, Output:0.00
+2022-01-07 11:23:23,254 - root - DEBUG - RunID 48, Segment 1 (loop 3) - RunState:Ramp,
+                       ReadTmp:72.39, RampTmp:66.71, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:10:29
+                    
+2022-01-07 11:23:23,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:23:23,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:23:23,265 - root - INFO - database writing complete1
+2022-01-07 11:23:23,265 - root - WARNING - Profile no longer in running state - exiting firing
+2022-01-07 11:23:23,265 - root - INFO - RunState end: Stopped
+2022-01-07 11:23:23,265 - root - DEBUG - Update run id 48,
+                                   segment 1 end time to 2022-01-07 11:23:23
+                                
+2022-01-07 11:23:23,265 - root - DEBUG - Update run id 48,
+                                   segment 1 end time to 2022-01-07 11:23:23
+                                
+2022-01-07 11:23:23,265 - root - INFO - Segment 1 Complete
+2022-01-07 11:23:23,276 - root - INFO - SegCompStat 1
+2022-01-07 11:23:23,276 - root - INFO - segment is 2 start time is None endtime is None
+2022-01-07 11:23:23,791 - root - INFO - Entering Fire function with parameters RunID:48, Seg:2,
+              TargetTmp:1044, Rate:60, HoldMin:15, Window:10
+           
+2022-01-07 11:23:24,046 - root - INFO - First pass of firing loop - TargetTmp:1044.00,
+                          StartTmp:70.39,RampTmp:70.55, TmpDif:973.61,
+                          RampMin:973.61, Steps:5841, StepTmp:0.17,
+                          Window:10, StartSec:1641576204, EndSec:1641635520
+                       
+2022-01-07 11:23:24,046 - root - DEBUG - Entering PID update with parameters SetPoint:70.55, ProcValue:70.39, IMax:100.00, IMin:0.00,
+2022-01-07 11:23:24,047 - root - DEBUG -   Window:10, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:23:24,047 - root - DEBUG - Exiting PID update with parameters Error:0.17, ITerm:0.17, DInput:-2.00, Output:6.37
+2022-01-07 11:23:24,047 - root - DEBUG - RunID 48, Segment 2 (loop 1) - RunState:Ramp,
+                       ReadTmp:70.39, RampTmp:70.55, TargetTmp:1044.00,
+                       Output:6.37, CycleOnSec:0.64, RemainTime:16:28:36
+                    
+2022-01-07 11:23:24,048 - root - DEBUG - ==>Relay On
+2022-01-07 11:23:24,685 - root - DEBUG - ==>Relay Off
+2022-01-07 11:23:24,686 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:23:24,701 - root - INFO - database writing complete1
+2022-01-07 11:23:24,702 - root - WARNING - Profile no longer in running state - exiting firing
+2022-01-07 11:23:24,702 - root - INFO - RunState end: Stopped
+2022-01-07 11:23:24,703 - root - DEBUG - Update run id 48,
+                                   segment 2 end time to 2022-01-07 11:23:24
+                                
+2022-01-07 11:23:24,703 - root - DEBUG - Update run id 48,
+                                   segment 2 end time to 2022-01-07 11:23:24
+                                
+2022-01-07 11:23:24,703 - root - INFO - Segment 2 Complete
+2022-01-07 11:23:24,714 - root - INFO - SegCompStat 1
+2022-01-07 11:23:24,714 - root - INFO - Polling for 'Running' firing profiles...

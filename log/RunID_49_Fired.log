@@ -1,0 +1,736 @@
+2022-01-07 11:23:28,835 - root - INFO - TotalSeg: 2
+2022-01-07 11:23:28,836 - root - INFO - segment is 1 start time is None endtime is None
+2022-01-07 11:23:29,346 - root - INFO - Entering Fire function with parameters RunID:49, Seg:1,
+              TargetTmp:945, Rate:170, HoldMin:0, Window:30
+           
+2022-01-07 11:23:29,605 - root - INFO - First pass of firing loop - TargetTmp:945.00,
+                          StartTmp:71.57,RampTmp:72.99, TmpDif:873.43,
+                          RampMin:308.27, Steps:616, StepTmp:1.42,
+                          Window:30, StartSec:1641576209, EndSec:1641594705
+                       
+2022-01-07 11:23:29,605 - root - DEBUG - Entering PID update with parameters SetPoint:72.99, ProcValue:71.57, IMax:100.00, IMin:0.00,
+2022-01-07 11:23:29,605 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:23:29,606 - root - DEBUG - Exiting PID update with parameters Error:1.42, ITerm:1.58, DInput:1.18, Output:43.37
+2022-01-07 11:23:29,606 - root - DEBUG - RunID 49, Segment 1 (loop 1) - RunState:Ramp,
+                       ReadTmp:71.57, RampTmp:72.99, TargetTmp:945.00,
+                       Output:43.37, CycleOnSec:13.01, RemainTime:5:08:16
+                    
+2022-01-07 11:23:29,606 - root - DEBUG - ==>Relay On
+2022-01-07 11:23:42,632 - root - DEBUG - ==>Relay Off
+2022-01-07 11:23:42,633 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:23:42,651 - root - INFO - database writing complete1
+2022-01-07 11:23:42,652 - root - INFO - RunState end: Ramp
+2022-01-07 11:23:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:74.40, ProcValue:134.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:23:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:23:59,253 - root - DEBUG - Exiting PID update with parameters Error:-60.23, ITerm:0.00, DInput:63.06, Output:0.00
+2022-01-07 11:23:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 2) - RunState:Ramp,
+                       ReadTmp:134.63, RampTmp:74.40, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:07:46
+                    
+2022-01-07 11:23:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:23:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:23:59,267 - root - INFO - database writing complete1
+2022-01-07 11:23:59,267 - root - INFO - RunState end: Ramp
+2022-01-07 11:24:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:75.82, ProcValue:132.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:24:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:24:29,253 - root - DEBUG - Exiting PID update with parameters Error:-56.81, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:24:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 3) - RunState:Ramp,
+                       ReadTmp:132.63, RampTmp:75.82, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:07:16
+                    
+2022-01-07 11:24:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:24:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:24:29,265 - root - INFO - database writing complete1
+2022-01-07 11:24:29,265 - root - INFO - RunState end: Ramp
+2022-01-07 11:24:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:77.24, ProcValue:130.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:24:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:24:59,254 - root - DEBUG - Exiting PID update with parameters Error:-53.39, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:24:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 4) - RunState:Ramp,
+                       ReadTmp:130.63, RampTmp:77.24, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:06:46
+                    
+2022-01-07 11:24:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:24:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:24:59,272 - root - INFO - database writing complete1
+2022-01-07 11:24:59,273 - root - INFO - RunState end: Ramp
+2022-01-07 11:25:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:78.65, ProcValue:128.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:25:29,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:25:29,254 - root - DEBUG - Exiting PID update with parameters Error:-49.98, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:25:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 5) - RunState:Ramp,
+                       ReadTmp:128.63, RampTmp:78.65, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:06:16
+                    
+2022-01-07 11:25:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:25:29,255 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:25:29,268 - root - INFO - database writing complete1
+2022-01-07 11:25:29,269 - root - INFO - RunState end: Ramp
+2022-01-07 11:25:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:80.07, ProcValue:126.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:25:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:25:59,253 - root - DEBUG - Exiting PID update with parameters Error:-46.56, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:25:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 6) - RunState:Ramp,
+                       ReadTmp:126.63, RampTmp:80.07, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:05:46
+                    
+2022-01-07 11:25:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:25:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:25:59,268 - root - INFO - database writing complete1
+2022-01-07 11:25:59,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:26:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:81.49, ProcValue:124.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:26:29,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:26:29,254 - root - DEBUG - Exiting PID update with parameters Error:-43.14, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:26:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 7) - RunState:Ramp,
+                       ReadTmp:124.63, RampTmp:81.49, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:05:16
+                    
+2022-01-07 11:26:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:26:29,255 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:26:29,268 - root - INFO - database writing complete1
+2022-01-07 11:26:29,269 - root - INFO - RunState end: Ramp
+2022-01-07 11:26:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:82.90, ProcValue:122.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:26:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:26:59,254 - root - DEBUG - Exiting PID update with parameters Error:-39.73, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:26:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 8) - RunState:Ramp,
+                       ReadTmp:122.63, RampTmp:82.90, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:04:46
+                    
+2022-01-07 11:26:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:26:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:26:59,270 - root - INFO - database writing complete1
+2022-01-07 11:26:59,271 - root - INFO - RunState end: Ramp
+2022-01-07 11:27:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:84.32, ProcValue:120.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:27:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:27:29,253 - root - DEBUG - Exiting PID update with parameters Error:-36.31, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:27:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 9) - RunState:Ramp,
+                       ReadTmp:120.63, RampTmp:84.32, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:04:16
+                    
+2022-01-07 11:27:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:27:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:27:29,268 - root - INFO - database writing complete1
+2022-01-07 11:27:29,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:27:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:85.74, ProcValue:118.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:27:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:27:59,254 - root - DEBUG - Exiting PID update with parameters Error:-32.89, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:27:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 10) - RunState:Ramp,
+                       ReadTmp:118.63, RampTmp:85.74, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:03:46
+                    
+2022-01-07 11:27:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:27:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:27:59,266 - root - INFO - database writing complete1
+2022-01-07 11:27:59,266 - root - INFO - RunState end: Ramp
+2022-01-07 11:28:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:87.15, ProcValue:116.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:28:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:28:29,253 - root - DEBUG - Exiting PID update with parameters Error:-29.48, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:28:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 11) - RunState:Ramp,
+                       ReadTmp:116.63, RampTmp:87.15, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:03:16
+                    
+2022-01-07 11:28:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:28:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:28:29,267 - root - INFO - database writing complete1
+2022-01-07 11:28:29,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:28:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:88.57, ProcValue:114.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:28:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:28:59,254 - root - DEBUG - Exiting PID update with parameters Error:-26.06, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:28:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 12) - RunState:Ramp,
+                       ReadTmp:114.63, RampTmp:88.57, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:02:46
+                    
+2022-01-07 11:28:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:28:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:28:59,265 - root - INFO - database writing complete1
+2022-01-07 11:28:59,266 - root - INFO - RunState end: Ramp
+2022-01-07 11:29:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:89.99, ProcValue:112.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:29:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:29:29,253 - root - DEBUG - Exiting PID update with parameters Error:-22.64, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:29:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 13) - RunState:Ramp,
+                       ReadTmp:112.63, RampTmp:89.99, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:02:16
+                    
+2022-01-07 11:29:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:29:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:29:29,267 - root - INFO - database writing complete1
+2022-01-07 11:29:29,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:29:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:91.40, ProcValue:110.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:29:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:29:59,253 - root - DEBUG - Exiting PID update with parameters Error:-19.23, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:29:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 14) - RunState:Ramp,
+                       ReadTmp:110.63, RampTmp:91.40, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:01:46
+                    
+2022-01-07 11:29:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:29:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:29:59,268 - root - INFO - database writing complete1
+2022-01-07 11:29:59,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:30:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:92.82, ProcValue:108.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:30:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:30:29,253 - root - DEBUG - Exiting PID update with parameters Error:-15.81, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:30:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 15) - RunState:Ramp,
+                       ReadTmp:108.63, RampTmp:92.82, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:01:16
+                    
+2022-01-07 11:30:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:30:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:30:29,266 - root - INFO - database writing complete1
+2022-01-07 11:30:29,266 - root - INFO - RunState end: Ramp
+2022-01-07 11:30:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:94.24, ProcValue:106.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:30:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:30:59,253 - root - DEBUG - Exiting PID update with parameters Error:-12.39, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:30:59,258 - root - DEBUG - RunID 49, Segment 1 (loop 16) - RunState:Ramp,
+                       ReadTmp:106.63, RampTmp:94.24, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:00:46
+                    
+2022-01-07 11:30:59,258 - root - DEBUG - ==>Relay Off
+2022-01-07 11:30:59,259 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:30:59,272 - root - INFO - database writing complete1
+2022-01-07 11:30:59,272 - root - INFO - RunState end: Ramp
+2022-01-07 11:31:29,254 - root - DEBUG - Entering PID update with parameters SetPoint:95.65, ProcValue:104.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:31:29,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:31:29,254 - root - DEBUG - Exiting PID update with parameters Error:-8.98, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:31:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 17) - RunState:Ramp,
+                       ReadTmp:104.63, RampTmp:95.65, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:5:00:16
+                    
+2022-01-07 11:31:29,255 - root - DEBUG - ==>Relay Off
+2022-01-07 11:31:29,255 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:31:29,272 - root - INFO - database writing complete1
+2022-01-07 11:31:29,273 - root - INFO - RunState end: Ramp
+2022-01-07 11:31:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:97.07, ProcValue:102.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:31:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:31:59,253 - root - DEBUG - Exiting PID update with parameters Error:-5.56, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:31:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 18) - RunState:Ramp,
+                       ReadTmp:102.63, RampTmp:97.07, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:59:46
+                    
+2022-01-07 11:31:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:31:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:31:59,269 - root - INFO - database writing complete1
+2022-01-07 11:31:59,269 - root - INFO - RunState end: Ramp
+2022-01-07 11:32:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:98.49, ProcValue:100.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:32:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:32:29,253 - root - DEBUG - Exiting PID update with parameters Error:-2.14, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:32:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 19) - RunState:Ramp,
+                       ReadTmp:100.63, RampTmp:98.49, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:59:16
+                    
+2022-01-07 11:32:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:32:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:32:29,267 - root - INFO - database writing complete1
+2022-01-07 11:32:29,267 - root - INFO - RunState end: Ramp
+2022-01-07 11:32:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:99.90, ProcValue:98.63, IMax:100.00, IMin:0.00,
+2022-01-07 11:32:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:32:59,253 - root - DEBUG - Exiting PID update with parameters Error:1.27, ITerm:1.27, DInput:-2.00, Output:40.67
+2022-01-07 11:32:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 20) - RunState:Ramp,
+                       ReadTmp:98.63, RampTmp:99.90, TargetTmp:945.00,
+                       Output:40.67, CycleOnSec:12.20, RemainTime:4:58:46
+                    
+2022-01-07 11:32:59,254 - root - DEBUG - ==>Relay On
+2022-01-07 11:33:11,468 - root - DEBUG - ==>Relay Off
+2022-01-07 11:33:11,470 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:33:11,484 - root - INFO - database writing complete1
+2022-01-07 11:33:11,485 - root - INFO - RunState end: Ramp
+2022-01-07 11:33:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:101.32, ProcValue:157.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:33:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:33:29,253 - root - DEBUG - Exiting PID update with parameters Error:-56.32, ITerm:0.00, DInput:59.01, Output:0.00
+2022-01-07 11:33:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 21) - RunState:Ramp,
+                       ReadTmp:157.64, RampTmp:101.32, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:58:16
+                    
+2022-01-07 11:33:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:33:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:33:29,267 - root - INFO - database writing complete1
+2022-01-07 11:33:29,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:33:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:102.74, ProcValue:155.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:33:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:33:59,253 - root - DEBUG - Exiting PID update with parameters Error:-52.90, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:33:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 22) - RunState:Ramp,
+                       ReadTmp:155.64, RampTmp:102.74, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:57:46
+                    
+2022-01-07 11:33:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:33:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:33:59,268 - root - INFO - database writing complete1
+2022-01-07 11:33:59,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:34:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:104.15, ProcValue:153.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:34:29,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:34:29,254 - root - DEBUG - Exiting PID update with parameters Error:-49.49, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:34:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 23) - RunState:Ramp,
+                       ReadTmp:153.64, RampTmp:104.15, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:57:16
+                    
+2022-01-07 11:34:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:34:29,255 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:34:29,266 - root - INFO - database writing complete1
+2022-01-07 11:34:29,266 - root - INFO - RunState end: Ramp
+2022-01-07 11:34:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:105.57, ProcValue:151.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:34:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:34:59,253 - root - DEBUG - Exiting PID update with parameters Error:-46.07, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:34:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 24) - RunState:Ramp,
+                       ReadTmp:151.64, RampTmp:105.57, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:56:46
+                    
+2022-01-07 11:34:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:34:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:34:59,269 - root - INFO - database writing complete1
+2022-01-07 11:34:59,269 - root - INFO - RunState end: Ramp
+2022-01-07 11:35:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:106.99, ProcValue:149.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:35:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:35:29,253 - root - DEBUG - Exiting PID update with parameters Error:-42.65, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:35:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 25) - RunState:Ramp,
+                       ReadTmp:149.64, RampTmp:106.99, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:56:16
+                    
+2022-01-07 11:35:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:35:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:35:29,268 - root - INFO - database writing complete1
+2022-01-07 11:35:29,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:35:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:108.40, ProcValue:147.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:35:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:35:59,253 - root - DEBUG - Exiting PID update with parameters Error:-39.24, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:35:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 26) - RunState:Ramp,
+                       ReadTmp:147.64, RampTmp:108.40, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:55:46
+                    
+2022-01-07 11:35:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:35:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:35:59,264 - root - INFO - database writing complete1
+2022-01-07 11:35:59,265 - root - INFO - RunState end: Ramp
+2022-01-07 11:36:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:109.82, ProcValue:145.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:36:29,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:36:29,254 - root - DEBUG - Exiting PID update with parameters Error:-35.82, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:36:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 27) - RunState:Ramp,
+                       ReadTmp:145.64, RampTmp:109.82, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:55:16
+                    
+2022-01-07 11:36:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:36:29,255 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:36:29,268 - root - INFO - database writing complete1
+2022-01-07 11:36:29,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:36:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:111.24, ProcValue:143.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:36:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:36:59,253 - root - DEBUG - Exiting PID update with parameters Error:-32.40, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:36:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 28) - RunState:Ramp,
+                       ReadTmp:143.64, RampTmp:111.24, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:54:46
+                    
+2022-01-07 11:36:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:36:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:36:59,266 - root - INFO - database writing complete1
+2022-01-07 11:36:59,266 - root - INFO - RunState end: Ramp
+2022-01-07 11:37:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:112.65, ProcValue:141.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:37:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:37:29,253 - root - DEBUG - Exiting PID update with parameters Error:-28.99, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:37:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 29) - RunState:Ramp,
+                       ReadTmp:141.64, RampTmp:112.65, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:54:16
+                    
+2022-01-07 11:37:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:37:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:37:29,267 - root - INFO - database writing complete1
+2022-01-07 11:37:29,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:37:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:114.07, ProcValue:139.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:37:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:37:59,254 - root - DEBUG - Exiting PID update with parameters Error:-25.57, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:37:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 30) - RunState:Ramp,
+                       ReadTmp:139.64, RampTmp:114.07, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:53:46
+                    
+2022-01-07 11:37:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:37:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:37:59,267 - root - INFO - database writing complete1
+2022-01-07 11:37:59,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:38:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:115.49, ProcValue:137.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:38:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:38:29,253 - root - DEBUG - Exiting PID update with parameters Error:-22.15, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:38:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 31) - RunState:Ramp,
+                       ReadTmp:137.64, RampTmp:115.49, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:53:16
+                    
+2022-01-07 11:38:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:38:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:38:29,265 - root - INFO - database writing complete1
+2022-01-07 11:38:29,266 - root - INFO - RunState end: Ramp
+2022-01-07 11:38:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:116.90, ProcValue:135.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:38:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:38:59,253 - root - DEBUG - Exiting PID update with parameters Error:-18.74, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:38:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 32) - RunState:Ramp,
+                       ReadTmp:135.64, RampTmp:116.90, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:52:46
+                    
+2022-01-07 11:38:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:38:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:38:59,274 - root - INFO - database writing complete1
+2022-01-07 11:38:59,274 - root - INFO - RunState end: Ramp
+2022-01-07 11:39:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:118.32, ProcValue:133.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:39:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:39:29,253 - root - DEBUG - Exiting PID update with parameters Error:-15.32, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:39:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 33) - RunState:Ramp,
+                       ReadTmp:133.64, RampTmp:118.32, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:52:16
+                    
+2022-01-07 11:39:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:39:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:39:29,266 - root - INFO - database writing complete1
+2022-01-07 11:39:29,266 - root - INFO - RunState end: Ramp
+2022-01-07 11:39:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:119.74, ProcValue:131.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:39:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:39:59,253 - root - DEBUG - Exiting PID update with parameters Error:-11.90, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:39:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 34) - RunState:Ramp,
+                       ReadTmp:131.64, RampTmp:119.74, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:51:46
+                    
+2022-01-07 11:39:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:39:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:39:59,267 - root - INFO - database writing complete1
+2022-01-07 11:39:59,267 - root - INFO - RunState end: Ramp
+2022-01-07 11:40:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:121.15, ProcValue:129.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:40:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:40:29,253 - root - DEBUG - Exiting PID update with parameters Error:-8.49, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:40:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 35) - RunState:Ramp,
+                       ReadTmp:129.64, RampTmp:121.15, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:51:16
+                    
+2022-01-07 11:40:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:40:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:40:29,274 - root - INFO - database writing complete1
+2022-01-07 11:40:29,274 - root - INFO - RunState end: Ramp
+2022-01-07 11:40:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:122.57, ProcValue:127.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:40:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:40:59,254 - root - DEBUG - Exiting PID update with parameters Error:-5.07, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:40:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 36) - RunState:Ramp,
+                       ReadTmp:127.64, RampTmp:122.57, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:50:46
+                    
+2022-01-07 11:40:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:40:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:40:59,272 - root - INFO - database writing complete1
+2022-01-07 11:40:59,273 - root - INFO - RunState end: Ramp
+2022-01-07 11:41:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:123.99, ProcValue:125.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:41:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:41:29,253 - root - DEBUG - Exiting PID update with parameters Error:-1.65, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:41:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 37) - RunState:Ramp,
+                       ReadTmp:125.64, RampTmp:123.99, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:50:16
+                    
+2022-01-07 11:41:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:41:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:41:29,269 - root - INFO - database writing complete1
+2022-01-07 11:41:29,269 - root - INFO - RunState end: Ramp
+2022-01-07 11:41:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:125.40, ProcValue:123.64, IMax:100.00, IMin:0.00,
+2022-01-07 11:41:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:41:59,254 - root - DEBUG - Exiting PID update with parameters Error:1.76, ITerm:1.76, DInput:-2.00, Output:55.86
+2022-01-07 11:41:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 38) - RunState:Ramp,
+                       ReadTmp:123.64, RampTmp:125.40, TargetTmp:945.00,
+                       Output:55.86, CycleOnSec:16.76, RemainTime:4:49:46
+                    
+2022-01-07 11:41:59,254 - root - DEBUG - ==>Relay On
+2022-01-07 11:42:16,030 - root - DEBUG - ==>Relay Off
+2022-01-07 11:42:16,031 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:42:16,046 - root - INFO - database writing complete1
+2022-01-07 11:42:16,046 - root - INFO - RunState end: Ramp
+2022-01-07 11:42:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:126.82, ProcValue:205.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:42:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:42:29,253 - root - DEBUG - Exiting PID update with parameters Error:-78.62, ITerm:0.00, DInput:81.80, Output:0.00
+2022-01-07 11:42:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 39) - RunState:Ramp,
+                       ReadTmp:205.44, RampTmp:126.82, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:49:16
+                    
+2022-01-07 11:42:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:42:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:42:29,276 - root - INFO - database writing complete1
+2022-01-07 11:42:29,277 - root - INFO - RunState end: Ramp
+2022-01-07 11:42:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:128.24, ProcValue:203.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:42:59,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:42:59,254 - root - DEBUG - Exiting PID update with parameters Error:-75.20, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:42:59,255 - root - DEBUG - RunID 49, Segment 1 (loop 40) - RunState:Ramp,
+                       ReadTmp:203.44, RampTmp:128.24, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:48:46
+                    
+2022-01-07 11:42:59,255 - root - DEBUG - ==>Relay Off
+2022-01-07 11:42:59,256 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:42:59,267 - root - INFO - database writing complete1
+2022-01-07 11:42:59,267 - root - INFO - RunState end: Ramp
+2022-01-07 11:43:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:129.65, ProcValue:201.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:43:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:43:29,253 - root - DEBUG - Exiting PID update with parameters Error:-71.78, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:43:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 41) - RunState:Ramp,
+                       ReadTmp:201.44, RampTmp:129.65, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:48:16
+                    
+2022-01-07 11:43:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:43:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:43:29,268 - root - INFO - database writing complete1
+2022-01-07 11:43:29,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:43:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:131.07, ProcValue:199.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:43:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:43:59,254 - root - DEBUG - Exiting PID update with parameters Error:-68.37, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:43:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 42) - RunState:Ramp,
+                       ReadTmp:199.44, RampTmp:131.07, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:47:46
+                    
+2022-01-07 11:43:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:43:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:43:59,268 - root - INFO - database writing complete1
+2022-01-07 11:43:59,269 - root - INFO - RunState end: Ramp
+2022-01-07 11:44:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:132.49, ProcValue:197.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:44:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:44:29,254 - root - DEBUG - Exiting PID update with parameters Error:-64.95, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:44:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 43) - RunState:Ramp,
+                       ReadTmp:197.44, RampTmp:132.49, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:47:16
+                    
+2022-01-07 11:44:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:44:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:44:29,275 - root - INFO - database writing complete1
+2022-01-07 11:44:29,275 - root - INFO - RunState end: Ramp
+2022-01-07 11:44:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:133.90, ProcValue:195.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:44:59,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:44:59,254 - root - DEBUG - Exiting PID update with parameters Error:-61.53, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:44:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 44) - RunState:Ramp,
+                       ReadTmp:195.44, RampTmp:133.90, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:46:46
+                    
+2022-01-07 11:44:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:44:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:44:59,268 - root - INFO - database writing complete1
+2022-01-07 11:44:59,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:45:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:135.32, ProcValue:193.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:45:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:45:29,254 - root - DEBUG - Exiting PID update with parameters Error:-58.12, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:45:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 45) - RunState:Ramp,
+                       ReadTmp:193.44, RampTmp:135.32, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:46:16
+                    
+2022-01-07 11:45:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:45:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:45:29,267 - root - INFO - database writing complete1
+2022-01-07 11:45:29,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:45:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:136.74, ProcValue:191.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:45:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:45:59,254 - root - DEBUG - Exiting PID update with parameters Error:-54.70, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:45:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 46) - RunState:Ramp,
+                       ReadTmp:191.44, RampTmp:136.74, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:45:46
+                    
+2022-01-07 11:45:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:45:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:45:59,273 - root - INFO - database writing complete1
+2022-01-07 11:45:59,273 - root - INFO - RunState end: Ramp
+2022-01-07 11:46:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:138.15, ProcValue:189.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:46:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:46:29,254 - root - DEBUG - Exiting PID update with parameters Error:-51.28, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:46:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 47) - RunState:Ramp,
+                       ReadTmp:189.44, RampTmp:138.15, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:45:16
+                    
+2022-01-07 11:46:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:46:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:46:29,266 - root - INFO - database writing complete1
+2022-01-07 11:46:29,266 - root - INFO - RunState end: Ramp
+2022-01-07 11:46:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:139.57, ProcValue:187.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:46:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:46:59,254 - root - DEBUG - Exiting PID update with parameters Error:-47.87, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:46:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 48) - RunState:Ramp,
+                       ReadTmp:187.44, RampTmp:139.57, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:44:46
+                    
+2022-01-07 11:46:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:46:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:46:59,271 - root - INFO - database writing complete1
+2022-01-07 11:46:59,272 - root - INFO - RunState end: Ramp
+2022-01-07 11:47:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:140.99, ProcValue:185.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:47:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:47:29,254 - root - DEBUG - Exiting PID update with parameters Error:-44.45, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:47:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 49) - RunState:Ramp,
+                       ReadTmp:185.44, RampTmp:140.99, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:44:16
+                    
+2022-01-07 11:47:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:47:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:47:29,266 - root - INFO - database writing complete1
+2022-01-07 11:47:29,266 - root - INFO - RunState end: Ramp
+2022-01-07 11:47:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:142.40, ProcValue:183.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:47:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:47:59,253 - root - DEBUG - Exiting PID update with parameters Error:-41.03, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:47:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 50) - RunState:Ramp,
+                       ReadTmp:183.44, RampTmp:142.40, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:43:46
+                    
+2022-01-07 11:47:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:47:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:47:59,268 - root - INFO - database writing complete1
+2022-01-07 11:47:59,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:48:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:143.82, ProcValue:181.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:48:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:48:29,254 - root - DEBUG - Exiting PID update with parameters Error:-37.62, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:48:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 51) - RunState:Ramp,
+                       ReadTmp:181.44, RampTmp:143.82, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:43:16
+                    
+2022-01-07 11:48:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:48:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:48:29,266 - root - INFO - database writing complete1
+2022-01-07 11:48:29,266 - root - INFO - RunState end: Ramp
+2022-01-07 11:48:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:145.24, ProcValue:179.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:48:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:48:59,254 - root - DEBUG - Exiting PID update with parameters Error:-34.20, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:48:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 52) - RunState:Ramp,
+                       ReadTmp:179.44, RampTmp:145.24, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:42:46
+                    
+2022-01-07 11:48:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:48:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:48:59,273 - root - INFO - database writing complete1
+2022-01-07 11:48:59,273 - root - INFO - RunState end: Ramp
+2022-01-07 11:49:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:146.65, ProcValue:177.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:49:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:49:29,254 - root - DEBUG - Exiting PID update with parameters Error:-30.78, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:49:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 53) - RunState:Ramp,
+                       ReadTmp:177.44, RampTmp:146.65, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:42:16
+                    
+2022-01-07 11:49:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:49:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:49:29,272 - root - INFO - database writing complete1
+2022-01-07 11:49:29,273 - root - INFO - RunState end: Ramp
+2022-01-07 11:49:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:148.07, ProcValue:175.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:49:59,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:49:59,254 - root - DEBUG - Exiting PID update with parameters Error:-27.37, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:49:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 54) - RunState:Ramp,
+                       ReadTmp:175.44, RampTmp:148.07, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:41:46
+                    
+2022-01-07 11:49:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:49:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:49:59,268 - root - INFO - database writing complete1
+2022-01-07 11:49:59,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:50:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:149.49, ProcValue:173.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:50:29,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:50:29,254 - root - DEBUG - Exiting PID update with parameters Error:-23.95, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:50:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 55) - RunState:Ramp,
+                       ReadTmp:173.44, RampTmp:149.49, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:41:16
+                    
+2022-01-07 11:50:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:50:29,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:50:29,268 - root - INFO - database writing complete1
+2022-01-07 11:50:29,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:50:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:150.90, ProcValue:171.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:50:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:50:59,254 - root - DEBUG - Exiting PID update with parameters Error:-20.53, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:50:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 56) - RunState:Ramp,
+                       ReadTmp:171.44, RampTmp:150.90, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:40:46
+                    
+2022-01-07 11:50:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:50:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:50:59,269 - root - INFO - database writing complete1
+2022-01-07 11:50:59,269 - root - INFO - RunState end: Ramp
+2022-01-07 11:51:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:152.32, ProcValue:169.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:51:29,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:51:29,254 - root - DEBUG - Exiting PID update with parameters Error:-17.12, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:51:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 57) - RunState:Ramp,
+                       ReadTmp:169.44, RampTmp:152.32, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:40:16
+                    
+2022-01-07 11:51:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:51:29,255 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:51:29,268 - root - INFO - database writing complete1
+2022-01-07 11:51:29,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:51:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:153.74, ProcValue:167.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:51:59,253 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:51:59,254 - root - DEBUG - Exiting PID update with parameters Error:-13.70, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:51:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 58) - RunState:Ramp,
+                       ReadTmp:167.44, RampTmp:153.74, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:39:46
+                    
+2022-01-07 11:51:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:51:59,254 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:51:59,268 - root - INFO - database writing complete1
+2022-01-07 11:51:59,269 - root - INFO - RunState end: Ramp
+2022-01-07 11:52:29,253 - root - DEBUG - Entering PID update with parameters SetPoint:155.15, ProcValue:165.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:52:29,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:52:29,254 - root - DEBUG - Exiting PID update with parameters Error:-10.28, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:52:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 59) - RunState:Ramp,
+                       ReadTmp:165.44, RampTmp:155.15, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:39:16
+                    
+2022-01-07 11:52:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:52:29,255 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:52:29,267 - root - INFO - database writing complete1
+2022-01-07 11:52:29,268 - root - INFO - RunState end: Ramp
+2022-01-07 11:52:59,253 - root - DEBUG - Entering PID update with parameters SetPoint:156.57, ProcValue:163.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:52:59,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:52:59,254 - root - DEBUG - Exiting PID update with parameters Error:-6.87, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:52:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 60) - RunState:Ramp,
+                       ReadTmp:163.44, RampTmp:156.57, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:38:46
+                    
+2022-01-07 11:52:59,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:52:59,255 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:52:59,272 - root - INFO - database writing complete1
+2022-01-07 11:52:59,272 - root - INFO - RunState end: Ramp
+2022-01-07 11:53:29,254 - root - DEBUG - Entering PID update with parameters SetPoint:157.99, ProcValue:161.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:53:29,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:53:29,254 - root - DEBUG - Exiting PID update with parameters Error:-3.45, ITerm:0.00, DInput:-2.00, Output:0.00
+2022-01-07 11:53:29,254 - root - DEBUG - RunID 49, Segment 1 (loop 61) - RunState:Ramp,
+                       ReadTmp:161.44, RampTmp:157.99, TargetTmp:945.00,
+                       Output:0.00, CycleOnSec:0.00, RemainTime:4:38:16
+                    
+2022-01-07 11:53:29,254 - root - DEBUG - ==>Relay Off
+2022-01-07 11:53:29,255 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:53:29,269 - root - INFO - database writing complete1
+2022-01-07 11:53:29,269 - root - INFO - RunState end: Ramp
+2022-01-07 11:53:59,254 - root - DEBUG - Entering PID update with parameters SetPoint:159.40, ProcValue:159.44, IMax:100.00, IMin:0.00,
+2022-01-07 11:53:59,254 - root - DEBUG -   Window:30, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:53:59,254 - root - DEBUG - Exiting PID update with parameters Error:-0.03, ITerm:0.00, DInput:-2.00, Output:0.25
+2022-01-07 11:53:59,254 - root - DEBUG - RunID 49, Segment 1 (loop 62) - RunState:Ramp,
+                       ReadTmp:159.44, RampTmp:159.40, TargetTmp:945.00,
+                       Output:0.25, CycleOnSec:0.07, RemainTime:4:37:46
+                    
+2022-01-07 11:53:59,254 - root - DEBUG - ==>Relay On
+2022-01-07 11:53:59,330 - root - DEBUG - ==>Relay Off
+2022-01-07 11:53:59,330 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:53:59,345 - root - INFO - database writing complete1
+2022-01-07 11:53:59,345 - root - WARNING - Profile no longer in running state - exiting firing
+2022-01-07 11:53:59,345 - root - INFO - RunState end: Stopped
+2022-01-07 11:53:59,345 - root - DEBUG - Update run id 49,
+                                   segment 1 end time to 2022-01-07 11:53:59
+                                
+2022-01-07 11:53:59,345 - root - DEBUG - Update run id 49,
+                                   segment 1 end time to 2022-01-07 11:53:59
+                                
+2022-01-07 11:53:59,345 - root - INFO - Segment 1 Complete
+2022-01-07 11:53:59,353 - root - INFO - SegCompStat 1
+2022-01-07 11:53:59,354 - root - INFO - segment is 2 start time is None endtime is None
+2022-01-07 11:53:59,865 - root - INFO - Entering Fire function with parameters RunID:49, Seg:2,
+              TargetTmp:1044, Rate:60, HoldMin:15, Window:10
+           
+2022-01-07 11:54:00,119 - root - INFO - First pass of firing loop - TargetTmp:1044.00,
+                          StartTmp:157.81,RampTmp:157.98, TmpDif:886.19,
+                          RampMin:886.19, Steps:5317, StepTmp:0.17,
+                          Window:10, StartSec:1641578040, EndSec:1641632111
+                       
+2022-01-07 11:54:00,119 - root - DEBUG - Entering PID update with parameters SetPoint:157.98, ProcValue:157.81, IMax:100.00, IMin:0.00,
+2022-01-07 11:54:00,119 - root - DEBUG -   Window:10, Kp: 30.000, Ki: 1.000, Kd: 0.600
+2022-01-07 11:54:00,119 - root - DEBUG - Exiting PID update with parameters Error:0.17, ITerm:0.17, DInput:-1.63, Output:6.14
+2022-01-07 11:54:00,119 - root - DEBUG - RunID 49, Segment 2 (loop 1) - RunState:Ramp,
+                       ReadTmp:157.81, RampTmp:157.98, TargetTmp:1044.00,
+                       Output:6.14, CycleOnSec:0.61, RemainTime:15:01:11
+                    
+2022-01-07 11:54:00,120 - root - DEBUG - ==>Relay On
+2022-01-07 11:54:00,735 - root - DEBUG - ==>Relay Off
+2022-01-07 11:54:00,735 - root - DEBUG - Writing stats to Firing DB table...
+2022-01-07 11:54:00,751 - root - INFO - database writing complete1
+2022-01-07 11:54:00,752 - root - WARNING - Profile no longer in running state - exiting firing
+2022-01-07 11:54:00,752 - root - INFO - RunState end: Stopped
+2022-01-07 11:54:00,752 - root - DEBUG - Update run id 49,
+                                   segment 2 end time to 2022-01-07 11:54:00
+                                
+2022-01-07 11:54:00,752 - root - DEBUG - Update run id 49,
+                                   segment 2 end time to 2022-01-07 11:54:00
+                                
+2022-01-07 11:54:00,752 - root - INFO - Segment 2 Complete
+2022-01-07 11:54:00,776 - root - INFO - SegCompStat 1
+2022-01-07 11:54:00,777 - root - INFO - Polling for 'Running' firing profiles...

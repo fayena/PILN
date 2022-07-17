@@ -1,30 +1,30 @@
- <h4 style="display:inline;margin-left:30px">
- <form method="post" style="display:inline;">
-  <button type="submit" name="page" value="" class="btn-link">Home</button>
-  &nbsp&nbsp&nbsp&nbsp
+ <div>
+   <form method="post" style="display:inline;">
+  <button type="submit" name="page" value="" >Home</button>
+
   <input type="hidden" name="run_id" value="{{ run_id }}">
   <input type="hidden" name="state" value="{{ state }}">
   <input type="hidden" name="notes" value="{{ notes }}">
-  <button type="submit" name="page" value="editcopy" class="btn-link">Copy to New Profile</button>
-  &nbsp&nbsp&nbsp&nbsp
+  <button type="submit" name="page" value="editcopy" >Copy to New Profile</button>
+  
   <input type="hidden" name="run_id" value="{{ run_id }}">
   <input type="hidden" name="notes" value="{{ notes }}">
-  <button type="submit" name="page" value="del_conf" class="btn-link">Delete Profile</button>
+  <button type="submit" name="page" value="del_conf" >Delete Profile</button>
  </form>
- </h4>
- <br><br>
+ </div>
+ 
  {{ message }}
- <h2 style="display:inline;margin-left:30px">Segments for {{ state }} Profile {{ run_id }}</h2><br>
- <form method="post" style="display:inline;margin-left:30px">
+ <h2 >Segments for {{ state }} Profile {{ run_id }}</h2>
+ <form method="post" >
   <input type="hidden" name="run_id" value="{{ run_id }}">
   <input type="hidden" name="state" value="{{ state }}">
   <input type="text" name="notes" value="{{ notes }}" size="60">
-  <button type="submit" name="page" value="notes_save" class="btn-link">Update Notes</button>
+  <button type="submit" name="page" value="notes_save" >Update Notes</button>
  </form>
  <br>
- <h4 style="display:inline;margin-left:30px">PID Settings: </h4>&nbsp;&nbsp;
- <h5 style="display:inline;">Proportional: {{ profile['p_param'] }}&nbsp;&nbsp;&nbsp;&nbsp;Integral: {{ profile['i_param'] }}&nbsp;&nbsp;&nbsp;&nbsp;Derivative: {{ profile['d_param'] }}</h5>
- <table style="margin-left:30px">
+ <h4 >PID Settings: </h4>
+ <h5>Proportional: {{ profile['p_param'] }}&nbsp;&nbsp;&nbsp;&nbsp;Integral: {{ profile['i_param'] }}&nbsp;&nbsp;&nbsp;&nbsp;Derivative: {{ profile['d_param'] }}</h5>
+ <table >
  <tr>
   <th>Seg</th>
   <th>Trg &deg;C</th>

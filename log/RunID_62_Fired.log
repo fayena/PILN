@@ -1,0 +1,44 @@
+2022-02-10 15:13:27,537 - root - INFO - TotalSeg: 1
+2022-02-10 15:13:27,538 - root - INFO - segment is 1 start time is None endtime is None
+2022-02-10 15:13:28,046 - root - INFO - Entering Fire function with parameters RunID:62, Seg:1,
+              TargetTmp:1185, Rate:170, HoldMin:0, Window:30
+           
+2022-02-10 15:13:28,046 - root - INFO - First pass of firing loop - TargetTmp:1185.00,
+                          StartTmp:0.00,RampTmp:1.42, TmpDif:1185.00,
+                          RampMin:418.24, Steps:836, StepTmp:1.42,
+                          Window:30, StartSec:1644527608, EndSec:1644552702
+                       
+2022-02-10 15:13:28,047 - root - DEBUG - Entering PID update with parameters SetPoint:1.42, ProcValue:0.00, IMax:90.00, IMin:0.00,
+2022-02-10 15:13:28,047 - root - DEBUG -   Window:30, Kp: 20.000, Ki: 0.200, Kd: 0.200
+2022-02-10 15:13:28,047 - root - DEBUG - Exiting PID update with parameters Error:1.42, ITerm:0.28, DInput:0.00, Output:28.62
+2022-02-10 15:13:28,048 - root - DEBUG - RunID 62, Segment 1 (loop 1) - RunState:Ramp,
+                       ReadTmp:0.00, RampTmp:1.42, TargetTmp:1185.00,
+                       Output:28.62, CycleOnSec:8.58, RemainTime:6:58:14
+                    
+2022-02-10 15:13:28,048 - root - INFO - cycleoNsee: 8 and temprise: 42
+2022-02-10 15:13:58,580 - root - DEBUG - Writing stats to Firing DB table...
+2022-02-10 15:13:58,592 - root - INFO - database writing complete1
+2022-02-10 15:13:58,593 - root - INFO - RunState end: Ramp
+2022-02-10 15:13:58,594 - root - INFO - First pass of firing loop - TargetTmp:1185.00,
+                          StartTmp:42.92,RampTmp:44.34, TmpDif:1142.08,
+                          RampMin:403.09, Steps:806, StepTmp:1.42,
+                          Window:30, StartSec:1644527638, EndSec:1644551823
+                       
+2022-02-10 15:13:58,594 - root - DEBUG - Entering PID update with parameters SetPoint:44.34, ProcValue:42.92, IMax:90.00, IMin:0.00,
+2022-02-10 15:13:58,594 - root - DEBUG -   Window:30, Kp: 20.000, Ki: 0.200, Kd: 0.200
+2022-02-10 15:13:58,595 - root - DEBUG - Exiting PID update with parameters Error:1.42, ITerm:0.57, DInput:42.92, Output:20.31
+2022-02-10 15:13:58,595 - root - DEBUG - RunID 62, Segment 1 (loop 2) - RunState:Ramp,
+                       ReadTmp:42.92, RampTmp:44.34, TargetTmp:1185.00,
+                       Output:20.31, CycleOnSec:6.09, RemainTime:6:43:05
+                    
+2022-02-10 15:13:58,595 - root - INFO - cycleoNsee: 6 and temprise: 73
+2022-02-10 15:14:29,127 - root - DEBUG - Writing stats to Firing DB table...
+2022-02-10 15:14:29,139 - root - INFO - database writing complete1
+2022-02-10 15:14:29,140 - root - WARNING - Profile no longer in running state - exiting firing
+2022-02-10 15:14:29,640 - root - INFO - RunState end: Stopped
+2022-02-10 15:14:29,641 - root - DEBUG - Update run id 62,
+                         segment 1 end time to 2022-02-10 15:14:29
+                         
+2022-02-10 15:14:29,641 - root - INFO - Segment 1 Complete
+2022-02-10 15:14:29,652 - root - INFO - SegCompStat 1
+2022-02-10 15:14:29,652 - root - INFO - Polling for 'Running' firing profiles...

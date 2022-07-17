@@ -8,7 +8,7 @@ sudo apt upgrade -y
 #make sure git and python3 dependencies are installed 
 
 sudo apt install git
-sudo apt-get install -y python3-setuptools python3-pip 
+sudo apt-get install -y python3-setuptools python3-pip python-pip
 
 
 #create directories
@@ -59,7 +59,7 @@ sudo chown www-data:www-data -R /home/pi/PILN/db
 sudo touch /home/pi/PILN/app/data.json
 sudo chown www-data:www-data /home/pi/PILN/app/data.json
 
-#restart webserver
+restart webserver
 sudo service lighttpd restart
 echo "webserver setup"
 
@@ -71,7 +71,7 @@ echo "interfaces enabled"
 #install thermocouple amplifier
 
 cd
-sudo pip3 install adafruit-circuitpython-max31856 
+sudo pip3 install adafruit-circuitpython-max31856
 
 #install needed python web module
 sudo pip3 install jinja2
