@@ -27,7 +27,7 @@ LastErr = 0.0
 SegCompStat = 0
 LastTmp = 0.0
 cycle = 0 
-Debug = True 
+Debug = False
 if Debug == True: 
     TempRise = 0
 #TotalSeg=0
