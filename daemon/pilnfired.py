@@ -49,37 +49,97 @@ thermocouple = adafruit_max31856.MAX31856(spi, cs, th)
 #thermocouple = adafruit_max31856.MAX31856(spi, cs)
 
 #--- Motor Pins ---
-pin = 24
-GPIO.setup(24, GPIO.OUT)
-pwm=GPIO.PWM(24, 50)
-pwm.start(0)
+in1 = 17
+in2 = 18
+in3 = 27
+in4 = 22
+# setting up
+GPIO.setmode( GPIO.BCM )
+GPIO.setup( in1, GPIO.OUT )
+GPIO.setup( in2, GPIO.OUT )
+GPIO.setup( in3, GPIO.OUT )
+GPIO.setup( in4, GPIO.OUT )
+
+# initializing
+GPIO.output( in1, GPIO.LOW )
+GPIO.output( in2, GPIO.LOW )
+GPIO.output( in3, GPIO.LOW )
+GPIO.output( in4, GPIO.LOW )
+
+#servo motor
+#pin = 24
+#GPIO.setup(24, GPIO.OUT)
+#pwm=GPIO.PWM(24, 50)
+#pwm.start(0)
 #--- Set up logging ---
 # create logger
 L = logging.getLogger('')
 
-def motor (pid):
-        #pwm=GPIO.PWM(24,50)
-        #pwm.start(0)
-        duty = pid / 30 + 3.5
-        pwm.ChangeDutyCycle(duty)
-        time.sleep(.5)
-        pwm.ChangeDutyCycle(0)
-        print("pid:",pid)
-        print("duty:",duty)
+def motor (pid,new_pid):
+        
+        step_sleep = 0.002
+
+#step_count = pid * 10 # 5.625*(1/64) per step, 4096 steps is 360°
+	if new_pid < pid:
+		direction = False # True for clockwise, False for counter-clockwise
+		step_count = (pid - new_pid) * 10.24
+		step_count = round(step_count)
+	elif  new_pid > pid:
+		direction = True
+		step_count = (new_pid - pid) * 10.24
+		step_count = round(step_count)
+	else:
+		step_count = 0
+# defining stepper motor sequence (found in documentation http://www.4tronix.co.uk/arduino/Stepper-Motors.php)
+	step_sequence = [[1,0,0,1],
+					 [1,0,0,0],
+					 [1,1,0,0],
+					 [0,1,0,0],
+					 [0,1,1,0],
+					 [0,0,1,0],
+					 [0,0,1,1],
+					 [0,0,0,1]]
+
+    motor_step_counter = 0 ;
+    
+	try:
+		i = 0
+		for i in range(step_count):
+			for pin in range(0, len(motor_pins)):
+				GPIO.output( motor_pins[pin], step_sequence[motor_step_counter][pin] )
+			if direction==True:
+				motor_step_counter = (motor_step_counter - 1) % 8
+			elif direction==False:
+				motor_step_counter = (motor_step_counter + 1) % 8
+			else: # defensive programming
+				print( "uh oh... direction should *always* be either True or False" )
+			cleanup()
+			exit( 1 )
+			time.sleep( step_sleep )
+        #servo motor
+        #duty = pid / 30 + 3.5
+        #pwm.ChangeDutyCycle(duty)
+        #time.sleep(.5)
+        #pwm.ChangeDutyCycle(0)
+        #print("pid:",pid)
+        #print("duty:",duty)
 #motor_pins = [in1,in2,in3,in4]
 #---Cleanup ---
 def clean(signum,frame):
    # print("You cannot exit the program with ctrl-c.  Please use web interface\n")
-     GPIO.output(pin, GPIO.LOW)
+    GPIO.output( in1, GPIO.LOW )
+    GPIO.output( in2, GPIO.LOW )
+    GPIO.output( in3, GPIO.LOW )
+    GPIO.output( in4, GPIO.LOW )
      os._exit(0)
      #exit(0)
 def cleanup():
-    #GPIO.output( in1, GPIO.LOW )
-    #GPIO.output( in2, GPIO.LOW )
-    #GPIO.output( in3, GPIO.LOW )
-    #GPIO.output( in4, GPIO.LOW )
-    GPIO.output(pin,GPIO.LOW)
-    #GPIO.cleanup()
+    GPIO.output( in1, GPIO.LOW )
+    GPIO.output( in2, GPIO.LOW )
+    GPIO.output( in3, GPIO.LOW )
+    GPIO.output( in4, GPIO.LOW )
+    #GPIO.output(pin,GPIO.LOW)
+    GPIO.cleanup()
 
 #for sig in (SIGABRT, SIGINT, SIGTERM):
 #    signal(sig, clean)
@@ -256,6 +316,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 )
             # run state through pid
             #Output = Update(RampTmp, ReadTmp, 23.609, 25, -25, Window, Kp, Ki, Kd)
+            Old_Pid = Output
             Output = Update(RampTmp,ReadTmp,90,0,Window,Kp,Ki,Kd)
             CycleOnSec = Window * Output * 0.01
             if CycleOnSec > Window:
@@ -303,7 +364,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 cycle = cycle + 1
                     #time.sleep(CycleOnSec)
                 print("Output before motor:",Output)
-                motor(Output)
+                motor(Old_Pid,Output)
                 cleanup()
                 time.sleep(Window)
             #L.info("Write status information to status file %s:" % StatFile)
@@ -350,7 +411,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 RunState = "Stopped"
                 print("run state stopped.   Output:", Output)
                 #zero motor
-                motor(0)
+                motor(Old_Pid,0)
                 print("motor zeroed")
             L.info("RunState end: %s" % (RunState))
     return () 
@@ -501,7 +562,7 @@ while 1:
                             SQLConn.rollback()
                             L.error("DB Update failed2!")
                         #zero motor position
-                        motor(0)
+                        motor(Old_Pid,0)
         # --- end firing loop ---
             L.info("SegCompStat %d" % (SegCompStat))
 
