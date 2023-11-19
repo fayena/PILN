@@ -20,8 +20,8 @@ git clone --branch gas-fired-modulating-valve https://github.com/fayena/PILN.git
 sudo apt install sqlite3
 sudo apt install ufw
 sudo apt install lighttpd
-sudo pip3 install jinja2 --break-system-packages
-sudo pip3 install psutil --break-system-packages
+sudo apt install python3-jinja2
+sudo apt install python3-psutil
 
 
 echo "software installed"
