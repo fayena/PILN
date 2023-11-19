@@ -59,7 +59,7 @@ sudo chown www-data:www-data -R /home/pi/PILN/db
 sudo touch /home/pi/PILN/app/data.json
 sudo chown www-data:www-data /home/pi/PILN/app/data.json
 
-restart webserver
+#restart webserver
 sudo service lighttpd restart
 echo "webserver setup"
 
