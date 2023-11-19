@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 
 #from signal import *
@@ -363,6 +362,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                     L.info("cycleoNsee: %d and temprise: %d" % (CycleOnSec, TempRise))
                 cycle = cycle + 1
                     #time.sleep(CycleOnSec)
+	
                 print("Output before motor:",Output)
                 motor(Old_Pid,Output)
                 cleanup()
@@ -411,7 +411,30 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 RunState = "Stopped"
                 print("run state stopped.   Output:", Output)
                 #zero motor
-                motor(Old_Pid,0)
+                sql = "SELECT pid_output FROM firing WHERE run_id = ?;"
+                p=(RunID)
+                SQLCur.execute(sql,p)
+                 
+                try:
+  
+				   rcount = int(SQLCur.rowcount)
+
+				   for r in rcount:
+					  row = SQLCur.fetchone()
+
+					  totalPid.append
+					 
+				except:
+				   print "Error: unable to fecth data"
+				PidIndex=len(totalPid)
+				addedPid=0
+				i=1   
+				while i < PidIndex :		
+	                  if totalPid[i] < totalPid[i-1] :
+				         addedPid = addedPid + (totalPid[i-1] - totalPid[i])	  
+		  		      else addedPid = addedPid + (totalPid[i] + totalPid[i-1])   
+				   
+                motor(addedPid,0)
                 print("motor zeroed")
             L.info("RunState end: %s" % (RunState))
     return () 
@@ -562,7 +585,32 @@ while 1:
                             SQLConn.rollback()
                             L.error("DB Update failed2!")
                         #zero motor position
-                        motor(Old_Pid,0)
+                        #zero motor
+						sql = "SELECT pid_output FROM firing WHERE run_id = ?;"
+						p=(RunID)
+						SQLCur.execute(sql,p)
+						 
+						try:
+		  
+						   rcount = int(SQLCur.rowcount)
+
+						   for r in rcount:
+							  row = SQLCur.fetchone()
+
+							  totalPid.append
+							 
+						except:
+						   print "Error: unable to fecth data"
+						PidIndex=len(totalPid)
+						addedPid=0
+						i=1   
+						while i < PidIndex :		
+							  if totalPid[i] < totalPid[i-1] :
+								 addedPid = addedPid + (totalPid[i-1] - totalPid[i])	  
+							  else addedPid = addedPid + (totalPid[i] + totalPid[i-1])   
+						   
+						motor(addedPid,0)
+						print("motor zeroed")
         # --- end firing loop ---
             L.info("SegCompStat %d" % (SegCompStat))
 
