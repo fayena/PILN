@@ -20,8 +20,8 @@ git clone --branch gas-fired-modulating-valve https://github.com/fayena/PILN.git
 sudo apt install sqlite3
 sudo apt install ufw
 sudo apt install lighttpd
-sudo pip3 install jinja2
-sudo pip3 install psutil
+sudo pip3 install jinja2 --break-system-packages
+sudo pip3 install psutil --break-system-packages
 
 
 echo "software installed"
@@ -71,10 +71,8 @@ echo "interfaces enabled"
 #install thermocouple amplifier
 
 cd
-sudo pip3 install adafruit-circuitpython-max31856
+sudo pip3 install adafruit-circuitpython-max31856 --break-system-packages
 
-#install needed python web module
-sudo pip3 install jinja2
 
 #install database
 
