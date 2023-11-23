@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-#from signal import *
-import signal
+from signal import *
 import os
 import time
 import math
@@ -28,121 +27,46 @@ LastErr = 0.0
 SegCompStat = 0
 LastTmp = 0.0
 cycle = 0 
-Debug = False
 if Debug == True: 
-    TempRise = 0
+    TempRise = 900
 #TotalSeg=0
 LastProcVal = 0.0
 RunState = ""
-
+MotorSteps = 0
+Output = 0
 spi = busio.SPI(board.SCK, board.MOSI, board.MISO)
- 
+     
 # allocate a CS pin and set the direction
-cs = digitalio.DigitalInOut(board.D5)
+cs = digitalio.DigitalInOut(board.D0)
 cs.direction = digitalio.Direction.OUTPUT
-#select thermocouple type K is default
-th = adafruit_max31856.ThermocoupleType.S
+#set thermocouple type
+th = adafruit_max31856.ThermocoupleType.S     
 # create a thermocouple object with the above
 thermocouple = adafruit_max31856.MAX31856(spi, cs, th)
-#comment above and uncomment below for default thermocouple type K
-#thermocouple = adafruit_max31856.MAX31856(spi, cs)
 
-#--- Motor Pins ---
-in1 = 17
-in2 = 18
-in3 = 27
-in4 = 22
-# setting up
-GPIO.setmode( GPIO.BCM )
-GPIO.setup( in1, GPIO.OUT )
-GPIO.setup( in2, GPIO.OUT )
-GPIO.setup( in3, GPIO.OUT )
-GPIO.setup( in4, GPIO.OUT )
+#--- step motor  ---
+HEAT = (17, 18, 27, 22)
+for pin in HEAT:
+    GPIO.setup(pin, GPIO.OUT)
+    GPIO.output(pin, GPIO.LOW)
 
-# initializing
-GPIO.output( in1, GPIO.LOW )
-GPIO.output( in2, GPIO.LOW )
-GPIO.output( in3, GPIO.LOW )
-GPIO.output( in4, GPIO.LOW )
-
-#servo motor
-#pin = 24
-#GPIO.setup(24, GPIO.OUT)
-#pwm=GPIO.PWM(24, 50)
-#pwm.start(0)
 #--- Set up logging ---
 # create logger
 L = logging.getLogger('')
 
-def motor (pid,new_pid):
-        
-        step_sleep = 0.002
-
-#step_count = pid * 10 # 5.625*(1/64) per step, 4096 steps is 360°
-	if new_pid < pid:
-		direction = False # True for clockwise, False for counter-clockwise
-		step_count = (pid - new_pid) * 10.24
-		step_count = round(step_count)
-	elif  new_pid > pid:
-		direction = True
-		step_count = (new_pid - pid) * 10.24
-		step_count = round(step_count)
-	else:
-		step_count = 0
-# defining stepper motor sequence (found in documentation http://www.4tronix.co.uk/arduino/Stepper-Motors.php)
-	step_sequence = [[1,0,0,1],
-					 [1,0,0,0],
-					 [1,1,0,0],
-					 [0,1,0,0],
-					 [0,1,1,0],
-					 [0,0,1,0],
-					 [0,0,1,1],
-					 [0,0,0,1]]
-
-    motor_step_counter = 0 ;
-    
-	try:
-		i = 0
-		for i in range(step_count):
-			for pin in range(0, len(motor_pins)):
-				GPIO.output( motor_pins[pin], step_sequence[motor_step_counter][pin] )
-			if direction==True:
-				motor_step_counter = (motor_step_counter - 1) % 8
-			elif direction==False:
-				motor_step_counter = (motor_step_counter + 1) % 8
-			else: # defensive programming
-				print( "uh oh... direction should *always* be either True or False" )
-			cleanup()
-			exit( 1 )
-			time.sleep( step_sleep )
-        #servo motor
-        #duty = pid / 30 + 3.5
-        #pwm.ChangeDutyCycle(duty)
-        #time.sleep(.5)
-        #pwm.ChangeDutyCycle(0)
-        #print("pid:",pid)
-        #print("duty:",duty)
-#motor_pins = [in1,in2,in3,in4]
-#---Cleanup ---
-def clean(signum,frame):
-   # print("You cannot exit the program with ctrl-c.  Please use web interface\n")
-    GPIO.output( in1, GPIO.LOW )
-    GPIO.output( in2, GPIO.LOW )
-    GPIO.output( in3, GPIO.LOW )
-    GPIO.output( in4, GPIO.LOW )
-     os._exit(0)
-     #exit(0)
-def cleanup():
-    GPIO.output( in1, GPIO.LOW )
-    GPIO.output( in2, GPIO.LOW )
-    GPIO.output( in3, GPIO.LOW )
-    GPIO.output( in4, GPIO.LOW )
-    #GPIO.output(pin,GPIO.LOW)
+#--- Cleanup ---
+def clean(*args):
+    print("\nProgram ending! Cleaning up...\n")
+    for pin in HEAT:
+        GPIO.output(pin, False)
     GPIO.cleanup()
+    #lcd.close(clear=True)
+    print("All clean - Stopping.\n")
+    os._exit(0)
 
-#for sig in (SIGABRT, SIGINT, SIGTERM):
-#    signal(sig, clean)
-signal.signal(signal.SIGINT, clean)
+for sig in (SIGABRT, SIGINT, SIGTERM):
+    signal(sig, clean)
+
 time.sleep(1)
 
 # PID Update
@@ -166,8 +90,7 @@ def Update ( SetPoint, ProcValue, IMax, IMin, Window, Kp, Ki, Kd ):
     DInput = ProcValue - LastProcVal
 
     #Compute PID Output
-    
-    Output = Kp * Err + ITerm - Kd * DInput;
+    Output = round(Kp * Err + ITerm - Kd * DInput)
     if Output > IMax:
         Output = IMax
     elif Output < IMin:
@@ -197,9 +120,11 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
     global SegCompStat
     global wheel
     global cycle 
-    if Debug == True:
+    if Debug == False:
         global TempRise
     global RunState
+    global Output
+    global MotorSteps
     TargetTmp = TargetTmp1
     RampMin = 0.0
     RampTmp = 0.0
@@ -222,6 +147,8 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
     RampTrg = 0
     ReadTrg = 0
     
+
+    
     while RunState != "Stopped"  and  RunState != "Complete" and RunState != "Error":
         if time.time() >= NextSec:
             Cnt += 1                         # record keeping only
@@ -232,10 +159,10 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 ReadTmp = TempRise
             else:
                 ReadTmp = thermocouple.temperature
-            #ReadITmp = thermocouple.reference_temperature
-            if math.isnan(ReadTmp) or ReadTmp > 1330:
+            ReadITmp = thermocouple.reference_temperature
+            if math.isnan(ReadTmp): #or ReadTmp > 1330:
                 ReadTmp = LastTmp + LastErr
-                print ('  "kilntemp": "' + str(int(ReadTmp)) + '",\n')
+                print ('  "kilntemp1": "' + str(int(ReadTmp)) + '",\n')
                
             if RampTrg == 0:
                 # if RampTmp has not yet reached TargetTmp increase RampTmp
@@ -316,10 +243,8 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             # run state through pid
             #Output = Update(RampTmp, ReadTmp, 23.609, 25, -25, Window, Kp, Ki, Kd)
             Old_Pid = Output
-            Output = Update(RampTmp,ReadTmp,90,0,Window,Kp,Ki,Kd)
-            CycleOnSec = Window * Output * 0.01
-            if CycleOnSec > Window:
-                CycleOnSec = Window
+            Output = Update(RampTmp,ReadTmp,100,0,Window,Kp,Ki,Kd)
+            CycleOnSec = Window 
 
             RemainSec = EndSec - int(time.time())
             RemMin, RemSec = divmod(RemainSec, 60)
@@ -336,7 +261,6 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             print("""RunID %d, Segment %d (loop %d) - RunState:%s,
                        ReadTmp:%0.2f, RampTmp:%0.2f, TargetTmp:%0.2f,
                        Output:%0.2f, CycleOnSec:%0.2f, RemainTime:%s
-
                     """ % (RunID, Seg, Cnt, RunState, ReadTmp, RampTmp,
                            TargetTmp, Output, CycleOnSec, RemTime)
             )
@@ -354,21 +278,77 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                     SQLConn.rollback()
                     L.error("DB Update failed2!")
             else:    
-                    #  L.debug("==>Relay On")
-                    # for element in HEAT:
-                    #     GPIO.output(element, True)
+                L.debug("==>Motor On")
+                #for element in HEAT:
+                #    GPIO.output(element, True)
                 if Debug == True:
-                    TempRise += (CycleOnSec*5)
-                    L.info("cycleoNsee: %d and temprise: %d" % (CycleOnSec, TempRise))
+                    TempRise += (Output*0.25)
+                #L.info("cycleoNsee: %d and temprise: %d" % (CycleOnSec, TempRise)) 
                 cycle = cycle + 1
-                    #time.sleep(CycleOnSec)
-	
-                print("Output before motor:",Output)
-                motor(Old_Pid,Output)
-                cleanup()
-                time.sleep(Window)
-            #L.info("Write status information to status file %s:" % StatFile)
+                step_sleep = 0.002
+                motor_step_counter = 0 ;
+                #step_count = pid * 10 # 5.625*(1/64) per step, 8192 steps is 360°
+                print("output: ", Output)
+                print("Old_Pid: ", Old_Pid)
+                if Output < Old_Pid:
+                    direction = True # True for clockwise, False for counter-clockwise
+                    step_count = (Old_Pid - Output) * 81.92
+                    step_count = round(step_count)
+                    MotorSteps = MotorSteps - step_count;
+                    
+                elif  Output > Old_Pid:
+                    direction = False
+                    step_count = (Output - Old_Pid) * 81.92
+                    step_count = round(step_count)
+                    MotorSteps= MotorSteps+step_count;
+                elif Output == 100 and Old_Pid == 100:
+                    direction = False
+                    step_count = 819
+                    MotorSteps = MotorSteps + step_count
+                elif Output == 0 and Old_Pid == 0:
+                    direction = True
+                    step_count = 819
+                    MotorSteps = MotorSteps - step_count;
+                    
 
+                else:
+                    step_count = 0
+                if MotorSteps <= 0:
+                        MotorSteps = 0
+                        step_count=0
+                print("step_count: ", step_count)
+                print("MotorSteps: " , MotorSteps)
+                # defining stepper motor sequence (found in documentation http://www.4tronix.co.uk/arduino/Stepper-Motors.php)
+                step_sequence = [[1,0,0,1],
+                                    [1,0,0,0],
+                                    [1,1,0,0],
+                                    [0,1,0,0],
+                                    [0,1,1,0],
+                                    [0,0,1,0],
+                                    [0,0,1,1],
+                                    [0,0,0,1]]
+                # the meat
+                try:
+                    i = 0
+                    for i in range(step_count):
+                        for pin in range(0, len(HEAT)):
+                            GPIO.output( HEAT[pin], step_sequence[motor_step_counter][pin] )
+                        if direction==True:
+                            motor_step_counter = (motor_step_counter - 1) % 8
+                        elif direction==False:
+                            motor_step_counter = (motor_step_counter + 1) % 8
+                        else: # defensive programming
+                            print( "uh oh... direction should *always* be either True or False" )
+                            clean()
+                        time.sleep( step_sleep )
+                except:
+                    print ("error with motor")
+                for pin in HEAT:
+                    GPIO.output(pin, False)
+                time.sleep(Window)
+                
+            #L.info("Write status information to status file %s:" % StatFile)
+        
             # Write status to file for reporting on web page
             sfile = open(StatFile, "w+")
             sfile.write('{\n' +
@@ -385,8 +365,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             sfile.close()
 
             L.debug("Writing stats to Firing DB table...")
-            SQL = "INSERT INTO Firing (run_id, segment, dt, set_temp, temp,pid_output) VALUES ( '%d', '%d', '%s', '%.2f', '%.2f', '%.2f' )" % ( RunID, Seg, time.strftime('%Y-%m-%d %H:%M:%S'), RampTmp, ReadTmp, Output )
-            #SQL = "INSERT INTO Firing (run_id, segment, dt, set_temp, temp, int_temp, pid_output) VALUES ( '%d', '%d', '%s', '%.2f', '%.2f', '%.2f', '%.2f' )" % ( RunID, Seg, time.strftime('%Y-%m-%d %H:%M:%S'), RampTmp, ReadTmp, ReadITmp, Output )
+            SQL = "INSERT INTO Firing (run_id, segment, dt, set_temp, temp, int_temp, pid_output) VALUES ( '%d', '%d', '%s', '%.2f', '%.2f', '%.2f', '%.2f' )" % ( RunID, Seg, time.strftime('%Y-%m-%d %H:%M:%S'), RampTmp, ReadTmp, ReadITmp, Output )
             try:
                 SQLCur.execute(SQL)
                 SQLConn.commit()
@@ -409,33 +388,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 L.warning("Profile no longer in running state - exiting firing")
                 SegCompStat = 1 
                 RunState = "Stopped"
-                print("run state stopped.   Output:", Output)
-                #zero motor
-                sql = "SELECT pid_output FROM firing WHERE run_id = ?;"
-                p=(RunID)
-                SQLCur.execute(sql,p)
-                 
-                try:
-  
-				   rcount = int(SQLCur.rowcount)
 
-				   for r in rcount:
-					  row = SQLCur.fetchone()
-
-					  totalPid.append
-					 
-				except:
-				   print "Error: unable to fecth data"
-				PidIndex=len(totalPid)
-				addedPid=0
-				i=1   
-				while i < PidIndex :		
-	                  if totalPid[i] < totalPid[i-1] :
-				         addedPid = addedPid + (totalPid[i-1] - totalPid[i])	  
-		  		      else addedPid = addedPid + (totalPid[i] + totalPid[i-1])   
-				   
-                motor(addedPid,0)
-                print("motor zeroed")
             L.info("RunState end: %s" % (RunState))
     return () 
 # --- end Fire() ---
@@ -460,7 +413,7 @@ while 1:
             ReadTmp = TempRise
         else:
             ReadTmp = thermocouple.temperature
-        print (' "kilntemp": "' + str(int(ReadTmp)) + '",\n')
+        print (' "kilntemp2": "' + str(int(ReadTmp)) + '",\n')
 
     #L.debug("Write status information to status file %s:" % StatFile)
     sfile = open(StatFile, "w+")
@@ -549,10 +502,34 @@ while 1:
                         SQLConn.rollback()
 
                     time.sleep(0.5)
+
                     Fire(RunID, Seg, TargetTmp, Rate, HoldMin, Window,
                                  Kp, Ki, Kd)
-                    GPIO.output(pin, GPIO.LOW) ## make sure pins are off
-
+                    L.debug("MotorSteps at end: %d " % (MotorSteps))
+                    print("MotorSteps at end of ",(Seg), " " ,MotorSteps)
+                    
+                    #turn down to start point
+                    # defining stepper motor sequence (found in documentation http://www.4tronix.co.uk/arduino/Stepper-Motors.php)
+                    step_sequence = [[1,0,0,1],
+                                        [1,0,0,0],
+                                        [1,1,0,0],
+                                        [0,1,0,0],
+                                        [0,1,1,0],
+                                        [0,0,1,0],
+                                        [0,0,1,1],
+                                        [0,0,0,1]]
+                    # the meat
+                    motor_step_counter=0
+                    try:
+                        i = 0
+                        for i in range(MotorSteps):
+                            for pin in range(0, len(HEAT)):
+                                GPIO.output( HEAT[pin], step_sequence[motor_step_counter][pin] )
+                            motor_step_counter = (motor_step_counter - 1) % 8
+                            time.sleep( step_sleep )
+                    except:
+                        print ("error with motor")
+                        
                     EndTime=time.strftime('%Y-%m-%d %H:%M:%S')
                         
                     L.debug("""Update run id %d,
@@ -566,7 +543,7 @@ while 1:
                           """
                     p = (EndTime, RunID, Seg)
                     L.info("Segment %s Complete" % (Seg))
-                                     
+                                    
                     try:
                         SQLCur.execute(sql, p)
                         SQLConn.commit()
@@ -584,33 +561,7 @@ while 1:
                         except:
                             SQLConn.rollback()
                             L.error("DB Update failed2!")
-                        #zero motor position
-                        #zero motor
-						sql = "SELECT pid_output FROM firing WHERE run_id = ?;"
-						p=(RunID)
-						SQLCur.execute(sql,p)
-						 
-						try:
-		  
-						   rcount = int(SQLCur.rowcount)
 
-						   for r in rcount:
-							  row = SQLCur.fetchone()
-
-							  totalPid.append
-							 
-						except:
-						   print "Error: unable to fecth data"
-						PidIndex=len(totalPid)
-						addedPid=0
-						i=1   
-						while i < PidIndex :		
-							  if totalPid[i] < totalPid[i-1] :
-								 addedPid = addedPid + (totalPid[i-1] - totalPid[i])	  
-							  else addedPid = addedPid + (totalPid[i] + totalPid[i-1])   
-						   
-						motor(addedPid,0)
-						print("motor zeroed")
         # --- end firing loop ---
             L.info("SegCompStat %d" % (SegCompStat))
 
