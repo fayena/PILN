@@ -22,15 +22,15 @@ Changes I made to code include:
 - Adding some code to resume in case of a power flicker.   It checks for completed segments and resumes the segment not completed.   While this will work fine for ramps, it could result in over firing if it lands on a hold.   ALWAYS Monitor you kiln!
 - Added sorting to the main chart.   
 - Removed, all the lcd code and the second thermocouple sensor and the kiln sitter code that BlackCLewis had added.      
-- Added Testing Code (see bottom of readme for instructions).    
+- Added Testing Code (see bottom of readme for instructions).
+-Changed the charting from google charts to chart.js so that I could load it offline    
 
 I do not have a screen or wifi at my kiln location.   I tether my cell phone and then access the raspberry pi through ssh and a webbrowser both on my phone.   It will connect from a surprising distance this way.
 
 Possible future improvements    
 - install script (DONE)
-- Offline charts  This would be really helpful to someone who uses a raspberry pi touch screen to run the daemon with no wifi.  
-- performance watchdog (done)
-    + klexting;  Sounds like fun to add but at the time it's not really helpful to me as I don't have wifi at my kiln location    
+- Offline charts  This would be really helpful to someone who uses a raspberry pi touch screen to run the daemon with no wifi.  (done)
+- klexting;  Sounds like fun to add     
     
 ## Hardware and Cost:
 -Need to update 
@@ -84,7 +84,7 @@ You may have to enter your password and approve installs.   When the raspi-confi
 
 ## Testing
  You can run the code and do testing without having any electronics connected.   To run testing change "Debug = False" to "Debug = True" 
- You can change temperature rise and decrease by changing "TempRise += (CycleOnSec*5)" and "TempRise = TempRise - 2"
+ -- need to update:   You can change temperature rise and decrease by changing "TempRise += (CycleOnSec*5)" and "TempRise = TempRise - 2"
 
 
 
