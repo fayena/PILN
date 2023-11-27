@@ -12,6 +12,9 @@ import board
 import busio
 import digitalio
 import adafruit_max31856
+import adafruit_ads7830.ads7830 as ADC
+from adafruit_ads7830.analog_in import AnalogIn
+
 GPIO.setmode(GPIO.BCM)
 
 AppDir = '/home/pi/PILN'
@@ -27,13 +30,21 @@ LastErr = 0.0
 SegCompStat = 0
 LastTmp = 0.0
 cycle = 0 
+Debug = False
 if Debug == True: 
     TempRise = 900
 #TotalSeg=0
 LastProcVal = 0.0
 RunState = ""
-MotorSteps = 0
 Output = 0
+
+i2c = board.I2C()
+
+# Initialize ADS7830 pressure sensor
+adc = ADC.ADS7830(i2c)
+chan = AnalogIn(adc, 4)
+
+
 spi = busio.SPI(board.SCK, board.MOSI, board.MISO)
      
 # allocate a CS pin and set the direction
@@ -124,7 +135,6 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
         global TempRise
     global RunState
     global Output
-    global MotorSteps
     TargetTmp = TargetTmp1
     RampMin = 0.0
     RampTmp = 0.0
@@ -132,6 +142,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
         ReadTmp = TempRise
     else:
         ReadTmp = thermocouple.temperature
+        pressure = chan.value
     
     LastTmp = 0.0
     LastErr = 0.0
@@ -158,6 +169,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             if Debug == True:
                 ReadTmp = TempRise
             else:
+                pressure = chan.value
                 ReadTmp = thermocouple.temperature
             ReadITmp = thermocouple.reference_temperature
             if math.isnan(ReadTmp): #or ReadTmp > 1330:
@@ -290,34 +302,31 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 #step_count = pid * 10 # 5.625*(1/64) per step, 8192 steps is 360°
                 print("output: ", Output)
                 print("Old_Pid: ", Old_Pid)
-                if Output < Old_Pid:
+                if Output < Old_Pid and pressure > 14336:
                     direction = True # True for clockwise, False for counter-clockwise
                     step_count = (Old_Pid - Output) * 81.92
-                    step_count = round(step_count)
-                    MotorSteps = MotorSteps - step_count;
-                    
+                    step_count = round(step_count)    
+                
                 elif  Output > Old_Pid:
                     direction = False
                     step_count = (Output - Old_Pid) * 81.92
                     step_count = round(step_count)
-                    MotorSteps= MotorSteps+step_count;
-                elif Output == 100 and Old_Pid == 100:
-                    direction = False
-                    step_count = 819
-                    MotorSteps = MotorSteps + step_count
-                elif Output == 0 and Old_Pid == 0:
-                    direction = True
-                    step_count = 819
-                    MotorSteps = MotorSteps - step_count;
                     
-
+                elif Output == 100 and Old_Pid == 100:
+                    if pressure < 3:
+                        direction = False
+                        step_count = 819
+                    else:
+                        step_count = 0
+                elif Output == 0 and Old_Pid == 0:
+                    if pressure >= 14336:
+                        direction = True
+                        step_count = 819
+                    else:
+                        step_count = 0
                 else:
                     step_count = 0
-                if MotorSteps <= 0:
-                        MotorSteps = 0
-                        step_count=0
-                print("step_count: ", step_count)
-                print("MotorSteps: " , MotorSteps)
+                
                 # defining stepper motor sequence (found in documentation http://www.4tronix.co.uk/arduino/Stepper-Motors.php)
                 step_sequence = [[1,0,0,1],
                                     [1,0,0,0],
@@ -407,12 +416,13 @@ while 1:
     else:
         ReadTmp = thermocouple.temperature
         ReadITmp = thermocouple.reference_temperature
-  
+        pressure = chan.value
     while math.isnan(ReadTmp):
         if Debug == True:
             ReadTmp = TempRise
         else:
             ReadTmp = thermocouple.temperature
+            pressure = chan.value
         print (' "kilntemp2": "' + str(int(ReadTmp)) + '",\n')
 
     #L.debug("Write status information to status file %s:" % StatFile)
@@ -505,8 +515,6 @@ while 1:
 
                     Fire(RunID, Seg, TargetTmp, Rate, HoldMin, Window,
                                  Kp, Ki, Kd)
-                    L.debug("MotorSteps at end: %d " % (MotorSteps))
-                    print("MotorSteps at end of ",(Seg), " " ,MotorSteps)
                     
                     #turn down to start point
                     # defining stepper motor sequence (found in documentation http://www.4tronix.co.uk/arduino/Stepper-Motors.php)
@@ -520,13 +528,23 @@ while 1:
                                         [0,0,0,1]]
                     # the meat
                     motor_step_counter=0
+                    
                     try:
-                        i = 0
-                        for i in range(MotorSteps):
+                        print("pressure: ", chan.value)
+                        pressure=chan.value
+                        while pressure > 14336:
                             for pin in range(0, len(HEAT)):
                                 GPIO.output( HEAT[pin], step_sequence[motor_step_counter][pin] )
                             motor_step_counter = (motor_step_counter - 1) % 8
                             time.sleep( step_sleep )
+                            pressure=chan.value
+                    # try:
+                    #     i = 0
+                    #     for i in range(MotorSteps):
+                    #         for pin in range(0, len(HEAT)):
+                    #             GPIO.output( HEAT[pin], step_sequence[motor_step_counter][pin] )
+                    #         motor_step_counter = (motor_step_counter - 1) % 8
+                    #         time.sleep( step_sleep )
                     except:
                         print ("error with motor")
                         
