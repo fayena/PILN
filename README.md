@@ -37,6 +37,8 @@ Possible future improvements
 ## Thermocouple, Kiln, and Max31856 info
 -Thermocouple tip: One side of the type-K thermocouple and type-k wire is magnetic(red side), Test with magnet to wire correctly.
 -TDI Conversion Kiln 
+-Currently using a S type theromocouple from Omega.   
+
 ## Install 
 
 Instructions for install an operating system to the Raspberry Pi  https://www.raspberrypi.org/documentation/installation/installing-images/    I use the Raspbian OS https://www.raspberrypi.org/downloads/raspbian/  
