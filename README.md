@@ -26,7 +26,7 @@ Changes I made to code include:
 -Changed the charting from google charts to chart.js so that I could load it offline
 -Changed the code to reflect a step motor rather than relays for gas firing
 
-I do not have a screen or wifi at my kiln location.   I tether my cell phone and then access the raspberry pi through ssh and a webbrowser both on my phone.   It will connect from a surprising distance this way.
+I do not have a screen.   If you do not have wifi at your kiln location, tether your cell phone and then access the raspberry pi through ssh and a webbrowser both on your phone.   It will connect from a surprising distance this way.   It's alot nicer to direct wifi access.   
 
 Possible future improvements    
 - install script (DONE)
@@ -45,14 +45,14 @@ Possible future improvements
 Instructions for install an operating system to the Raspberry Pi  https://www.raspberrypi.org/documentation/installation/installing-images/    I use the Raspbian OS https://www.raspberrypi.org/downloads/raspbian/  
 
 Stuff to get it to work:
-
+-Still need to update this to include the ADC and Pressure Sensor 
 - Pin-Out:
 
         MAX31856 Vcc:    3.3V    PIN17
         MAX31856 GND:    GND     PIN14
         MAX31856 SDO:    GPIO 9  MISO
         MAX31856 SDI:    GPIO 10 MOSI
-        MAX31856 CS:    GPIO 5  (aka D5)
+        MAX31856 CS:    GPIO 0  (aka D0)
         MAX31856 SCK:    GPIO 11 CLK
      
 
