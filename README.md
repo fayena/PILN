@@ -23,7 +23,8 @@ Changes I made to code include:
 - Added sorting to the main chart.   
 - Removed, all the lcd code and the second thermocouple sensor and the kiln sitter code that BlackCLewis had added.      
 - Added Testing Code (see bottom of readme for instructions).
--Changed the charting from google charts to chart.js so that I could load it offline    
+-Changed the charting from google charts to chart.js so that I could load it offline
+-Changed the code to reflect a step motor rather than relays for gas firing
 
 I do not have a screen or wifi at my kiln location.   I tether my cell phone and then access the raspberry pi through ssh and a webbrowser both on my phone.   It will connect from a surprising distance this way.
 
