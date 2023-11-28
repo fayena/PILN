@@ -44,7 +44,8 @@ Possible future improvements
 
 Instructions for install an operating system to the Raspberry Pi  https://www.raspberrypi.org/documentation/installation/installing-images/    I use the Raspbian OS https://www.raspberrypi.org/downloads/raspbian/  
 
-Stuff to get it to work:
+##Stuff to get it to work:
+
 -Still need to update this to include the ADC and Pressure Sensor 
 - Pin-Out:
 
