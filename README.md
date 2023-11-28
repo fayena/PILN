@@ -16,7 +16,7 @@
 ## Code Info
 This is a mesh of code from both git@github.com:pvarney/PiLN.git and git@github.com:BlakeCLewis/PILN.git  
 
-Changes I made to code include:
+## Changes I made to code include:
 - Changing the logging function to be a per run log with the file named by RunID.  The logging does not run while the daemon is idle.     
 - Adding an error trigger if the ramp temperature is 200C or more than the read temperature.   This errors the run and keeps your kiln from running and running trying to reach temp when it's not going to happen.
 - Adding some code to resume in case of a power flicker.   It checks for completed segments and resumes the segment not completed.   While this will work fine for ramps, it could result in over firing if it lands on a hold.   ALWAYS Monitor you kiln!
@@ -44,7 +44,7 @@ Possible future improvements
 
 Instructions for install an operating system to the Raspberry Pi  https://www.raspberrypi.org/documentation/installation/installing-images/    I use the Raspbian OS https://www.raspberrypi.org/downloads/raspbian/  
 
-##Stuff to get it to work:
+## Stuff to get it to work:
 
 -Still need to update this to include the ADC and Pressure Sensor 
 - Pin-Out:
