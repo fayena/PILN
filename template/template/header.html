@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../style/style.css">
+  <link rel="stylesheet" type="text/css" href="../style/css/jquery.dataTables.min.css">
+ <title>PiLN Raspberry Pi Kiln Controller - {{ title }}</title>
+  <!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+  <script type="text/javascript" src="../style/js/jquery-3.6.0.min.js"></script>
+   <script type="text/javascript" src="../style/js/jquery.dataTables.min.js"></script>
+  <script>
+    function loadProcStat(){
+      $.getJSON("pilnstat.json",
+        function(data1) {
+          $.ajax({
+            mimeType: 'application/json; charset=iso-8859-1',  
+            dataType: "json",
+            url: 'check.cgi',
+            success: function (data2) {
+               if (data2 == "0"){
+                $('#statusupd1').html('WARNING: Firing process daemon is DOWN' );
+                $('#statusupd2').html('&nbsp;' );
+              } else {
+                if (data1.run_profile === 'none'){
+                  $('#statusupd1').html('Daemon: IDLE');
+                  $('#statusupd2').html('<div class="temp">Temp: ' + data1.readtemp + '&deg;C</div>');
+                } else {
+                  $('#statusupd1').html('Daemon: ACTIVE, Run ID: ' + data1.run_profile + ', '+
+                                        'Seg' + data1.run_segment + ', ' +
+                                        'Stat: ' + data1.status );
+                  $('#statusupd2').html('<div class="temp">Temp: ' + data1.readtemp + '&deg;C, </div>' +
+                                        'Ramp: ' + data1.ramptemp + '&deg;C, ' +
+                                        'Target: ' + data1.targettemp + '&deg;C, ' +
+                                        'SegTime: ' + data1.segtime);
+                }
+              }
+          }
+          });
+      });
+  
+    setTimeout(loadProcStat,5000);
+    }
+  
+    $(document).ready(function(){
+      loadProcStat();
+    });
+  
+</script>
+
+</head>
+<body>
+  <div class="body">
+ <div class="logo">
+     <a href="home.cgi"><img src="/images/piln.png" /></a>
+   </div>
+   <div class="status">
+   
+    <div id='statusupd1'>Updating Status...</div><br>
+    <div id='statusupd2'>&nbsp;</div>
+   </div>
+ 

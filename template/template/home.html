@@ -1,0 +1,47 @@
+ <div>
+ <form method="post" style="display:inline;">
+  <button type="submit" name="page" value="new" >Create new profile</button>
+ </form>
+ </div>
+
+ {{ message }}
+ <h2> Profiles</h2><br>
+ <h3 <i>Click a profile ID for additional actions</i></h3>
+<table id="sortable" class="display nowrap" style="width=100%">
+    <thead>
+       <tr>
+        <th>State</th>
+        <th>ID</th>
+        <th>Notes</th>
+        <th>Last Run Date</th>
+       </tr>
+    </thead>
+  <tbody>
+{% for profile in profiles %}
+ <tr>
+  <td>{{ profile['state'] }}</td>
+  <td>
+   <form method="post">
+   <input type="hidden" name="run_id" value="{{ profile['run_id'] }}"/>
+   <input type="hidden" name="notes" value="{{ profile['notes'] }}"/>
+   <input type="hidden" name="state" value="{{ profile['state'] }}"/>
+   <button type="submit" name="page" value="view" >
+    {{ profile['run_id'] }}
+   </button>
+   </form>
+  </td>
+  <td>{{ profile['notes'] }}</td>
+  <td>{{ profile['lastdate'] }}</td>
+ </tr>
+ {% endfor %}
+ </tbody>
+ </table>
+
+<script>
+$(document).ready( function () {
+    $('#sortable').DataTable({
+         "order": [[1,"desc"]],
+      });
+} );
+</script>
+

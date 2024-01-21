@@ -1,0 +1,51 @@
+<div>
+ <form method="post" style="display:inline;">
+  <button type="submit" name="page" value="" >Home</button>
+  &nbsp&nbsp&nbsp&nbsp
+  <input type="hidden" name="run_id" value="{{ run_id }}">
+  <button type="submit" name="page" value="run" >Run Profile</button>
+    &nbsp&nbsp&nbsp&nbsp
+  <input type="hidden" name="run_id" value="{{ run_id }}">
+  <input type="hidden" name="state" value="{{ state }}">
+  <input type="hidden" name="notes" value="{{ notes }}">
+  <button type="submit" name="page" value="editcopy" >Edit/Copy Profile</button>
+  &nbsp&nbsp&nbsp&nbsp
+  <input type="hidden" name="run_id" value="{{ run_id }}">
+  <input type="hidden" name="notes" value="{{ notes }}">
+  <button type="submit" name="page" value="del_conf" >Delete Profile</button>
+ </form>
+ </div>
+
+ {{ message }}
+ <h2 style="display:inline;margin-left:30px">Segments for {{ state }} Profile {{ run_id }}</h2>
+ <form method="post" style="display:inline">
+  <input type="hidden" name="run_id" value="{{ run_id }}">
+  <input type="hidden" name="state" value="{{ state }}">
+  <h4>Schedule (Format MUST be 2021-08-19 17:18:12): </h4>
+ <input style="border: none;border-bottom: 2px solid blue;" type="text" name="schedule" value="{{ profile['Schedule'] }}" size="25" >
+ <button type="submit" name="page" value="schedulesave" >Update Schedule</button></br>
+ <h4 >Notes: </h4>
+ <input style="border: none;border-bottom: 2px solid blue;" type="text" name="notes" value="{{ profile['notes'] }}" size="45" >
+  <button type="submit" name="page" value="notes_save" >Update Notes</button></br>
+   </form><br>
+ <h4 style="display:inline;margin-left:30px">PID Settings: </h4>&nbsp;&nbsp;
+ <h5 style="display:inline;">Proportional: {{ profile['p_param'] }}&nbsp;&nbsp;&nbsp;&nbsp;Integral: {{ profile['i_param'] }}&nbsp;&nbsp;&nbsp;&nbsp;Derivative: {{ profile['d_param'] }}</h5> 
+ <table style="margin-left:30px">
+ <tr>
+  <th>Seg</th>
+  <th>Trg &deg;C</th>
+  <th>&deg;C/hr</th>
+  <th>Hold Min</th>
+  <th>IntSec</th>
+ </tr>
+ {% for segment in segments %}
+ <tr>
+  <td>{{ segment['segment'] }}</td>
+  <td>{{ segment['set_temp'] }}</td>
+  <td>{{ segment['rate'] }}</td>
+  <td>{{ segment['hold_min'] }}</td>
+  <td>{{ segment['int_sec'] }}</td>
+ </tr>
+ {% endfor %}
+ </table>
+ <br>

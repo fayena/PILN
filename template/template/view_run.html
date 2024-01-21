@@ -1,0 +1,57 @@
+ <div>
+ <form method="post" style="display:inline;">
+  <button type="submit" name="page" value="" >Home</button>
+  
+  <input type="hidden" name="run_id" value="{{ run_id }}">
+  <input type="hidden" name="state" value="{{ state }}">
+  <input type="hidden" name="notes" value="{{ notes }}">
+  <button type="submit" name="page" value="editcopy" >Copy to New Profile</button>
+  
+  <input type="hidden" name="run_id" value="{{ run_id }}">
+  <input type="hidden" name="notes" value="{{ notes }}">
+  <button type="submit" name="page" value="stop" >Stop Run</button>
+  
+  <input type="hidden" name="run_id" value="{{ run_id }}">
+  <input type="hidden" name="notes" value="{{ notes }}">
+  <button type="submit" name="page" value="del_conf" >Delete Profile</button>
+ </form>
+ </div>
+
+ {{ message }}
+ <h2 >Segments for {{ state }} Profile {{ run_id }}</h2>
+ <form method="post" >
+  <input type="hidden" name="run_id" value="{{ run_id }}">
+  <input type="hidden" name="state" value="{{ state }}">
+  <input type="text" name="notes" value="{{ notes }}" size="60">
+  <button type="submit" name="page" value="notes_save" >Update Notes</button>
+ </form>
+ 
+ <h4 >PID Settings: </h4>
+ <h5 >Proportional: {{ profile['p_param'] }}&nbsp;&nbsp;&nbsp;&nbsp;Integral: {{ profile['i_param'] }}&nbsp;&nbsp;&nbsp;&nbsp;Derivative: {{ profile['d_param'] }}</h5>
+ <table >
+ <tr>
+  <th>Seg</th>
+  <th>Trg &deg;C</th>
+  <th>C&deg;/hr</th>
+  <th>Hold Min</th>
+  <th>Seg Min</th>
+  <th>Int Sec</th>
+  <th>Last Start Time</th>
+  <th>Last End Time</th>
+ </tr>
+ {% set lastTemp = 70 %}
+ {% for segment in segments %}
+ <tr>
+  <td>{{ segment['segment'] }}</td>
+  <td>{{ segment['set_temp'] }}</td>
+  <td>{{ segment['rate'] }}</td>
+  <td>{{ segment['hold_min'] }}</td>
+  <td>{{ ( ( ( segment['set_temp'] - lastTemp )|abs / segment['rate'] ) * 60 )|int + segment['hold_min'] }}</td>
+  <td>{{ segment['int_sec'] }}</td>
+  <td>{{ segment['start_time'] }}</td>
+  <td>{{ segment['end_time'] }}</td>
+ </tr>
+ {% set lastTemp = segment['set_temp'] %}
+ {% endfor %}
+ </table>
+ <br>

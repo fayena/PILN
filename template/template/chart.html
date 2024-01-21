@@ -1,0 +1,157 @@
+ <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!--Load the AJAX API-->
+     <!--<script src="../style/js/moment.min.js"></script>-->
+    <script src="../style/js/chart.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->  
+   <canvas id="myChart"></canvas>
+
+<script>
+
+
+	
+window.onload =  chartLoad();
+function chartLoad() {
+	   if(window.myChart instanceof Chart)
+          {
+        window.myChart.destroy();
+           }
+      
+       var run_id = "{{ run_id }}";
+            $.ajax({
+              mimeType: 'application/json; charset=iso-8859-1',
+              url:  'data.cgi',
+              data: JSON.stringify( run_id ),
+              contentType: "application/json",
+              dataType: 'json',
+              method: 'POST',
+              async: false,
+               success: function () {
+              $.ajax({
+                   mimeType: 'application/json; charset=iso-8859-1',  
+                   dataType: "json",
+                   url: 'data.json',
+                   success: function (data) {
+                        var date=[];
+                        var seg=[];
+                        var pid=[];
+                        var set=[];
+                        var temp=[];
+                        //var i;
+                        date=data['dt'];
+                        seg=data['segment'];
+                        pid=data['pid_output'];
+                        temp=data['temp'];
+                        set=data['set_temp'];
+                        
+                        var ctx = document.getElementById('myChart').getContext('2d');
+                        window.myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: //labels for x-axis
+                                date
+             
+                            ,
+                            datasets: [{  //all the data from database
+                                label: 'Temperature',
+                                yAxisID: "y1",
+                                fill: false,
+                                borderColor: '#ff8000', 
+                                data: temp,
+                                
+                                },{
+                                label: 'Target Temperature',
+                                yAxisID: "y1",
+                                borderColor: '#ff0000', 
+                                fill: false,
+                                data: 
+                                    set,
+                                },{
+                                label: 'PID Output',
+                                yAxisID: "y1",
+                                borderColor: '#33cc33', 
+                                backgroundColor: '#33cc33',
+                                type: 'bar',
+                                data: pid,
+                                },{
+                                label: 'Segment',
+                                fill: false,
+                                borderColor: '#0033cc', 
+                                yAxisID: "y2",
+                                data: seg
+                                }
+                              ]
+                              },
+                        options: {
+							 interaction: {
+								mode: 'nearest'
+							},
+                        responsive: true,
+                        maintainAspectRatio: true,
+                         title: {
+                            display: true,
+                            text: 'Firing Chart for Profile {{ run_id }}',
+                            fontSize: 20
+                          },
+                        elements: {
+                                       point:{
+                                           radius: 0
+                                        }
+                                    },
+                        scales: {
+                             y1: {
+                                            type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                                            display: true,
+                                            position: "left",
+                                           
+                                            title: {
+                                                display: true,
+                                                text: 'Temperature'
+                                                },
+                                            
+                                        },
+                                y2: {
+                                            type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                                            display: true,
+                                            position: "right",
+                                            title: {
+                                                display: true,
+                                                text: 'Segments'
+                                                },
+                                            // grid line settings
+                                            grid: {
+                                                drawOnChartArea: false, // only want the grid lines for one axis to show up
+                                            },
+                                            ticks: {
+                                               stepSize: 1
+                                            },
+                                        
+                                        },
+                             
+                            }
+                        }
+             
+                    }
+                    );
+                    
+                    },
+                    error: function() {
+                      console.log("error");
+                      console.trace();
+                    }
+                });
+                
+               },
+                
+                           
+
+      
+            });
+
+
+}
+
+setInterval(chartLoad,30000);
+
+</script>
