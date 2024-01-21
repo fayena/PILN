@@ -61,7 +61,7 @@ Instructions for install an operating system to the Raspberry Pi  https://www.ra
 - Run Install script
 From the terminal     
              
-```wget https://raw.githubusercontent.com/fayena/PILN/gas-fired-modulating-valve/pilnsetup.sh```
+```wget https://raw.githubusercontent.com/fayena/PILN/gas-fired/pilnsetup.sh```
 
 ```sudo chmod +x pilnsetup.sh```
 
