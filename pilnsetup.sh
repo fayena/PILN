@@ -13,7 +13,7 @@ sudo apt-get install -y python3-setuptools python3-pip
 
 #create directories
 
-git clone --branch gas-fired-modulating-valve https://github.com/fayena/PILN.git
+git clone --branch gas-fired https://github.com/fayena/PILN.git
 
 #install needed softare
 
