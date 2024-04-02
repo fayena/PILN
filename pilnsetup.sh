@@ -68,10 +68,14 @@ sudo raspi-config #enable interfaces ic2 & spi
 lsmod | grep spi
 echo "interfaces enabled"
 
+sudo pip3 install board
+sudo pip3 install adafruit-blinka
+sudo pip3 install adafruit-circuitpython-ads7830
+
 #install thermocouple amplifier
 
 cd
-sudo pip3 install adafruit-circuitpython-max31856 --break-system-packages
+sudo pip3 install adafruit-circuitpython-max31856
 
 
 #install database
