@@ -71,6 +71,8 @@ echo "interfaces enabled"
 sudo pip3 install board
 sudo pip3 install adafruit-blinka
 sudo pip3 install adafruit-circuitpython-ads7830
+sudo pip3 install adafruit-circuitpython-motor
+
 
 #install thermocouple amplifier
 
