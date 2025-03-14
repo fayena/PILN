@@ -27,7 +27,7 @@ LastErr = 0.0
 SegCompStat = 0
 LastTmp = 0.0
 cycle = 0 
-Debug = False
+Debug = False 
 if Debug == True: 
     TempRise = 0
 #TotalSeg=0
@@ -129,8 +129,22 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
     if Debug == True: 
         ReadTmp = TempRise
     else:
+        count = 0
+        L.debug("==>Relay Off before reading temp")
+        for element in HEAT:
+            GPIO.output(element, False)
         ReadTmp = thermocouple.temperature
-    
+        faults = thermocouple.fault
+        #for x in faults.values():
+            #if x == True:
+        L.info('Thermocouple fault: %s', faults)
+        while ReadTmp == 0.0:
+            ReadTmp = thermocouple.temperature
+            count += 1
+            if count >= 50:
+                L.info("thermocouple reading 0")
+                os.system("sudo reboot")
+
     LastTmp = 0.0
     LastErr = 0.0
     StartTmp = 0.0
@@ -154,7 +168,22 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             if Debug == True:
                 ReadTmp = TempRise
             else:
+                count = 0
+                L.debug("==>Relay Off before reading temp")
+                for element in HEAT:
+                    GPIO.output(element, False)
                 ReadTmp = thermocouple.temperature
+                faults = thermocouple.fault
+                #for x in faults.values():
+                    #if x == True:
+                L.info('Thermocouple fault: %s', faults)
+                while ReadTmp == 0.0:
+                    ReadTmp = thermocouple.temperature
+                    count += 1
+                    if count >= 50:
+                        L.info("thermocouple reading 0")
+                        os.system("sudo reboot")
+                    
             ReadITmp = thermocouple.reference_temperature
             if math.isnan(ReadTmp) or ReadTmp > 1330:
                 ReadTmp = LastTmp + LastErr
@@ -347,14 +376,42 @@ while 1:
     if Debug == True:
         ReadTmp = TempRise
     else:
+        count = 0
+        L.debug("==>Relay Off before reading temperature")
+        for element in HEAT:
+            GPIO.output(element, False)
         ReadTmp = thermocouple.temperature
+        faults = thermocouple.fault
+        #for x in faults.values():
+            #if x == True:
+        L.info('Thermocouple fault: %s', faults)
+        while ReadTmp == 0.0:
+            ReadTmp = thermocouple.temperature
+            count += 1
+            if count >= 50:
+                L.info("thermocouple reading 0")
+                os.system("sudo reboot")
         ReadITmp = thermocouple.reference_temperature
   
     while math.isnan(ReadTmp):
         if Debug == True:
             ReadTmp = TempRise
         else:
+            count = 0
+            L.debug("==>Relay Off before reading temperature")
+            for element in HEAT:
+                GPIO.output(element, False)
             ReadTmp = thermocouple.temperature
+            faults = thermocouple.fault
+            #for x in faults.values():
+                #if x == True:
+            L.info('Thermocouple fault: %s', faults)
+            while ReadTmp == 0.0:
+                    ReadTmp = thermocouple.temperature
+                    count += 1
+                    if count >= 50:
+                        L.info("thermocouple reading 0")
+                        os.system("sudo reboot")
         print (' "kilntemp": "' + str(int(ReadTmp)) + '",\n')
 
     #L.debug("Write status information to status file %s:" % StatFile)
