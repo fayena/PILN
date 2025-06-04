@@ -8,7 +8,7 @@ sudo apt upgrade -y
 #make sure git and python3 dependencies are installed 
 
 sudo apt install git
-sudo apt-get install -y python3-setuptools python3-pip
+sudo apt install -y python3-setuptools python3-pip
 
 
 #create directories
@@ -20,8 +20,8 @@ git clone --branch Off-Line-Charts https://github.com/fayena/PILN.git
 sudo apt install sqlite3
 sudo apt install ufw
 sudo apt install lighttpd
-sudo pip3 install jinja2
-sudo pip3 install psutil
+sudo apt install python3-jinja2
+sudo apt install python3-psutil
 
 
 echo "software installed"
@@ -39,7 +39,7 @@ sudo ln -s ../conf-available/10-cgi.conf .
 cd
 #create directories
 
-git clone https://github.com/fayena/PILN.git
+#git clone https://github.com/fayena/PILN.git
 sudo mkdir ./PILN/log ./PILN/style/css ./PILN/style/js
 echo "directories created"
 
@@ -71,10 +71,7 @@ echo "interfaces enabled"
 #install thermocouple amplifier
 
 cd
-sudo pip3 install adafruit-circuitpython-max31856
-
-#install needed python web module
-sudo pip3 install jinja2
+sudo pip3 install adafruit-circuitpython-max31856 --break-system-packages
 
 #install database
 
