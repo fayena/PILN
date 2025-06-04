@@ -385,12 +385,7 @@ while 1:
         #for x in faults.values():
             #if x == True:
         L.info('Thermocouple fault: %s', faults)
-        while ReadTmp == 0.0:
-            ReadTmp = thermocouple.temperature
-            count += 1
-            if count >= 50:
-                L.info("thermocouple reading 0")
-                os.system("sudo reboot")
+        
         ReadITmp = thermocouple.reference_temperature
   
     while math.isnan(ReadTmp):
