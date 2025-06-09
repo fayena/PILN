@@ -3,9 +3,9 @@
 from signal import *
 import os
 import time
-import math
 import logging
 import sys
+import math
 import sqlite3
 import RPi.GPIO as GPIO
 import board
@@ -14,6 +14,7 @@ import digitalio
 import adafruit_max31856
 import adafruit_ads7830.ads7830 as ADC
 from adafruit_ads7830.analog_in import AnalogIn
+from adafruit_motor import stepper
 
 GPIO.setmode(GPIO.BCM)
 
@@ -40,9 +41,10 @@ Output = 0
 
 i2c = board.I2C()
 
-# Initialize ADS7830 pressure sensor
+# Initialize ADS7830 pressure sensor and oxygen
 adc = ADC.ADS7830(i2c)
 chan = AnalogIn(adc, 4)
+oxy = AnalogIn(adc,5)
 
 
 spi = busio.SPI(board.SCK, board.MOSI, board.MISO)
@@ -55,11 +57,33 @@ th = adafruit_max31856.ThermocoupleType.S
 # create a thermocouple object with the above
 thermocouple = adafruit_max31856.MAX31856(spi, cs, th)
 
-#--- step motor  ---
-HEAT = (17, 18, 27, 22)
-for pin in HEAT:
-    GPIO.setup(pin, GPIO.OUT)
-    GPIO.output(pin, GPIO.LOW)
+#--- step motor  --- for gas control 
+HEAT = (
+    digitalio.DigitalInOut(board.D17),  # A1
+    digitalio.DigitalInOut(board.D18),  # A2
+    digitalio.DigitalInOut(board.D27),  # B1
+    digitalio.DigitalInOut(board.D22),  # B2
+) 
+
+#for pin in HEAT:
+    #GPIO.setup(pin, GPIO.OUT)
+    #GPIO.output(pin, GPIO.LOW)
+
+#step motor for baffle control 
+coils = (
+    digitalio.DigitalInOut(board.D26),  # A1
+    digitalio.DigitalInOut(board.D16),  # A2
+    digitalio.DigitalInOut(board.D24),  # B1
+    digitalio.DigitalInOut(board.D23),  # B2
+)
+
+for coil in HEAT:
+    coil.direction = digitalio.Direction.OUTPUT
+for coil in coils:
+    coil.direction = digitalio.Direction.OUTPUT
+
+regulator = stepper.StepperMotor(HEAT[0], HEAT[1], HEAT[2], HEAT[3], microsteps=None)
+motor = stepper.StepperMotor(coils[0], coils[1], coils[2], coils[3], microsteps=None)
 
 #--- Set up logging ---
 # create logger
@@ -119,17 +143,42 @@ def Update ( SetPoint, ProcValue, IMax, IMin, Window, Kp, Ki, Kd ):
 
     return Output
 
+ 
+def pressure_average():
+    num_readings=50
+    readings = [chan.value for _ in range(num_readings)]
+        
+    if not readings:
+        return None  # Handle empty list to avoid division by zero
 
+    total = sum(readings)
+    average = total / len(readings)
+    y = 0.000054609*average - 0.2
+    return y
 
+def oxygen_average():
+    num_readings=500
+    readings = [oxy.value for _ in range(num_readings)]
+    if not readings:
+        return None
+    total = sum(readings)
+    average = total / len(readings)
+    #y = 0.0000413603*average + 0.441174016
+    #y = 0.000413603*average + 0.2
+    y = 0.000054609*average+0.1 
+
+    if y> 1: 
+        return 0
+    else:
+        return y
 #Segment loop
 
-def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
+def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd,oxymax, oxymin):
     L.info("""Entering Fire function with parameters RunID:%d, Seg:%d,
               TargetTmp:%d, Rate:%d, HoldMin:%d, Window:%d
            """ % (RunID, Seg, TargetTmp1, Rate, HoldMin, Window)
     )
     global SegCompStat
-    global wheel
     global cycle 
     if Debug == False:
         global TempRise
@@ -142,8 +191,8 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
         ReadTmp = TempRise
     else:
         ReadTmp = thermocouple.temperature
-        pressure = chan.value
-    
+        pressure = pressure_average()
+        oxygen = oxygen_average()
     LastTmp = 0.0
     LastErr = 0.0
     StartTmp = 0.0
@@ -166,12 +215,13 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             NextSec = time.time() + Window   # time at end of window
             LastTmp = ReadTmp
             
-            if Debug == True:
+            if Debug:
                 ReadTmp = TempRise
             else:
-                pressure = chan.value
+                pressure = pressure_average()
                 ReadTmp = thermocouple.temperature
-            ReadITmp = thermocouple.reference_temperature
+                oxygen = oxygen_average()
+
             if math.isnan(ReadTmp): #or ReadTmp > 1330:
                 ReadTmp = LastTmp + LastErr
                 print ('  "kilntemp1": "' + str(int(ReadTmp)) + '",\n')
@@ -231,11 +281,16 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             # Initial Setup
             if StartTmp == 0:
                 StartTmp = ReadTmp
+                print(ReadTmp)
+                print(StartTmp)
                 StartSec = int(time.time())
                 NextSec = StartSec + Window
                 TmpDif = TargetTmp - StartTmp
+                print(TmpDif)
+                print(Window)
                 RampMin = abs(TmpDif) * 60 / Rate # minutes to target at rate
-                Steps = RampMin * 60 / Window     # steps of window size
+                Steps = RampMin * 60 / Window 
+                print(Steps)    # steps of window size
                 StepTmp = TmpDif / Steps          # degrees / step
                 EndSec = StartSec + RampMin*60 + HoldMin*60
                                                   # estimated end of segment
@@ -298,62 +353,87 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
                 #L.info("cycleoNsee: %d and temprise: %d" % (CycleOnSec, TempRise)) 
                 cycle = cycle + 1
                 step_sleep = 0.002
+                reg_sleep=0.02
+                STEPS=2500
                 motor_step_counter = 0 ;
-                #step_count = pid * 10 # 5.625*(1/64) per step, 8192 steps is 360°
+                # 400 steps is one full turn of valve  For the gas nema17
                 print("output: ", Output)
                 print("Old_Pid: ", Old_Pid)
-                if Output < Old_Pid and pressure > 14336:
-                    direction = True # True for clockwise, False for counter-clockwise
-                    step_count = (Old_Pid - Output) * 81.92
-                    step_count = round(step_count)    
-                
-                elif  Output > Old_Pid:
-                    direction = False
-                    step_count = (Output - Old_Pid) * 81.92
-                    step_count = round(step_count)
-                    
-                elif Output == 100 and Old_Pid == 100:
-                    if pressure < 3:
-                        direction = False
-                        step_count = 819
+                print("Pressure: ", pressure)
+                print("oxygen:", oxygen)
+                print("oxymin:",oxymin)
+                print("oxymax:",oxymax)
+                try : 
+                    float(oxygen) 
+                    res = True
+                except : 
+                    print("Not a float") 
+                    res = False
+                if Output < Old_Pid and pressure > .5:   #decrease temperature
+                    if oxygen >= oxymin:
+                        #direction = True # True to decrease pressure, False to increase pressure
+                        step_count = round((Old_Pid - Output)*2)
+                        for step in range(step_count):
+                            regulator.onestep(direction=stepper.BACKWARD, style=stepper.DOUBLE)
+                            time.sleep(reg_sleep)
+
                     else:
+                        for step in range(STEPS):
+                            motor.onestep(style=stepper.DOUBLE)
+                            time.sleep(step_sleep)
+
+                        step_count= 0
+                elif  Output > Old_Pid and pressure < 3:  #increase temperature
+                    if oxygen >= oxymin:
+                        #open baffle
+                        for step in range(STEPS):
+                            motor.onestep(direction=stepper.BACKWARD, style=stepper.DOUBLE)
+                            time.sleep(step_sleep)
                         step_count = 0
-                elif Output == 0 and Old_Pid == 0:
-                    if pressure >= 14336:
-                        direction = True
-                        step_count = 819
+                    else:
+                        #direction = False # True to decrease pressure, False to increase pressure
+                        step_count = round((Output - Old_Pid)*2)
+                        for step in range(step_count):
+                            regulator.onestep(style=stepper.DOUBLE)
+                            time.sleep(reg_sleep)
+                    
+                elif Output == 100 and Old_Pid == 100: #increase temperature
+                    if oxygen >= oxymin:
+                        #open baffle
+                        for step in range(STEPS):
+                            motor.onestep(direction=stepper.BACKWARD, style=stepper.DOUBLE)
+                            time.sleep(step_sleep)
+                        step_count = 0
+                    else:
+                        #direction = False # True to decrease pressure, False to increase pressure
+                        if pressure <=3:
+                            step_count = round((Output - Old_Pid)*2)
+                            for step in range(step_count):
+                                regulator.onestep(style=stepper.DOUBLE)
+                                time.sleep(reg_sleep)
+                    
+                    
+                elif Output == 0 and Old_Pid == 0:  #decrease temperature
+                    if pressure >= .5:
+                        if oxygen >= oxymin:
+                            #direction = True # True to decrease pressure, False to increase pressure
+                            step_count = 100
+                            for step in range(step_count):
+                                regulator.onestep(direction=stepper.BACKWARD, style=stepper.DOUBLE)
+                                time.sleep(reg_sleep)
+                        else:
+                            for step in range(STEPS):
+                                motor.onestep(style=stepper.DOUBLE)
+                                time.sleep(step_sleep)
+                            step_count= 0
                     else:
                         step_count = 0
                 else:
                     step_count = 0
+                                # the meat
                 
-                # defining stepper motor sequence (found in documentation http://www.4tronix.co.uk/arduino/Stepper-Motors.php)
-                step_sequence = [[1,0,0,1],
-                                    [1,0,0,0],
-                                    [1,1,0,0],
-                                    [0,1,0,0],
-                                    [0,1,1,0],
-                                    [0,0,1,0],
-                                    [0,0,1,1],
-                                    [0,0,0,1]]
-                # the meat
-                try:
-                    i = 0
-                    for i in range(step_count):
-                        for pin in range(0, len(HEAT)):
-                            GPIO.output( HEAT[pin], step_sequence[motor_step_counter][pin] )
-                        if direction==True:
-                            motor_step_counter = (motor_step_counter - 1) % 8
-                        elif direction==False:
-                            motor_step_counter = (motor_step_counter + 1) % 8
-                        else: # defensive programming
-                            print( "uh oh... direction should *always* be either True or False" )
-                            clean()
-                        time.sleep( step_sleep )
-                except:
-                    print ("error with motor")
-                for pin in HEAT:
-                    GPIO.output(pin, False)
+                regulator.release()
+                motor.release()
                 time.sleep(Window)
                 
             #L.info("Write status information to status file %s:" % StatFile)
@@ -374,7 +454,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
             sfile.close()
 
             L.debug("Writing stats to Firing DB table...")
-            SQL = "INSERT INTO Firing (run_id, segment, dt, set_temp, temp, int_temp, pid_output) VALUES ( '%d', '%d', '%s', '%.2f', '%.2f', '%.2f', '%.2f' )" % ( RunID, Seg, time.strftime('%Y-%m-%d %H:%M:%S'), RampTmp, ReadTmp, ReadITmp, Output )
+            SQL = "INSERT INTO Firing (run_id, segment, dt, set_temp, temp, pid_output,pressure,oxy) VALUES ( '%d', '%d', '%s', '%.2f', '%.2f', '%.2f' , '%.2f','%.2f')" % ( RunID, Seg, time.strftime('%Y-%m-%d %H:%M:%S'), RampTmp, ReadTmp,Output,pressure,oxygen )
             try:
                 SQLCur.execute(SQL)
                 SQLConn.commit()
@@ -403,6 +483,7 @@ def Fire(RunID, Seg, TargetTmp1, Rate, HoldMin, Window, Kp, Ki, Kd):
 # --- end Fire() ---
 
 L.info("===START PiLN Firing Daemon===")
+
 L.info("Polling for 'Running' firing profiles...")
 
 SQLConn = sqlite3.connect(SQLDB)
@@ -411,19 +492,20 @@ SQLCur = SQLConn.cursor()
 
 while 1:
    
-    if Debug == True:
+    if Debug:
         ReadTmp = TempRise
     else:
         ReadTmp = thermocouple.temperature
-        ReadITmp = thermocouple.reference_temperature
-        pressure = chan.value
+        pressure = pressure_average()
+        oxygen = oxygen_average()
     while math.isnan(ReadTmp):
-        if Debug == True:
+        if Debug:
             ReadTmp = TempRise
         else:
             ReadTmp = thermocouple.temperature
-            pressure = chan.value
-        print (' "kilntemp2": "' + str(int(ReadTmp)) + '",\n')
+            pressure = pressure_average()
+            oxygen = oxygen_average()
+    print (' "kilntemp2": "' + str(int(ReadTmp)) + '",\n')
 
     #L.debug("Write status information to status file %s:" % StatFile)
     sfile = open(StatFile, "w+")
@@ -491,6 +573,8 @@ while 1:
             Rate = Row['rate']
             HoldMin = Row['hold_min']
             Window = Row['int_sec']
+            oxymax=Row['oxymax']
+            oxymin = Row['oxymin']
              #--check to see if uncompleted segments
             if SegCompStat != 1:
                 L.info("segment is %d start time is %s endtime is %s" % (Seg, Row['start_time'],Row['end_time']))
@@ -514,30 +598,19 @@ while 1:
                     time.sleep(0.5)
 
                     Fire(RunID, Seg, TargetTmp, Rate, HoldMin, Window,
-                                 Kp, Ki, Kd)
+                                 Kp, Ki, Kd,oxymax,oxymin)
                     
                     #turn down to start point
-                    # defining stepper motor sequence (found in documentation http://www.4tronix.co.uk/arduino/Stepper-Motors.php)
-                    step_sequence = [[1,0,0,1],
-                                        [1,0,0,0],
-                                        [1,1,0,0],
-                                        [0,1,0,0],
-                                        [0,1,1,0],
-                                        [0,0,1,0],
-                                        [0,0,1,1],
-                                        [0,0,0,1]]
-                    # the meat
-                    motor_step_counter=0
+                   
                     
                     try:
-                        print("pressure: ", chan.value)
-                        pressure=chan.value
-                        while pressure > 14336:
-                            for pin in range(0, len(HEAT)):
-                                GPIO.output( HEAT[pin], step_sequence[motor_step_counter][pin] )
-                            motor_step_counter = (motor_step_counter - 1) % 8
-                            time.sleep( step_sleep )
-                            pressure=chan.value
+                        pressure=pressure_average()
+                        print ("pressure: ", pressure)
+                        while pressure >= .5:
+                            for step in range(100):
+                                regulator.onestep(direction=stepper.BACKWARD, style=stepper.DOUBLE)
+                                time.sleep(reg_sleep)
+                            pressure=pressure_average()
                     # try:
                     #     i = 0
                     #     for i in range(MotorSteps):
@@ -547,7 +620,8 @@ while 1:
                     #         time.sleep( step_sleep )
                     except:
                         print ("error with motor")
-                        
+                    regulator.release()
+
                     EndTime=time.strftime('%Y-%m-%d %H:%M:%S')
                         
                     L.debug("""Update run id %d,
